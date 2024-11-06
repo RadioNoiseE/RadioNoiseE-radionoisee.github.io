@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content=
+"HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+<!-- 2024-11-06 Wed 21:27 -->
+<meta name="viewport" content=
+"width=device-width, initial-scale=1">
+<title>现代DocBook环境构建</title>
+<meta name="author" content="RadioNoiseE">
+<meta name="generator" content="Org Mode">
+<link rel="stylesheet" type="text/css" href="../style/article.css">
+</head>
+<body>
+<div id="content" class="content">
+<header>
+<h1 class="title">现代DocBook环境构建</h1>
+</header>
+<nav id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org2c3e844">1. 简介</a></li>
+<li><a href="#orge954815">2. 工具安装</a>
+<ul>
+<li><a href="#org766e351">2.1. SaxonC</a></li>
+<li><a href="#orge0c9834">2.2. xslTNG</a></li>
+</ul>
+</li>
+<li><a href="#org86e083a">3. 使用例</a></li>
+<li><a href="#orgdc54b12">4. 写在后面</a></li>
+</ul>
+</div>
+</nav>
+<div id="outline-container-org2c3e844" class="outline-2">
+<h2 id="org2c3e844"><span class="section-number-2">1.</span>
+简介</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+这篇介绍如何配置一个精简的现代DocBook编写环境。我们使用SaxonC和xslTNG。选取SaxonC是由于我不希望为了它搭建一个Java环境、而xslTNG则是很新很好的基于XSLT3.0的DocBook用XSL样表。</p>
+<p>本文不会教你怎么写DocBook5.0。</p>
+</div>
+</div>
+<div id="outline-container-orge954815" class="outline-2">
+<h2 id="orge954815"><span class="section-number-2">2.</span>
+工具安装</h2>
+<div class="outline-text-2" id="text-2"></div>
+<div id="outline-container-org766e351" class="outline-3">
+<h3 id="org766e351"><span class="section-number-3">2.1.</span>
+SaxonC</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>截至写作时，SaxonC的版本号为12.5。因为我穷，所以我使用的的是HE版本。</p>
+<p>首先从<a href=
+"https://www.saxonica.com/download/c.xml"><code>https://www.saxonica.com/download/c.xml</code></a>下载你对应操作系统的安装包并解包。随后进入她并找到名为<code>libsaxon-hec</code>的动态链接库文件，将她移动到随便哪里（只要能用绝对路径表示并相对稳定即可）：</p>
+<div class="org-src-container">
+<pre class=
+"src src-bash">doas mv ~/Downloads/libsaxon-HEC-linux-amd64-v12.5.0/libs/nix/libsaxon-hec-12.5.0.so /usr/local/lib64/saxonc/
+</pre></div>
+<p>
+记住这个绝对路径。随后我们需要更改构建文件，一般位于<code>command</code>文件夹下。将<code>library_dir</code>改为刚才的绝对路径：</p>
+<div class="org-src-container">
+<pre class="src src-diff"><span style=
+"background-color: #d9d9d9;">5c5</span>
+<span style="background-color: #ffeeee;">&lt;</span><span style=
+"background-color: #ffeeee;"> library_dir="</span><span style=
+"background-color: #ffcccc;">..</span><span style=
+"background-color: #ffeeee;">/</span><span style=
+"background-color: #ffcccc;">libs</span><span style=
+"background-color: #ffeeee;">/</span><span style=
+"background-color: #ffcccc;">nix</span><span style=
+"background-color: #ffeeee;">"</span>
+<span style="background-color: #d9d9d9;">---</span>
+&gt; library_dir="/<span style=
+"background-color: #bbffbb;">usr</span>/<span style=
+"background-color: #bbffbb;">local/lib64/saxonc</span>"
+</pre></div>
+<p>
+随后执行构建脚本即可生成名为<code>transform</code>的二进制可执行文件。把它放到<code>$PATH</code>中并改名为<code>saxonc</code>即可：</p>
+<div class="org-src-container">
+<pre class=
+"src src-bash">install -s -m 755 transform /usr/local/bin/saxonc
+</pre></div>
+</div>
+</div>
+<div id="outline-container-orge0c9834" class="outline-3">
+<h3 id="orge0c9834"><span class="section-number-3">2.2.</span>
+xslTNG</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>从<a href=
+"https://github.com/docbook/xslTNG/releases/latest"><code>https://github.com/docbook/xslTNG/releases/latest</code></a>下载最新的release并解压。建议下<code>nosaxon</code>的。随便找个地方把它放好就行了。</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org86e083a" class="outline-2">
+<h2 id="org86e083a"><span class="section-number-2">3.</span>
+使用例</h2>
+<div class="outline-text-2" id="text-3">
+<p>一个简单的例子：</p>
+<div class="org-src-container">
+<pre class="src src-xml">&lt;?<span style=
+"color: #a020f0;">xml</span> <span style=
+"color: #8b2252;">version="1.0" encoding="UTF-8"</span>?&gt;
+&lt;<span style="color: #0000ff;">book</span> <span style=
+"color: #483d8b;">xml</span>:<span style=
+"color: #a0522d;">id</span>=<span style=
+"color: #8b2252;">"simple_book"</span> <span style=
+"color: #483d8b;">xmlns</span>=<span style=
+"color: #8b2252;">"http://docbook.org/ns/docbook"</span> <span style="color: #a0522d;">version</span>=<span style="color: #8b2252;">"5.0"</span>&gt;
+  &lt;<span style=
+"color: #0000ff;">title</span>&gt;Very simple book&lt;/<span style=
+"color: #0000ff;">title</span>&gt;
+  &lt;<span style="color: #0000ff;">chapter</span> <span style=
+"color: #483d8b;">xml</span>:<span style=
+"color: #a0522d;">id</span>=<span style=
+"color: #8b2252;">"chapter_1"</span>&gt;
+    &lt;<span style=
+"color: #0000ff;">title</span>&gt;Chapter 1&lt;/<span style=
+"color: #0000ff;">title</span>&gt;
+    &lt;<span style=
+"color: #0000ff;">para</span>&gt;Hello world!&lt;/<span style=
+"color: #0000ff;">para</span>&gt;
+    &lt;<span style=
+"color: #0000ff;">para</span>&gt;I hope that your day is proceeding &lt;<span style="color: #0000ff;">emphasis</span>&gt;splendidly&lt;/<span style="color: #0000ff;">emphasis</span>&gt;!&lt;/<span style="color: #0000ff;">para</span>&gt;
+  &lt;/<span style="color: #0000ff;">chapter</span>&gt;
+  &lt;<span style="color: #0000ff;">chapter</span> <span style=
+"color: #483d8b;">xml</span>:<span style=
+"color: #a0522d;">id</span>=<span style=
+"color: #8b2252;">"chapter_2"</span>&gt;
+    &lt;<span style=
+"color: #0000ff;">title</span>&gt;Chapter 2&lt;/<span style=
+"color: #0000ff;">title</span>&gt;
+    &lt;<span style=
+"color: #0000ff;">para</span>&gt;Hello again, world!&lt;/<span style="color: #0000ff;">para</span>&gt;
+  &lt;/<span style="color: #0000ff;">chapter</span>&gt;
+&lt;/<span style="color: #0000ff;">book</span>&gt;
+</pre></div>
+<p>编译到HTML：</p>
+<div class="org-src-container">
+<pre class=
+"src src-bash">saxonc -s:test.xml -xsl:/home/$(whoami)/DocBook-xslTNG/xslt/docbook.xsl -o:test.html
+</pre></div>
+<p>随后把xslTNG的资源目录移过来：</p>
+<div class="org-src-container">
+<pre class=
+"src src-bash">cp -r /home/$(whoami)/DocBook-xslTNG/resources/* .
+</pre></div>
+<p>然后预览：</p>
+<div class="org-src-container">
+<pre class="src src-bash">xdg-open test.html
+</pre></div>
+</div>
+</div>
+<div id="outline-container-orgdc54b12" class="outline-2">
+<h2 id="orgdc54b12"><span class="section-number-2">4.</span>
+写在后面</h2>
+<div class="outline-text-2" id="text-4">
+<p>没了。</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: RadioNoiseE</p>
+<p class="date">Created: 2024-11-06 Wed 21:27</p>
+<p class="validation"><a href=
+"https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
