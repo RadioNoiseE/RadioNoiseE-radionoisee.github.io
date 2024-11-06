@@ -7,7 +7,7 @@
 <meta name="viewport" content=
 "width=device-width, initial-scale=1.0">
 <title>Archive RNE</title>
-<link rel="stylesheet" type="text/css" href="./res/index.css">
+<link rel="stylesheet" type="text/css" href="../style/index.css">
 </head>
 <body>
 <div id="content" class="content">
@@ -16,7 +16,7 @@
 <script>
         document.addEventListener('DOMContentLoaded', function() {
           const container = document.getElementById('link-container');    
-          fetch(`https://api.github.com/repos/RadioNoiseE/radionoisee.github.io/contents/cnt`)
+          fetch(`https://api.github.com/repos/RadioNoiseE/radionoisee.github.io/contents/article`)
            .then(response => {
               if (!response.ok) { throw new Error(`HTTP error! status: ${response.status}`); }
               return response.json(); })
