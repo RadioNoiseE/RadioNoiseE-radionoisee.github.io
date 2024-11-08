@@ -26,7 +26,7 @@
                   const listItem = document.createElement('li');
                   const link = document.createElement('a');
                   link.href = `cnt/${file.name}`;
-                  link.textContent = file.name.replace('.html', '');
+                  link.textContent = file.name.replaceAll('-', ' ').replace('.', ' dot ');
                   link.style.display = 'block';
                   listItem.appendChild(link);
                   container.appendChild(listItem); }}); })
