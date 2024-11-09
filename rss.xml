@@ -11,7 +11,7 @@
     <lastBuildDate>Fri, 18 Oct 2024 02:02:23 +0000</lastBuildDate>
     <item>
       <title>Note: Type theory and formal proof</title>
-      <link>https://radionoisee.github.io/cnt/ttapf-note.html</link>
+      <link>https://radionoisee.github.io/article/ttapf-note.html</link>
       <description><![CDATA[<p>About untyped lambda calculus.</p><p>Expect future update.</p>]]></description>
       <category>type theory</category>
       <pubdate>Fri, 18 Oct 2024 10:02:23 +0800</pubdate>
@@ -19,7 +19,7 @@
     </item>
     <item>
       <title>Article: Package management current status on Mach</title>
-      <link>https://radionoisee.github.io/cnt/mac-infer.html</link>
+      <link>https://radionoisee.github.io/article/mac-infer.html</link>
       <description><![CDATA[<p>Just some little modifications.</p><p>Nothing new.</p>]]></description>
       <category>mac</category>
       <pubdate>Fri, 11 Oct 2024 12:18:27 +0800</pubdate>
@@ -27,7 +27,7 @@
     </item>
     <item>
       <title>Article: Emacs configured for Mach's small window</title>
-      <link>https://radionoisee.github.io/cnt/emacs-mac.html</link>
+      <link>https://radionoisee.github.io/article/emacs-mac.html</link>
       <description><![CDATA[<p>Just some little modifications.</p><p>Nothing new.</p>]]></description>
       <category>emacs</category>
       <pubdate>Fri, 27 Sep 2024 21:04:39 +0800</pubdate>
