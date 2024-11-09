@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2024-11-09 Sat 22:40 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Boot Gentoo Cleanly using EFI Stub</title>
+<meta name="author" content="RadioNoiseE" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" type="text/css" href="../style/article.css">
+</head>
+<body>
+<div id="content" class="content">
+<header>
+<h1 class="title">Boot Gentoo Cleanly using EFI Stub</h1>
+</header><nav id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org60f2378">1. Background</a></li>
+<li><a href="#orgbbd1203">2. Kernel</a>
+<ul>
+<li><a href="#orgbfc689b">2.1. Configuration</a></li>
+<li><a href="#orgadf6afc">2.2. Install</a></li>
+<li><a href="#org5c9f266">2.3. Initramfs</a></li>
+</ul>
+</li>
+<li><a href="#orgb73bcaa">3. EFI Partition</a></li>
+<li><a href="#org4fbd548">4. EFI Variables Filesystem</a></li>
+<li><a href="#org6baa285">5. Create Boot Entry</a></li>
+<li><a href="#org718e6fa">6. Troubleshoot</a></li>
+</ul>
+</div>
+</nav>
+
+<div id="outline-container-org60f2378" class="outline-2">
+<h2 id="org60f2378"><span class="section-number-2">1.</span> Background</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+In order to boot the Linux kernel, one traditionally needs a bootloader like Grub or chainloader like rEFInd. However, these are ugly (text-only ones look alright, but graphic ones with low resolution images really don't look good), slow and no longer necessary.
+</p>
+
+<p>
+Modern PC comes with UEFI support, which enables us to directly load kernel images from the EFI partition without the need for any bootloader or chainloaders.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgbbd1203" class="outline-2">
+<h2 id="orgbbd1203"><span class="section-number-2">2.</span> Kernel</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-orgbfc689b" class="outline-3">
+<h3 id="orgbfc689b"><span class="section-number-3">2.1.</span> Configuration</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+You should enable native EFI support and EFI stub support for the kernel.
+</p>
+
+<pre class="example">
+Processor type and features ---&gt;
+   [*] EFI runtime service support
+   [*]   EFI stub support
+   [ ]     EFI mixed-mode support
+</pre>
+
+<p>
+You are also recommended to embed the root partition information into the kernel.
+</p>
+
+<pre class="example">
+Processor type and features ---&gt;
+   [*] Built-in kernel command line
+       (root=/dev/nvme0n1p3)
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgadf6afc" class="outline-3">
+<h3 id="orgadf6afc"><span class="section-number-3">2.2.</span> Install</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Build the kernel and install the kernel modules.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">make -j &amp;&amp; make modules_install
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5c9f266" class="outline-3">
+<h3 id="org5c9f266"><span class="section-number-3">2.3.</span> Initramfs</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+An initramfs might be necessary. For example if you embedded the root partition information into the kernel, or you use btrfs subvolumes.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb73bcaa" class="outline-2">
+<h2 id="orgb73bcaa"><span class="section-number-2">3.</span> EFI Partition</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Create an EFI system partition if you don't have one (will this ever happen?). This ESP should then be mounted at <code>/efi</code>. Then make the below directory structure:
+</p>
+
+<pre class="example">
+/efi
+└── EFI
+    └── Gentoo
+        ├── initramfs.img
+        └── bzImage.efi
+</pre>
+
+<p>
+The <code>bzImage.efi</code> should be copied from <code>/usr/src/linux/arch/x86/boot/bzImage</code>. The <code>initramfs.img</code> is optional, copied from the initramfs only when needed.
+</p>
+
+<p>
+Inside the <code>EFI</code> directory, there can be more than one subdirectories containing stub images for more than one system.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org4fbd548" class="outline-2">
+<h2 id="org4fbd548"><span class="section-number-2">4.</span> EFI Variables Filesystem</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+The tool we use to create and manage the boot entries requires the EFI variables filesystem to be accessible (i.e., properly mounted).
+</p>
+
+<p>
+Run the following command to check if it is mounted properly:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">mount | grep efivars
+</pre>
+</div>
+
+<p>
+If it is mounted as <code>ro</code>, remount it with <code>rw</code> so that we can create and modify EFI boot entries.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6baa285" class="outline-2">
+<h2 id="org6baa285"><span class="section-number-2">5.</span> Create Boot Entry</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+First execute <code>efibootmgr</code> without any options to list the existing boot entries. Remove unnecessary or obsolete one with:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">efibootmgr -b 2 -B <span style="color: #b22222;"># </span><span style="color: #b22222;">select the `Bootx002 entry and remove it'</span>
+</pre>
+</div>
+
+<p>
+Then create an entry for our system.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">efibootmgr -c -d /dev/nvme0n1 -p 2 -L <span style="color: #8b2252;">"Linux EFI Stub"</span> -l <span style="color: #8b2252;">'\EFI\gentoo\bzImage.efi'</span> -u <span style="color: #8b2252;">'root=/dev/nvme0n1p3'</span> <span style="color: #b22222;"># </span><span style="color: #b22222;">without initramfs</span>
+efibootmgr -c -d /dev/nvme0n1 -p 2 -L <span style="color: #8b2252;">"Linux EFI Stub"</span> -l <span style="color: #8b2252;">'\EFI\gentoo\bzImage.efi'</span> -u <span style="color: #8b2252;">'initrd=\EFI\gentoo\initramfs.img'</span> <span style="color: #b22222;"># </span><span style="color: #b22222;">with initramfs</span>
+</pre>
+</div>
+
+<p>
+After checking if the system can successfully boot, you can unmerge <code>efibootmgr</code>. Just copy new kernel images and initramfs to the same position on the EFI partition.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org718e6fa" class="outline-2">
+<h2 id="org718e6fa"><span class="section-number-2">6.</span> Troubleshoot</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+If you encountered the common <q>VFS: Cannot open root device or unknown block</q> error, don't panic.
+</p>
+
+<ol class="org-ol">
+<li>Remember to supply the kernel with a <code>root=/dev/&lt;block&gt;</code> option using <code>-u</code> option of <code>efibootmgr</code> or the kernel built-in command line. An initramfs generated by for instance dracut might also contain one.</li>
+<li>If you specified the system root partition using kernel build-in command line or by <code>UUID</code>, you need an initramfs.</li>
+<li>If you use brtfs subvolumes, you need an initramfs.</li>
+<li>Try the <code>rootwait</code> option if an initramfs is not used and the root filesystem is on an MTD device (such as an NVME drive) to make the kernel wait for asynchronous initialization of the device.</li>
+</ol>
+
+<p>
+Well, always try building an initramfs and see if the error disappears.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: RadioNoiseE</p>
+<p class="date">Created: 2024-11-09 Sat 22:40</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
