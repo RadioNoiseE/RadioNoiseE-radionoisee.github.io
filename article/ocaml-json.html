@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
 <meta name="generator" content=
 "HTML Tidy for HTML5 for Apple macOS version 5.8.0">
-<!-- 2024-11-06 Wed 21:27 -->
+<!-- 2024-11-10 Sun 21:08 -->
+<meta charset="utf-8">
 <meta name="viewport" content=
 "width=device-width, initial-scale=1">
 <title>用OCaml写JSON解析器</title>
@@ -21,18 +21,18 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgd8729ee">1. 写在前面</a></li>
-<li><a href="#org332d718">2. 数据类型</a></li>
-<li><a href="#org8a0e1d5">3. 定义解析器</a></li>
-<li><a href="#org1e1adf1">4. 词法分析</a></li>
-<li><a href="#org10ce41f">5. 集成</a></li>
-<li><a href="#org3df9aef">6. 使用</a></li>
-<li><a href="#org25280cf">7. 最后</a></li>
+<li><a href="#org3487839">1. 写在前面</a></li>
+<li><a href="#org47555bd">2. 数据类型</a></li>
+<li><a href="#org2e0e250">3. 定义解析器</a></li>
+<li><a href="#org939b9a0">4. 词法分析</a></li>
+<li><a href="#org106743f">5. 集成</a></li>
+<li><a href="#org26cdefb">6. 使用</a></li>
+<li><a href="#org589dc50">7. 最后</a></li>
 </ul>
 </div>
 </nav>
-<div id="outline-container-orgd8729ee" class="outline-2">
-<h2 id="orgd8729ee"><span class="section-number-2">1.</span>
+<div id="outline-container-org3487839" class="outline-2">
+<h2 id="org3487839"><span class="section-number-2">1.</span>
 写在前面</h2>
 <div class="outline-text-2" id="text-1">
 <p>本文实际上补完『Real World
@@ -42,8 +42,8 @@ OCaml』一书中的第16章。不同之处在于我们只使用标准库（而�
 <p>你只需要有最基础的OCaml开发环境即可，Opam不是必须的。你最好有OCaml相关语法知识，虽然没有我觉得也能看懂。</p>
 </div>
 </div>
-<div id="outline-container-org332d718" class="outline-2">
-<h2 id="org332d718"><span class="section-number-2">2.</span>
+<div id="outline-container-org47555bd" class="outline-2">
+<h2 id="org47555bd"><span class="section-number-2">2.</span>
 数据类型</h2>
 <div class="outline-text-2" id="text-2">
 <p>
@@ -59,14 +59,15 @@ OCaml』一书中的第16章。不同之处在于我们只使用标准库（而�
   | `Array <span style="color: #a020f0;">of</span> stt list
   | `Object <span style=
 "color: #a020f0;">of</span> (string * stt) list
+  | `Null
   ]
 </pre></div>
 <p>
 即，我们分别定义了JSON中的整型数、浮点数、布尔值、字符串、数组（作为由<code>stt</code>中一个类型组成的列表）和对象（作为由一个字符串及其对应的<code>stt</code>中一个类型组成的列表）。</p>
 </div>
 </div>
-<div id="outline-container-org8a0e1d5" class="outline-2">
-<h2 id="org8a0e1d5"><span class="section-number-2">3.</span>
+<div id="outline-container-org2e0e250" class="outline-2">
+<h2 id="org2e0e250"><span class="section-number-2">3.</span>
 定义解析器</h2>
 <div class="outline-text-2" id="text-3">
 <p>
@@ -85,6 +86,7 @@ OCaml』一书中的第16章。不同之处在于我们只使用标准库（而�
 <span style="color: #f0e68c;">%</span>token LEFT_BRACE
 <span style="color: #f0e68c;">%</span>token RIGHT_BRACE
 <span style="color: #f0e68c;">%</span>token EOF
+<span style="color: #f0e68c;">%</span>token NULL
 </pre></div>
 <p>上面我们描述了解析器会遇到的所有token，使用<code>%token &lt;type&gt;
 uid</code>的语法；其中<code>&lt;type&gt;</code>为可选，表示带有值的token。</p>
@@ -111,7 +113,7 @@ uid</code>的语法；其中<code>&lt;type&gt;</code>为可选，表示带有值
 入口，将文件中所有（EOF之前的）内容交由<code>expr</code>，而词法分析的结果则为<code>expr</code>返回的结果：<code>$1</code>（<code>$2</code>则代表EOF）。</p>
 <div class="org-src-container">
 <pre class="src src-ocaml">expr:
-  | NULL { Null }
+  | NULL { `Null }
   | INT { `Integer(<span style="color: #f0e68c;">$</span>1) }
   | FLOAT { `Float(<span style="color: #f0e68c;">$</span>1) }
   | TRUE { `Bool(<span style="color: #008b8b;">true</span>) }
@@ -162,8 +164,8 @@ rev_array_fields:
 </pre></div>
 </div>
 </div>
-<div id="outline-container-org1e1adf1" class="outline-2">
-<h2 id="org1e1adf1"><span class="section-number-2">4.</span>
+<div id="outline-container-org939b9a0" class="outline-2">
+<h2 id="org939b9a0"><span class="section-number-2">4.</span>
 词法分析</h2>
 <div class="outline-text-2" id="text-4">
 <p>
@@ -187,7 +189,7 @@ rev_array_fields:
 "color: #f5deb3;">in</span>
     lexbuf.lex_curr_p &lt;- {
       pos <span style=
-"color: #a020f0;">with</span> pos_bol = lexbuf.lex_curr_p;
+"color: #a020f0;">with</span> pos_bol = lexbuf.lex_curr_pos;
                pos_lnum = pos.pos_lnum + 1
       }
 }
@@ -225,13 +227,13 @@ rev_array_fields:
 <span style="color: #f5deb3;">let</span> <span style=
 "color: #a0522d;">newline</span> = <span style=
 "color: #8b2252;">'\r'</span> | <span style=
-"color: #8b2252;">'\n'</span> | '\r\n'
+"color: #8b2252;">'\n'</span> | <span style=
+"color: #8b2252;">"\r\n"</span>
 </pre></div>
 <p>上面我们创建了一组正则表达式，以此匹配整型数／浮点数／空白字符／行送。基本上是很正常的正则语法。</p>
 <div class="org-src-container">
 <pre class="src src-ocaml">rule read =
   parse
-  | null { NULL }
   | white { read lexbuf }
   | newline { next_line lexbuf; read lexbuf }
   | int { INT (int_of_string (<span style=
@@ -240,6 +242,7 @@ rev_array_fields:
 "color: #228b22;">Lexing.</span>lexeme lexbuf)) }
   | <span style="color: #8b2252;">"true"</span> { TRUE }
   | <span style="color: #8b2252;">"false"</span> { FALSE }
+  | <span style="color: #8b2252;">"null"</span> { NULL }
   | <span style=
 "color: #8b2252;">'\"'</span> { read_string (<span style=
 "color: #228b22;">Buffer.</span>create 17) lexbuf }
@@ -309,8 +312,8 @@ rev_array_fields:
 对于字符串开始处的引号，它会调用随后定义的一个<code>read_string</code>工具（其是被递归定义的）：处理一些被转义的特殊字符，将它们读入缓冲区；读入所有不特殊的字符，并在读到另一个（象征字符串结束的）引号时返回<code>STRING</code>类型的token，而缓冲区内的字符串将会被作为值传回。当读到非法字符，和在字符串未结束即到达文件末尾时会抛出错误。</p>
 </div>
 </div>
-<div id="outline-container-org10ce41f" class="outline-2">
-<h2 id="org10ce41f"><span class="section-number-2">5.</span>
+<div id="outline-container-org106743f" class="outline-2">
+<h2 id="org106743f"><span class="section-number-2">5.</span>
 集成</h2>
 <div class="outline-text-2" id="text-5">
 <p>最后我们可以将上面的词法分析和文法解析集成起来。命名为<code>util.ml</code>。</p>
@@ -321,17 +324,22 @@ rev_array_fields:
 "color: #228b22;">Datatype.</span>stt
 <span style="color: #f5deb3;">open </span><span style=
 "color: #228b22;">Datatype</span>
+<span style="color: #f5deb3;">open </span><span style=
+"color: #228b22;">Lexing</span>
+<span style="color: #f5deb3;">open </span><span style=
+"color: #228b22;">Printf</span>
 </pre></div>
 <p>我们首先定义<code>t</code>为解析之后返回类型的别名，并打开该类型定义文件。</p>
 <div class="org-src-container">
 <pre class="src src-ocaml"><span style=
 "color: #f5deb3;">let</span> <span style=
 "color: #0000ff;">print_position</span> <span style=
+"color: #a0522d;">outx</span> <span style=
 "color: #a0522d;">lexbuf</span> =
   <span style="color: #f5deb3;">let</span> <span style=
 "color: #a0522d;">pos</span> = lexbuf.lex_curr_p <span style=
 "color: #f5deb3;">in</span>
-  fprintf stderr <span style=
+  fprintf outx <span style=
 "color: #8b2252;">"%s:%d:%d"</span> pos.pos_fname pos.pos_lnum (pos.pos_cnum - pos.pos_bol +1)
 
 <span style="color: #f5deb3;">let</span> <span style=
@@ -341,27 +349,29 @@ rev_array_fields:
 "color: #228b22;">Parser.</span>decl <span style=
 "color: #228b22;">Lexer.</span>read lexbuf <span style=
 "color: #a020f0;">with</span>
-  | SyntaxError msg -&gt;
+  | <span style=
+"color: #228b22;">Lexer.</span>SyntaxError msg -&gt;
      fprintf stderr <span style=
 "color: #8b2252;">"%a: %s\n"</span> print_position lexbuf msg;
-     None
-  | <span style="color: #228b22;">Parser.</span>error -&gt;
+     `Null
+  | <span style="color: #228b22;">Parsing.</span>Parse_error -&gt;
      fprintf stderr <span style=
-"color: #8b2252;">"%a: Syntax error\n"</span> print_position lexbuf;
-     <span style="color: #483d8b;">exit</span> (-1)
+"color: #8b2252;">"%a: syntax error\n"</span> print_position lexbuf
 
 <span style="color: #f5deb3;">let</span> <span style=
 "color: #f5deb3;">rec</span> <span style=
-"color: #0000ff;">parse</span> (<span style=
-"color: #a0522d;">json</span>:<span style=
-"color: #228b22;"> string</span>):<span style=
-"color: #228b22;"> t </span>=
-  <span style=
-"color: #a020f0;">match</span> parse_with_error lexbuf <span style=
-"color: #a020f0;">with</span>
-  | Some value -&gt; value;
-                  parse lexbuf
-  | None -&gt; ()
+"color: #0000ff;">parse_json</span> <span style=
+"color: #a0522d;">lexbuf</span> =
+  parse_with_error lexbuf
+
+<span style="color: #f5deb3;">let</span> <span style=
+"color: #0000ff;">parse</span> <span style=
+"color: #a0522d;">json</span> =
+  <span style="color: #f5deb3;">let</span> <span style=
+"color: #a0522d;">lexbuf</span> = <span style=
+"color: #228b22;">Lexing.</span>from_string json <span style=
+"color: #f5deb3;">in</span>
+  parse_json lexbuf
 </pre></div>
 <p>
 上面，我们定义了输出当前位置、尝试解析并捕获异常、以及实际解析的函数。注意这里我们的错误恢复非常简陋，甚至都不是恐慌模式，而是、什么都不是。</p>
@@ -387,8 +397,8 @@ rev_array_fields:
 <span style="color: #f5deb3;">let</span> <span style=
 "color: #0000ff;">as_number</span> = <span style=
 "color: #a020f0;">function</span>
-  | `Int i -&gt; float i
-  | `Float f -&gt; float f
+  | `Integer i -&gt; float_of_int i
+  | `Float f -&gt; f
   | _ -&gt; <span style=
 "color: #483d8b;">raise</span> NotNumericValue
 
@@ -396,33 +406,34 @@ rev_array_fields:
 "color: #0000ff;">as_string</span> = <span style=
 "color: #a020f0;">function</span>
   | `String s -&gt; string s
-  | _ -&gt; NotStringableValue
+  | _ -&gt; <span style=
+"color: #483d8b;">raise</span> NotStringableValue
 
 <span style="color: #f5deb3;">let</span> <span style=
 "color: #0000ff;">get_mem</span> <span style=
 "color: #a0522d;">n</span> = <span style=
 "color: #a020f0;">function</span>
-  | `Array (a) -&gt; <span style=
-"color: #228b22;">List.</span>nth a n
   | `Array ([]) -&gt; <span style=
 "color: #483d8b;">raise</span> EmptyArray
+  | `Array (a) -&gt; <span style=
+"color: #228b22;">List.</span>nth a n
   | _ -&gt; <span style="color: #483d8b;">raise</span> NotArray
 
 <span style="color: #f5deb3;">let</span> <span style=
 "color: #0000ff;">get_child</span> <span style=
 "color: #a0522d;">k</span> = <span style=
 "color: #a020f0;">function</span>
-  | `Object (o) -&gt; <span style=
-"color: #228b22;">List.</span>assoc k o
   | `Object ([]) -&gt; <span style=
 "color: #483d8b;">raise</span> EmptyObject
+  | `Object (o) -&gt; <span style=
+"color: #228b22;">List.</span>assoc k o
   | _ -&gt; <span style="color: #483d8b;">raise</span> NotObject
 </pre></div>
 <p>上面我们定义了一些帮手函数，用于从解析之后的数据结构中取得我们需要的信息。</p>
 </div>
 </div>
-<div id="outline-container-org3df9aef" class="outline-2">
-<h2 id="org3df9aef"><span class="section-number-2">6.</span>
+<div id="outline-container-org26cdefb" class="outline-2">
+<h2 id="org26cdefb"><span class="section-number-2">6.</span>
 使用</h2>
 <div class="outline-text-2" id="text-6">
 <p>我们可以执行：</p>
@@ -439,7 +450,10 @@ ocamlopt -pack -o json.cmx datatype.cmx lexer.cmx parser.cmx util.cmx
 <p>来将这个解析器打包。随后创建以下用例：</p>
 <div class="org-src-container">
 <pre class="src src-ocaml"><span style=
-"color: #f5deb3;">let</span> <span style=
+"color: #f5deb3;">open </span><span style=
+"color: #228b22;">Json.Util</span>
+
+<span style="color: #f5deb3;">let</span> <span style=
 "color: #a0522d;">json_string</span> = <span style=
 "color: #8b2252;">{|</span>
 <span style=
@@ -492,8 +506,8 @@ ocamlopt json.cmx test.cmx
 <p>完成对JSON的解析。</p>
 </div>
 </div>
-<div id="outline-container-org25280cf" class="outline-2">
-<h2 id="org25280cf"><span class="section-number-2">7.</span>
+<div id="outline-container-org589dc50" class="outline-2">
+<h2 id="org589dc50"><span class="section-number-2">7.</span>
 最后</h2>
 <div class="outline-text-2" id="text-7">
 <p>
@@ -504,7 +518,7 @@ ocamlopt json.cmx test.cmx
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: RadioNoiseE</p>
-<p class="date">Created: 2024-11-06 Wed 21:27</p>
+<p class="date">Created: 2024-11-10 Sun 21:08</p>
 <p class="validation"><a href=
 "https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>

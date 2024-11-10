@@ -23,6 +23,7 @@
     | `String of string
     | `Array of stt list
     | `Object of (string * stt) list
+    | `Null
     ]
 #+END_SRC
 
@@ -47,6 +48,7 @@
   %token LEFT_BRACE
   %token RIGHT_BRACE
   %token EOF
+  %token NULL
 #+END_SRC
 
 上面我们描述了解析器会遇到的所有token，使用~%token <type> uid~的语法；其中~<type>~为可选，表示带有值的token。
@@ -71,7 +73,7 @@
 
 #+BEGIN_SRC ocaml
   expr:
-    | NULL { Null }
+    | NULL { `Null }
     | INT { `Integer($1) }
     | FLOAT { `Float($1) }
     | TRUE { `Bool(true) }
@@ -128,7 +130,7 @@
     let next_line lexbuf =
       let pos = lexbuf.lex_curr_p in
       lexbuf.lex_curr_p <- {
-	pos with pos_bol = lexbuf.lex_curr_p;
+	pos with pos_bol = lexbuf.lex_curr_pos;
                  pos_lnum = pos.pos_lnum + 1
 	}
   }
@@ -144,7 +146,7 @@
   let exp = ['e' 'E'] ['-' '+']? digit+
   let float = digit* frac? exp?
   let white = [' ' '\t']+
-  let newline = '\r' | '\n' | '\r\n'
+  let newline = '\r' | '\n' | "\r\n"
 #+END_SRC
 
 上面我们创建了一组正则表达式，以此匹配整型数／浮点数／空白字符／行送。基本上是很正常的正则语法。
@@ -152,13 +154,13 @@
 #+BEGIN_SRC ocaml
   rule read =
     parse
-    | null { NULL }
     | white { read lexbuf }
     | newline { next_line lexbuf; read lexbuf }
     | int { INT (int_of_string (Lexing.lexeme lexbuf)) }
     | float { FLOAT (float_of_string (Lexing.lexeme lexbuf)) }
     | "true" { TRUE }
     | "false" { FALSE }
+    | "null" { NULL }
     | '\"' { read_string (Buffer.create 17) lexbuf }
     | ':' { COLON }
     | ',' { COMMA }
@@ -197,29 +199,31 @@
 #+BEGIN_SRC ocaml
   type t = Datatype.stt
   open Datatype
+  open Lexing
+  open Printf
 #+END_SRC
 
 我们首先定义~t~为解析之后返回类型的别名，并打开该类型定义文件。
 
 #+BEGIN_SRC ocaml
-  let print_position lexbuf =
+  let print_position outx lexbuf =
     let pos = lexbuf.lex_curr_p in
-    fprintf stderr "%s:%d:%d" pos.pos_fname pos.pos_lnum (pos.pos_cnum - pos.pos_bol +1)
+    fprintf outx "%s:%d:%d" pos.pos_fname pos.pos_lnum (pos.pos_cnum - pos.pos_bol +1)
 
   let parse_with_error lexbuf =
     try Parser.decl Lexer.read lexbuf with
-    | SyntaxError msg ->
+    | Lexer.SyntaxError msg ->
        fprintf stderr "%a: %s\n" print_position lexbuf msg;
-       None
-    | Parser.error ->
-       fprintf stderr "%a: Syntax error\n" print_position lexbuf;
-       exit (-1)
+       `Null
+    | Parsing.Parse_error ->
+       fprintf stderr "%a: syntax error\n" print_position lexbuf
 
-  let rec parse (json: string): t =
-    match parse_with_error lexbuf with
-    | Some value -> value;
-		    parse lexbuf
-    | None -> ()
+  let rec parse_json lexbuf =
+    parse_with_error lexbuf
+
+  let parse json =
+    let lexbuf = Lexing.from_string json in
+    parse_json lexbuf
 #+END_SRC
 
 上面，我们定义了输出当前位置、尝试解析并捕获异常、以及实际解析的函数。注意这里我们的错误恢复非常简陋，甚至都不是恐慌模式，
@@ -242,22 +246,22 @@
   exception EmptyObject
 
   let as_number = function
-    | `Int i -> float i
-    | `Float f -> float f
+    | `Integer i -> float_of_int i
+    | `Float f -> f
     | _ -> raise NotNumericValue
 
   let as_string = function
     | `String s -> string s
-    | _ -> NotStringableValue
+    | _ -> raise NotStringableValue
 
   let get_mem n = function
-    | `Array (a) -> List.nth a n
     | `Array ([]) -> raise EmptyArray
+    | `Array (a) -> List.nth a n
     | _ -> raise NotArray
 
   let get_child k = function
-    | `Object (o) -> List.assoc k o
     | `Object ([]) -> raise EmptyObject
+    | `Object (o) -> List.assoc k o
     | _ -> raise NotObject
 #+END_SRC
 
@@ -281,22 +285,24 @@
 来将这个解析器打包。随后创建以下用例：
 
 #+BEGIN_SRC ocaml
+  open Json.Util
+
   let json_string = {|
-		     {"number" : 42,
-		     "string" : "yes",
-		     "list": ["for", "sure", 42]}|}  (* val json_string : string *)
+                     {"number" : 42,
+                     "string" : "yes",
+                     "list": ["for", "sure", 42]}|}  (* val json_string : string *)
 
   let json = parse json_string;;  (* val json : Json.Datatype.stt *)
 
   let num = json
-	    |> get_child "number"
-	    |> as_number;;  (* val num : float *)
+            |> get_child "number"
+            |> as_number;;  (* val num : float *)
   print_float num;;
 
   let mem = json
-	    |> get_child "list"
-	    |> get_mem 0
-	    |> as_string;;  (* val mem : string *)
+            |> get_child "list"
+            |> get_mem 0
+            |> as_string;;  (* val mem : string *)
   print_string mem;;
 #+END_SRC
 
