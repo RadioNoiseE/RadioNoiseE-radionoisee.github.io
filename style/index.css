@@ -1,16 +1,13 @@
 @import "font.css";
 
-::selection {
-    color: white;
-    background-color: #6b5b95;
-}
-
 body {
     font-family: CJK-SF, LAT-SF, serif;
     line-height: 1.4;
     background-color: #f4f4f9;
     color: #333;
     justify-content: center;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 #content {
