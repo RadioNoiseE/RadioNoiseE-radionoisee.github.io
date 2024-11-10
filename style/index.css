@@ -1,5 +1,10 @@
 @import "font.css";
 
+::selection {
+    color: white;
+    background-color: #6b5b95;
+}
+
 body {
     font-family: CJK-SF, LAT-SF, serif;
     line-height: 1.4;
@@ -49,7 +54,7 @@ a {
 }
 
 a:hover {
-    background-color: #f0f8ff;
+    background-color: #e6e6fa;
 }
 
 .box {
