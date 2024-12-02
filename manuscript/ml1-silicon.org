@@ -6,7 +6,7 @@
 
 ML/I is a general macro processor, which is good at processing any kind of text. There is an Intel Mac implementation available on the official website, and I guess the C-map process will also work on my Silicon machine, but it's not as efficient as an LOWL-map could be.
 
-Fortunately there is an [[https://github.com/glguida/ml1-llvm][LOWL-to-LLVM]] map available, so that we can installed an assembled one rather than the compiled one.
+Fortunately there is an [[https://github.com/glguida/ml1-llvm][LOWL-to-LLVM]] map available, so that we can install an assembled one rather than the compiled one.
 
 * LLVM
 
