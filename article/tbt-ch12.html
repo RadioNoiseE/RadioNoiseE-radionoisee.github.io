@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
 <meta name="generator" content=
 "HTML Tidy for HTML5 for Apple macOS version 5.8.0">
-<!-- 2024-11-06 Wed 21:27 -->
+<!-- 2024-12-02 Mon 17:00 -->
+<meta charset="utf-8">
 <meta name="viewport" content=
 "width=device-width, initial-scale=1">
 <title>TeX by Topic第12章〈翻译〉</title>
@@ -49,56 +49,56 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgb2e84eb">1. 摘要</a></li>
-<li><a href="#org3df5174">2. 简介</a></li>
-<li><a href="#orgff608d5">3. 展开惯例</a></li>
-<li><a href="#orgde579e6">4. 颠倒展开顺序</a>
+<li><a href="#orgea28e3e">1. 摘要</a></li>
+<li><a href="#orgc4a9a3b">2. 简介</a></li>
+<li><a href="#org027b851">3. 展开惯例</a></li>
+<li><a href="#org896b2d4">4. 颠倒展开顺序</a>
 <ul>
-<li><a href="#orga8135d3">4.1.
+<li><a href="#orgd8f9cf7">4.1.
 提前一步展开：<code>\expandafter</code></a></li>
-<li><a href="#orgfbc2501">4.2. 完全展开：<code>\edef</code></a></li>
-<li><a href="#org6be989d">4.3.
+<li><a href="#org35edd57">4.2. 完全展开：<code>\edef</code></a></li>
+<li><a href="#orgf299ff2">4.3.
 <code>\afterassignment</code></a></li>
-<li><a href="#org2465424">4.4. <code>\aftergroup</code></a></li>
+<li><a href="#org71fb129">4.4. <code>\aftergroup</code></a></li>
 </ul>
 </li>
-<li><a href="#org3430345">5. 抑制展开</a>
+<li><a href="#org4a2ad36">5. 抑制展开</a>
 <ul>
-<li><a href="#org95ff7da">5.1. <code>\noexpand</code></a></li>
-<li><a href="#orgdd6fe06">5.2. <code>\noexpand</code>及活动字符</a></li>
+<li><a href="#orgb98e555">5.1. <code>\noexpand</code></a></li>
+<li><a href="#org30f72bf">5.2. <code>\noexpand</code>及活动字符</a></li>
 </ul>
 </li>
-<li><a href="#orgcf722ad">6. <code>\relax</code></a>
+<li><a href="#org12cdb8d">6. <code>\relax</code></a>
 <ul>
-<li><a href="#org685aa21">6.1.
+<li><a href="#org01b6391">6.1.
 <code>\relax</code>与<code>\csname</code></a></li>
-<li><a href="#org832e45d">6.2. 使用<code>\relax</code>抑制展开</a></li>
-<li><a href="#org1accc22">6.3. TeX自动插入的<code>\relax</code></a></li>
-<li><a href="#org9369db2">6.4. 表示非宏的值：<code>\the</code></a></li>
+<li><a href="#org9a69d88">6.2. 使用<code>\relax</code>抑制展开</a></li>
+<li><a href="#org62ff6ec">6.3. TeX自动插入的<code>\relax</code></a></li>
+<li><a href="#orge86ad70">6.4. 表示非宏的值：<code>\the</code></a></li>
 </ul>
 </li>
-<li><a href="#org5eed227">7. 实例</a>
+<li><a href="#org26b1794">7. 实例</a>
 <ul>
-<li><a href="#org718e84c">7.1. 滞后展开</a></li>
-<li><a href="#org97b46e0">7.2. <code>\edef</code>内部的定义</a></li>
-<li><a href="#orgdde67ef">7.3. 展开与<code>\write</code></a></li>
-<li><a href="#orgd3aee3b">7.4. 在<code>\edef</code>中受控制的展开</a></li>
-<li><a href="#orgde5ad6e">7.5. 对展开的多重抑制</a></li>
-<li><a href="#org58e39e7">7.6. <code>\relax</code>的更多示例</a></li>
-<li><a href="#org8531f3f">7.7. 实例：存储及恢复类别码</a></li>
+<li><a href="#org7a77314">7.1. 滞后展开</a></li>
+<li><a href="#org3d3d593">7.2. <code>\edef</code>内部的定义</a></li>
+<li><a href="#orge1a56f5">7.3. 展开与<code>\write</code></a></li>
+<li><a href="#orga244727">7.4. 在<code>\edef</code>中受控制的展开</a></li>
+<li><a href="#orge176f8d">7.5. 对展开的多重抑制</a></li>
+<li><a href="#org3a920cd">7.6. <code>\relax</code>的更多示例</a></li>
+<li><a href="#org73169a2">7.7. 实例：存储及恢复类别码</a></li>
 </ul>
 </li>
-<li><a href="#orgcaa5c13">8. 示例</a>
+<li><a href="#org2af03be">8. 示例</a>
 <ul>
-<li><a href="#org404132d">8.1.
+<li><a href="#org8088c59">8.1.
 <code>\aftergroup</code>与盒子的结合</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </nav>
-<div id="outline-container-orgb2e84eb" class="outline-2">
-<h2 id="orgb2e84eb"><span class="section-number-2">1.</span>
+<div id="outline-container-orgea28e3e" class="outline-2">
+<h2 id="orgea28e3e"><span class="section-number-2">1.</span>
 摘要</h2>
 <div class="outline-text-2" id="text-1">
 <p>TeX中的展开不同于其他许多程序设计语言中的过程调用。本章将讨论与展开相关的命令，并给出一些（不那么具体）的实例。</p>
@@ -114,16 +114,16 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org3df5174" class="outline-2">
-<h2 id="org3df5174"><span class="section-number-2">2.</span>
+<div id="outline-container-orgc4a9a3b" class="outline-2">
+<h2 id="orgc4a9a3b"><span class="section-number-2">2.</span>
 简介</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 TeX的展开处理器接受来自输入处理器中的记号流，并将其输出为供执行处理器处理的记号流。对于输入处理器而言有两种记号：可展开的和不可展开的。那类不可展开的主要包含赋值或供排版内容的记号会原封不动通过展开处理器；而可展开的记号则会被展开，同时展开的结果会被重新检验（以确保其已经完全展开）。</p>
 </div>
 </div>
-<div id="outline-container-orgff608d5" class="outline-2">
-<h2 id="orgff608d5"><span class="section-number-2">3.</span>
+<div id="outline-container-org027b851" class="outline-2">
+<h2 id="org027b851"><span class="section-number-2">3.</span>
 展开惯例</h2>
 <div class="outline-text-2" id="text-3">
 <p>那些若不进行抑制，则会被展开的结构体有：</p>
@@ -172,20 +172,19 @@ variable⟩的记号列表、<code>\uppercase</code>、<code>\lowercase</code>�
 </ul>
 </div>
 </div>
-<div id="outline-container-orgde579e6" class="outline-2">
-<h2 id="orgde579e6"><span class="section-number-2">4.</span>
+<div id="outline-container-org896b2d4" class="outline-2">
+<h2 id="org896b2d4"><span class="section-number-2">4.</span>
 颠倒展开顺序</h2>
 <div class="outline-text-2" id="text-4">
 <p>有时会出现需要调整记号的一般展开顺序的情况。为此，TeX提供了几种机制。本节中描述的某些控制序列的应用并不局限于展开。</p>
 </div>
-<div id="outline-container-orga8135d3" class="outline-3">
-<h3 id="orga8135d3"><span class="section-number-3">4.1.</span>
+<div id="outline-container-orgd8f9cf7" class="outline-3">
+<h3 id="orgd8f9cf7"><span class="section-number-3">4.1.</span>
 提前一步展开：<code>\expandafter</code></h3>
 <div class="outline-text-3" id="text-4-1">
 <p>最常用的可用于颠倒展开顺序的工具是<code>\expandafter</code>。以下：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\expandafter</span>⟨token1⟩⟨token2⟩
+<pre class="src src-tex">\expandafter⟨token1⟩⟨token2⟩
 </pre></div>
 <p>序列等同于：</p>
 <div class="org-src-container">
@@ -196,24 +195,18 @@ variable⟩的记号列表、<code>\uppercase</code>、<code>\lowercase</code>�
 <li>
 <p>若⟨token2⟩是一个宏、则其会被它的宏定义结果替换、而非它的最终完全展开结果，所以</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\def\tokentwo</span>{<span style=
-"color: #696969;">\ifsomecondition</span> this <span style=
-"color: #696969;">\else</span> that <span style=
-"color: #696969;">\fi</span>}
-<span style="color: #696969;">\def\tokenone</span>#1{...}
+<pre class=
+"src src-tex">\def\tokentwo{\ifsomecondition this \else that \fi}
+\def\tokenone#1{...}
 </pre></div>
 <p>以下的</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\expandafter\tokenone\tokentwo</span>
+<pre class="src src-tex">\expandafter\tokenone\tokentwo
 </pre></div>
 <p>会将<code>\ifsomecondition</code>作为<code>\tokenone</code>的参数</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\tokenone</span> #1 -&gt; ...
-          #1 &lt;- <span style=
-"color: #696969;">\ifsomecondition</span>
+<pre class="src src-tex">\tokenone #1 -&gt; ...
+          #1 &lt;- \ifsomecondition
 </pre></div>
 </li>
 <li>
@@ -221,30 +214,22 @@ variable⟩的记号列表、<code>\uppercase</code>、<code>\lowercase</code>�
 </ul>
 </div>
 </div>
-<div id="outline-container-orgfbc2501" class="outline-3">
-<h3 id="orgfbc2501"><span class="section-number-3">4.2.</span>
+<div id="outline-container-org35edd57" class="outline-3">
+<h3 id="org35edd57"><span class="section-number-3">4.2.</span>
 完全展开：<code>\edef</code></h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 宏通常是被使用<code>\def</code>定义的，但当我们希望使用宏替换内容去反映其被定义时的状况（而非通过其反映被调用时的状况）时，即可使用「展开定义」、<code>\edef</code>。它会将宏替换内容在被赋值给（被定义的）宏之前完全展开。</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\edef\modedef</span>{This macro was defined in
-              `<span style=
-"color: #696969;">\ifvmode</span> vertical<span style=
-"color: #696969;">\else</span> <span style=
-"color: #696969;">\ifmmode</span> math
-               <span style=
-"color: #696969;">\else</span> horizontal<span style=
-"color: #696969;">\fi\fi</span>' mode}
+<pre class="src src-tex">\edef\modedef{This macro was defined in
+              `\ifvmode vertical\else \ifmmode math
+               \else horizontal\fi\fi' mode}
 </pre></div>
 <p>
 因为模式测试在定义时即被执行，故该宏的替换文本将会是一个字符串。一个更有用的例子：若要使用<code>\input</code>读入一个<code>@</code>的类别码将会发生改变的文件，则可以将</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\edef\restorecat</span>{<span style=
-"color: #696969;">\catcode</span>`@=<span style=
-"color: #696969;">\the\catcode</span>`@}
+<pre class=
+"src src-tex">\edef\restorecat{\catcode`@=\the\catcode`@}
 </pre></div>
 <p>放在文件开头，并将<code>\restorecat</code>放在文件末尾。</p>
 <p>
@@ -254,8 +239,7 @@ variable⟩的记号列表、<code>\uppercase</code>、<code>\lowercase</code>�
 <li>
 <p>若<code>\sometokenlist</code>是一个记号列表、则以下</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\the\sometokenlist</span>
+<pre class="src src-tex">\the\sometokenlist
 </pre></div>
 <p>只会展开为记号列表的内容、而其内容并不会被进一步展开。</p>
 </li>
@@ -263,39 +247,32 @@ variable⟩的记号列表、<code>\uppercase</code>、<code>\lowercase</code>�
 <p>
 在某些情况之下，<code>\edef</code>可被方便地「滥用」，即当我们无意定义一个控制序列、仅关注其展开结果时。比如，使用如下定义：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\def\othermacro</span>{<span style=
-"color: #696969;">\ifnum</span>1&gt;0 {this}<span style=
-"color: #696969;">\else</span> {that}<span style=
-"color: #696969;">\fi</span>}
-<span style="color: #696969;">\def\somemacro</span>#1{...}
+<pre class=
+"src src-tex">\def\othermacro{\ifnum1&gt;0 {this}\else {that}\fi}
+\def\somemacro#1{...}
 </pre></div>
 <p>后，宏调用:</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\expandafter\somemacro\othermacro</span>
+<pre class="src src-tex">\expandafter\somemacro\othermacro
 </pre></div>
 <p>将会给出如下对参量的赋值：</p>
 <div class="org-src-container">
-<pre class="src src-tex">#1 &lt;- <span style=
-"color: #696969;">\ifnum</span>
+<pre class="src src-tex">#1 &lt;- \ifnum
 </pre></div>
 <p>为使其正确，我们可以这么写：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\edef\next</span>{<span style=
-"color: #696969;">\noexpand\somemacro\othermacro</span>}<span style="color: #696969;">\next</span>
+<pre class=
+"src src-tex">\edef\next{\noexpand\somemacro\othermacro}\next
 </pre></div>
 <p>其中的条件判断被<code>\edef</code>完全展开，所以<code>\next</code>的替换文本将会是：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\somemacro</span>{this}
+<pre class="src src-tex">\somemacro{this}
 </pre></div>
 <p>同时其后的<code>\next</code>调用将执行该定义。</p>
 </div>
 </div>
-<div id="outline-container-org6be989d" class="outline-3">
-<h3 id="org6be989d"><span class="section-number-3">4.3.</span>
+<div id="outline-container-orgf299ff2" class="outline-3">
+<h3 id="orgf299ff2"><span class="section-number-3">4.3.</span>
 <code>\afterassignment</code></h3>
 <div class="outline-text-3" id="text-4-3">
 <p>
@@ -310,57 +287,44 @@ variable⟩的记号列表、<code>\uppercase</code>、<code>\lowercase</code>�
 </ul>
 <p>这是对其较直接的实现方法：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\def\setfontsize</span>#1{<span style=
-"color: #696969;">\thefontsize</span>=#1pt<span style=
-"color: #696969;">\relax</span>
-                   <span style=
-"color: #696969;">\baselineskip</span>=1.2<span style=
-"color: #696969;">\thefontsize\relax</span>}
-<span style="color: #696969;">\setfontsize</span>{10}
+<pre class="src src-tex">\def\setfontsize#1{\thefontsize=#1pt\relax
+                   \baselineskip=1.2\thefontsize\relax}
+\setfontsize{10}
 </pre></div>
 <p>而，基于<code>\afterassignment</code>，我们可以有如下更优雅的实现方法：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\def\setbaselineskip</span>{<span style=
-"color: #696969;">\baselineskip</span>=1.2<span style=
-"color: #696969;">\thefontsize\relax</span>}
-<span style="color: #696969;">\def\fontsize</span>{<span style=
-"color: #696969;">\afterassignment\setbaselineskip</span>
-              <span style="color: #696969;">\thefontsize</span>}
-<span style="color: #696969;">\fontsize</span>=10pt
+<pre class=
+"src src-tex">\def\setbaselineskip{\baselineskip=1.2\thefontsize\relax}
+\def\fontsize{\afterassignment\setbaselineskip
+              \thefontsize}
+\fontsize=10pt
 </pre></div>
 <p>
 此时，这个宏看上去更像一个赋值：等号是可选的。实际上它的展开以一个将会被赋值的变量结束。控制序列<code>\setbaselineskip</code>被存储直至对<code>\thefontsize</code>赋值后才执行。</p>
 </div>
 </div>
-<div id="outline-container-org2465424" class="outline-3">
-<h3 id="org2465424"><span class="section-number-3">4.4.</span>
+<div id="outline-container-org71fb129" class="outline-3">
+<h3 id="org71fb129"><span class="section-number-3">4.4.</span>
 <code>\aftergroup</code></h3>
 <div class="outline-text-3" id="text-4-4">
 <p>某些记号可被</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\aftergroup</span>⟨token⟩
+<pre class="src src-tex">\aftergroup⟨token⟩
 </pre></div>
 <p>
 控制序列存储以备当前分组结束后再行插入。这些记号会在<code>\aftergroup</code>序列出现的分组结束后被插入。分组可同时被使用直接或间接的花括号来定界，或使用<code>\begingroup</code>及<code>\endgroup</code>。</p>
 <div class="org-src-container">
-<pre class="src src-tex">{<span style=
-"color: #696969;">\aftergroup\a</span> <span style=
-"color: #696969;">\aftergroup\b</span>}
+<pre class="src src-tex">{\aftergroup\a \aftergroup\b}
 </pre></div>
 <p>等同于</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\a</span> <span style="color: #696969;">\b</span>
+<pre class="src src-tex">\a \b
 </pre></div>
 <p>
 此命令可以有许多应用。其中<code>\textvcenter</code>宏对其的应用可被找到；另一个则是plain-TeX中的脚注机制。在plain-TeX中，使用脚注命令的语法如下</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #ff0000;">\</span><span style=
-"color: #a020f0;">footnote</span>⟨footnote symbol⟩{⟨footnote text⟩}
+<pre class=
+"src src-tex">\footnote⟨footnote symbol⟩{⟨footnote text⟩}
 </pre></div>
 <p>
 这让它看起来像是使用两个参数的宏。然而，若它使用两个参数，则意味着它令人不快的需要读入脚注文本，因为这会妨碍脚注中出现如类别码变动等的情况。</p>
@@ -369,26 +333,19 @@ variable⟩的记号列表、<code>\uppercase</code>、<code>\lowercase</code>�
 <li>
 <p>首先、<code>\footnote</code>宏开启一个（脚注）浮动体插入物</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\def</span><span style=
-"color: #ff0000;">\</span><span style=
-"color: #a020f0;">footnote</span>#1{ ...#1... <span style=
-"color: #b22222;">%treat the footnote sign</span>
-<span style="color: #696969;">\insert\footins\bgroup</span>
+<pre class=
+"src src-tex">\def\footnote#1{ ...#1... %treat the footnote sign
+\insert\footins\bgroup
 </pre></div>
 </li>
 <li>
 <p>在该插入物盒子中、<code>\aftergroup</code>的命令使得该盒子能够被正确地关闭</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\bgroup\aftergroup\@foot</span>
+<pre class="src src-tex">\bgroup\aftergroup\@foot
 </pre></div>
 <p>其起到的作用是、使用户输入的结束脚注文本的右花括号无效化，而左花括号则需使用如下方式无效化</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\let\next</span>=} <span style=
-"color: #b22222;">%end of definition </span><span style=
-"color: #b22222;">\footnote</span>
+<pre class="src src-tex">\let\next=} %end of definition \footnote
 </pre></div>
 <p>即将随后的左花括号记号赋值给<code>\next</code>序列；</p>
 </li>
@@ -396,9 +353,7 @@ variable⟩的记号列表、<code>\uppercase</code>、<code>\lowercase</code>�
 <li>
 <p>脚注后、如下定义的<code>\@foot</code>序列</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\def\@foot</span>{<span style=
-"color: #696969;">\strut\egroup</span>}
+<pre class="src src-tex">\def\@foot{\strut\egroup}
 </pre></div>
 <p>会被最后执行从而关闭插入物盒子。</p>
 </li>
@@ -406,8 +361,8 @@ variable⟩的记号列表、<code>\uppercase</code>、<code>\lowercase</code>�
 </div>
 </div>
 </div>
-<div id="outline-container-org3430345" class="outline-2">
-<h2 id="org3430345"><span class="section-number-2">5.</span>
+<div id="outline-container-org4a2ad36" class="outline-2">
+<h2 id="org4a2ad36"><span class="section-number-2">5.</span>
 抑制展开</h2>
 <div class="outline-text-2" id="text-5">
 <p>
@@ -415,8 +370,8 @@ variable⟩的记号列表、<code>\uppercase</code>、<code>\lowercase</code>�
 <code>\string</code>的使用较为局限，这是由于它会将一个控制序列记号转换为一个字符串（此时<code>\escapechar</code>的值会被用于替换原类别码为0的字符）。显而易见，它很适合用在使用<code>\write</code>的场合，来输出一个控制序列的名字；其别的用途可见对<code>\newif</code>的介绍。</p>
 <p>所有<code>\string</code>输出的字符除类别码10的空格外，都属于类别码12（「其他」）。</p>
 </div>
-<div id="outline-container-org95ff7da" class="outline-3">
-<h3 id="org95ff7da"><span class="section-number-3">5.1.</span>
+<div id="outline-container-orgb98e555" class="outline-3">
+<h3 id="orgb98e555"><span class="section-number-3">5.1.</span>
 <code>\noexpand</code></h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
@@ -424,217 +379,158 @@ variable⟩的记号列表、<code>\uppercase</code>、<code>\lowercase</code>�
 <p>
 对于控制序列<code>\noexpand</code>而言，最重要的应用莫过于在<code>\edef</code>中抑制展开（但在<code>\write</code>的情况下，它也经常能够替代<code>\string</code>）。考虑下例：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\edef\one</span>{<span style=
-"color: #696969;">\def\noexpand\two</span>{<span style=
-"color: #696969;">\the\prevdepth</span>}}
+<pre class=
+"src src-tex">\edef\one{\def\noexpand\two{\the\prevdepth}}
 </pre></div>
 <p>
 若没有<code>\noexpand</code>，则TeX会试图展开<code>\two</code>，便会出现「未定义控制序列」的报错。另一个（没太大意义的）例子可表明<code>\noexpand</code>使其后的记号（暂时）等同于<code>\relax</code>：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\def\a</span>{b}
-<span style="color: #696969;">\noexpand\a</span>
+<pre class="src src-tex">\def\a{b}
+\noexpand\a
 </pre></div>
 <p>
 因<code>\noexpand</code>使控制序列<code>\a</code>暂时等同于\relax，故上段代码将不会产生任何输出。</p>
 </div>
 </div>
-<div id="outline-container-orgdd6fe06" class="outline-3">
-<h3 id="orgdd6fe06"><span class="section-number-3">5.2.</span>
+<div id="outline-container-org30f72bf" class="outline-3">
+<h3 id="org30f72bf"><span class="section-number-3">5.2.</span>
 <code>\noexpand</code>及活动字符</h3>
 <div class="outline-text-3" id="text-5-2">
 <p>
 序列<code>\noexpand⟨token⟩</code>的组合总是等同于<code>\relax</code>，即便该记号是一个活动字符。所以，</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\csname\noexpand</span>~<span style=
-"color: #696969;">\endcsname</span>
+<pre class="src src-tex">\csname\noexpand~\endcsname
 </pre></div>
 <p>
 的意思不同于<code>\char`\~</code>。相反，因为不可展开的命令——比如<code>\relax</code>——不被允许出现在<code>\csname</code>和<code>\endcsname</code>中，它会提示出现错误。解决方法则是转而使用<code>\string</code>。</p>
 <p>但在某些其他情境下，<code>\noexpand⟨active
 character⟩</code>的序列等同于该字符不可展开的形式。这时条件判断命令<code>\if</code>和<code>\ifcat</code>可被使用说明这一点。以下：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\if\noexpand</span>~<span style=
-"color: #696969;">\relax</span> <span style=
-"color: #b22222;">% is false</span>
+<pre class="src src-tex">\if\noexpand~\relax % is false
 </pre></div>
 <p>此时<code>~</code>的字符编码被测试；</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\def\a</span>{...} <span style=
-"color: #696969;">\if\noexpand\a\relax</span> <span style=
-"color: #b22222;">% is true</span>
+<pre class="src src-tex">\def\a{...} \if\noexpand\a\relax % is true
 </pre></div>
 <p>将比较两个控制序列。</p>
 </div>
 </div>
 </div>
-<div id="outline-container-orgcf722ad" class="outline-2">
-<h2 id="orgcf722ad"><span class="section-number-2">6.</span>
+<div id="outline-container-org12cdb8d" class="outline-2">
+<h2 id="org12cdb8d"><span class="section-number-2">6.</span>
 <code>\relax</code></h2>
 <div class="outline-text-2" id="text-6">
 <p>控制序列<code>\relax</code>不可展开，它被执行的时候则什么也不会做。</p>
 <p>以上说明感觉上有些似是而非，不妨看一个例子。给出如下计数器：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\newcount\MyCount</span>
-<span style=
-"color: #696969;">\newcount\MyOtherCount</span> <span style=
-"color: #696969;">\MyOtherCount</span>=2
+<pre class="src src-tex">\newcount\MyCount
+\newcount\MyOtherCount \MyOtherCount=2
 </pre></div>
 <p>在赋值过程中：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\MyCount</span>=1<span style=
-"color: #696969;">\number\MyOtherCount</span>3<span style=
-"color: #696969;">\relax</span>4
+<pre class="src src-tex">\MyCount=1\number\MyOtherCount3\relax4
 </pre></div>
 <p>
 命令<code>\number</code>是可展开的，而<code>\relax</code>则不可被展开。当TeX构建将被赋给的值的时候，它会展开所有命令直到遇到非数字或不可展开的命令为止。所以它读入1；它会展开<code>\number\MyOtherCount</code>（其展开后值为2）；它接着读入3；它又读入<code>\relax</code>，而由于其不可展开，于是便最终停止对赋值过程中值的构建。所以最终赋给<code>\MyCount</code>的值是123，又因为展开的结果为：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\MyCount</span>=123<span style=
-"color: #696969;">\relax</span>4
+<pre class="src src-tex">\MyCount=123\relax4
 </pre></div>
 <p>
 且<code>\relax</code>的执行结果是什么也不做，所以该序列将会把值123赋给<code>\MyCount</code>，并排版数字4。</p>
 <p>命令<code>\relax</code>还可被用于（显式）表示一个命令的结束，如下例：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\everypar</span>{<span style=
-"color: #696969;">\hskip</span> 0cm plus 1fil }
-<span style="color: #696969;">\indent</span> Later that day, ...
+<pre class="src src-tex">\everypar{\hskip 0cm plus 1fil }
+\indent Later that day, ...
 </pre></div>
 <p>这段代码是有歧义的：TeX实际上读到的是：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\hskip</span> 0cm plus 1fil L
+<pre class="src src-tex">\hskip 0cm plus 1fil L
 </pre></div>
 <p>而<code>fil
 L</code>虽然看起来不太正常，但实际上是一种合法的表示<code>fill</code>的方式。可用<code>\relax</code>漂亮地解决：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\everypar</span>{<span style=
-"color: #696969;">\hskip</span> 0cm plus 1fil<span style=
-"color: #696969;">\relax</span>}
+<pre class="src src-tex">\everypar{\hskip 0cm plus 1fil\relax}
 </pre></div>
 </div>
-<div id="outline-container-org685aa21" class="outline-3">
-<h3 id="org685aa21"><span class="section-number-3">6.1.</span>
+<div id="outline-container-org01b6391" class="outline-3">
+<h3 id="org01b6391"><span class="section-number-3">6.1.</span>
 <code>\relax</code>与<code>\csname</code></h3>
 <div class="outline-text-3" id="text-6-1">
 <p>若<code>\csname ...
 \endcsname</code>被用于构建一个未被定义的控制序列，该序列会被等同于<code>\relax</code>，同时整个构建其的语句也会被等同于<code>\relax</code>。</p>
 <p>但是，被赋给的<code>\relax</code>值仅在局部生效：</p>
 <div class="org-src-container">
-<pre class="src src-tex">{<span style=
-"color: #696969;">\xdef\test</span>{<span style=
-"color: #696969;">\expandafter\noexpand\csname</span> xx<span style="color: #696969;">\endcsname</span>}}
-<span style="color: #696969;">\test</span>
+<pre class=
+"src src-tex">{\xdef\test{\expandafter\noexpand\csname xx\endcsname}}
+\test
 </pre></div>
 <p>会给出未定义控制序列<code>\xx</code>的错误。</p>
 <p>考虑LaTeX中的环境，其使用：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #a020f0;">\begin</span>{<span style=
-"color: #0000ff;">...</span>} ... <span style=
-"color: #a020f0;">\end</span>{<span style=
-"color: #0000ff;">...</span>}
+<pre class="src src-tex">\begin{...} ... \end{...}
 </pre></div>
 <p>定界。这两个表示开始和结束的命令（究其本质）是如此定义的：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\def</span><span style=
-"color: #ff0000;">\</span><span style=
-"color: #a020f0;">begin</span>#1{<span style=
-"color: #696969;">\begingroup\csname</span>#1<span style=
-"color: #696969;">\endcsname</span>}
-<span style="color: #696969;">\def</span><span style=
-"color: #ff0000;">\</span><span style=
-"color: #a020f0;">end</span>#1{<span style=
-"color: #696969;">\csname</span> end#1<span style=
-"color: #696969;">\endcsname</span> <span style=
-"color: #696969;">\endgroup</span>}
+<pre class=
+"src src-tex">\def\begin#1{\begingroup\csname#1\endcsname}
+\def\end#1{\csname end#1\endcsname \endgroup}
 </pre></div>
 <p>
 故，对于列表环境，实际定义的是命令<code>\list</code>和<code>\endlist</code>。但是即使没有定义对应的<code>\end...</code>，其仍可用来表示一个合法环境。如：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #a020f0;">\begin</span>{<span style=
-"color: #0000ff;">it</span>} ... <span style=
-"color: #a020f0;">\end</span>{<span style=
-"color: #0000ff;">it</span>}
+<pre class="src src-tex">\begin{it} ... \end{it}
 </pre></div>
 <p>等价于<code>\begingroup\it ... \relax\endgroup</code></p>
 <p>
 此处使用<code>\begingroup</code>、<code>\endgroup</code>而非<code>\bgroup</code>、<code>\egroup</code>的原理见下文。</p>
 </div>
 </div>
-<div id="outline-container-org832e45d" class="outline-3">
-<h3 id="org832e45d"><span class="section-number-3">6.2.</span>
+<div id="outline-container-org9a69d88" class="outline-3">
+<h3 id="org9a69d88"><span class="section-number-3">6.2.</span>
 使用<code>\relax</code>抑制展开</h3>
 <div class="outline-text-3" id="text-6-2">
 <p>
 因为命令<code>\relax</code>不可展开的缘故，（使用如<code>\edef</code>或<code>\write</code>时）通过使某个控制序列暂时地等价于<code>\relax</code>即可使该序列不被展开。</p>
 <div class="org-src-container">
-<pre class="src src-tex">{<span style=
-"color: #696969;">\let\somemacro</span>=<span style=
-"color: #696969;">\relax</span> <span style=
-"color: #696969;">\write\outfile</span>{<span style=
-"color: #696969;">\somemacro</span>}}
+<pre class=
+"src src-tex">{\let\somemacro=\relax \write\outfile{\somemacro}}
 </pre></div>
 <p>
 该代码片段则会将<code>`\somemacro'</code>写入到输出文件中。若<code>\let</code>部分被遗漏，则会将宏<code>\somemacro</code>的展开结果写入到文件中（若其未定义则给出该宏未定义之错误）。</p>
 </div>
 </div>
-<div id="outline-container-org1accc22" class="outline-3">
-<h3 id="org1accc22"><span class="section-number-3">6.3.</span>
+<div id="outline-container-org62ff6ec" class="outline-3">
+<h3 id="org62ff6ec"><span class="section-number-3">6.3.</span>
 TeX自动插入的<code>\relax</code></h3>
 <div class="outline-text-3" id="text-6-3">
 <p>
 TeX自己也会在某些情况下插入<code>\relax</code>。具体来说，就是当TeX仍在确定文本范围时读到序列<code>\or</code>、<code>\else</code>或<code>\fi</code>时。</p>
 <p>例子：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\ifvoid</span>1<span style=
-"color: #696969;">\else</span> ... <span style=
-"color: #696969;">\fi</span>
+<pre class="src src-tex">\ifvoid1\else ... \fi
 </pre></div>
 <p>在内部被转换为：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\ifvoid</span>1<span style=
-"color: #696969;">\relax</span> <span style=
-"color: #696969;">\else</span> ... <span style=
-"color: #696969;">\fi</span>
+<pre class="src src-tex">\ifvoid1\relax \else ... \fi
 </pre></div>
 <p>类似的，如果判断语句<code>\if</code>、<code>\ifcat</code>仅有一条分支，如：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\if</span>1<span style=
-"color: #696969;">\else</span> ...
+<pre class="src src-tex">\if1\else ...
 </pre></div>
 <p>TeX也会插入一个<code>\relax</code>。于是上段代码等同于：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\if</span>1<span style=
-"color: #696969;">\relax\else</span> ...
+<pre class="src src-tex">\if1\relax\else ...
 </pre></div>
 <p>还有另一<code>\relax</code>被使用的情况。当某一序列被使用⟨shorthand
 definition⟩——即，一个⟨registerdef⟩或<code>\chardef</code>、<code>\mathchardef</code>
 ——定义时，它的含义被短暂地等同于<code>\relax</code>。这使得我们能够这样写：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\chardef\foo</span>=123<span style=
-"color: #696969;">\foo</span>
+<pre class="src src-tex">\chardef\foo=123\foo
 </pre></div>
 </div>
 </div>
-<div id="outline-container-org9369db2" class="outline-3">
-<h3 id="org9369db2"><span class="section-number-3">6.4.</span>
+<div id="outline-container-orge86ad70" class="outline-3">
+<h3 id="orge86ad70"><span class="section-number-3">6.4.</span>
 表示非宏的值：<code>\the</code></h3>
 <div class="outline-text-3" id="text-6-4">
 <p>
@@ -664,141 +560,105 @@ parameter⟩可以使用<code>\the</code>为前缀，展开结果是它们的内
 <p>
 思考一个使用<code>\the</code>的例子。若有一个将使用<code>\input</code>读入的某个字符（不妨让它为<code>@</code>）的类别码被改变了的文件。我们可以写出：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\edef\restorecat</span>{<span style=
-"color: #696969;">\catcode</span>`@=<span style=
-"color: #696969;">\the\catcode</span>`@}
+<pre class=
+"src src-tex">\edef\restorecat{\catcode`@=\the\catcode`@}
 </pre></div>
 <p>
 并在该文件的末尾写上<code>\restorecat</code>。若类别为11，则<code>\restorecat</code>的定义等同于：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\catcode</span>`@=11
+<pre class="src src-tex">\catcode`@=11
 </pre></div>
 </div>
 </div>
 </div>
-<div id="outline-container-org5eed227" class="outline-2">
-<h2 id="org5eed227"><span class="section-number-2">7.</span>
+<div id="outline-container-org26b1794" class="outline-2">
+<h2 id="org26b1794"><span class="section-number-2">7.</span>
 实例</h2>
 <div class="outline-text-2" id="text-7"></div>
-<div id="outline-container-org718e84c" class="outline-3">
-<h3 id="org718e84c"><span class="section-number-3">7.1.</span>
+<div id="outline-container-org7a77314" class="outline-3">
+<h3 id="org7a77314"><span class="section-number-3">7.1.</span>
 滞后展开<sup><a id="fnr.1" class="footref" href="#fn.1" role=
 "doc-backlink">1</a></sup></h3>
 <div class="outline-text-3" id="text-7-1">
 <p>
 对于控制序列<code>\expandafter</code>，最显而易见的使用方式莫过于提前展开一个（位于后部）控制序列：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\def</span><span style=
-"color: #ff0000;">\</span><span style=
-"color: #a020f0;">stepcounter</span>#1{<span style=
-"color: #696969;">\expandafter\advance\csname</span>
-                   #1:counter<span style=
-"color: #696969;">\endcsname</span> 1<span style=
-"color: #696969;">\relax</span>}
-<span style="color: #a020f0;">\stepcounter</span>{<span style=
-"color: #a0522d;">foo</span>}
+<pre class=
+"src src-tex">\def\stepcounter#1{\expandafter\advance\csname
+                   #1:counter\endcsname 1\relax}
+\stepcounter{foo}
 </pre></div>
 <p>
 此处使用的<code>\expandafter</code>使得<code>\csname</code>得以将<code>\foo:counter</code>控制序列构建完毕；在<code>\expandafter</code>展开后，该声明被缩减为：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\advance\foo</span>:counter 1<span style=
-"color: #696969;">\relax</span>
+<pre class="src src-tex">\advance\foo:counter 1\relax
 </pre></div>
 <p>越过不属于控制序列的记号也是可能的，在：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\uppercase\expandafter</span>{<span style=
-"color: #696969;">\romannumeral</span> <span style=
-"color: #696969;">\year</span>}
+<pre class=
+"src src-tex">\uppercase\expandafter{\romannumeral \year}
 </pre></div>
 <p>它先行展开左花括号右侧的<code>\romannumeral</code>宏。自然，你也可以越过两个控制序列展开：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\def\globalstepcounter</span>#1{<span style=
-"color: #696969;">\expandafter\global\expandafter\advance</span>
-                         <span style=
-"color: #696969;">\csname</span> #1:counter<span style=
-"color: #696969;">\endcsname</span> 1<span style=
-"color: #696969;">\relax</span>}
+<pre class=
+"src src-tex">\def\globalstepcounter#1{\expandafter\global\expandafter\advance
+                         \csname #1:counter\endcsname 1\relax}
 </pre></div>
 <p>
 如果你觉得只能使用<code>\expandafter</code>颠倒两个控制序列的执行顺序，你还可以颠倒三个的，使用：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\expandafter\expandafter\expandafter\a\expandafter\b\c</span>
+<pre class=
+"src src-tex">\expandafter\expandafter\expandafter\a\expandafter\b\c
 </pre></div>
 <p>即可最先展开<code>\c</code>而得到：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\expandafter</span> <span style=
-"color: #696969;">\a</span> <span style="color: #696969;">\b</span>
+<pre class="src src-tex">\expandafter \a \b
 </pre></div>
 <p>三个控制序列作为结果。</p>
 <p>条件判断中，<code>\expandafter</code>还有更预料不到的作用；如下：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\def\bold</span>#1{{<span style=
-"color: #a020f0;">\bf</span><span style=
-"color: #556b2f;"> #1</span>}}
+<pre class="src src-tex">\def\bold#1{{\bf #1}}
 </pre></div>
 <p>代码中，序列：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\ifnum</span>1&gt;0 <span style=
-"color: #696969;">\bold</span> <span style=
-"color: #696969;">\fi</span> {word}
+<pre class="src src-tex">\ifnum1&gt;0 \bold \fi {word}
 </pre></div>
 <p>并不会让「word」被加粗，而：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\ifnum</span>1&gt;0 <span style=
-"color: #696969;">\expandafter\bold</span> <span style=
-"color: #696969;">\fi</span> {word}
+<pre class="src src-tex">\ifnum1&gt;0 \expandafter\bold \fi {word}
 </pre></div>
 <p>
 则可以（使其被加粗）。控制序列<code>\expandafter</code>会让TeX先一步看到<code>\fi</code>并在它构建宏<code>\bold</code>的参数之前移除之。</p>
 </div>
 </div>
-<div id="outline-container-org97b46e0" class="outline-3">
-<h3 id="org97b46e0"><span class="section-number-3">7.2.</span>
+<div id="outline-container-org3d3d593" class="outline-3">
+<h3 id="org3d3d593"><span class="section-number-3">7.2.</span>
 <code>\edef</code>内部的定义</h3>
 <div class="outline-text-3" id="text-7-2">
 <p>有一个以执行代替展开的TeX命令值得特别指出：元命令\def（以及所有其他的⟨def⟩命令）不会被展开。所以以下写法：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\edef\next</span>{<span style=
-"color: #696969;">\def\thing</span>{text}}
+<pre class="src src-tex">\edef\next{\def\thing{text}}
 </pre></div>
 <p>
 会给出一个宏<code>\thing</code>未定义的错误，即使一般情况下<code>\def</code>后的展开被抑制。而若使用这种写法：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\edef\next</span>{<span style=
-"color: #696969;">\def\noexpand\thing</span>{text}}
+<pre class="src src-tex">\edef\next{\def\noexpand\thing{text}}
 </pre></div>
 <p><code>\next</code>的意义会是：</p>
 <div class="org-src-container">
-<pre class="src src-tex">macro: <span style=
-"color: #696969;">\def</span> <span style=
-"color: #696969;">\thing</span> {text}
+<pre class="src src-tex">macro: \def \thing {text}
 </pre></div>
 <p>以下定义：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\edef\next</span>{<span style=
-"color: #696969;">\def\noexpand\thing</span>{text}<span style=
-"color: #696969;">\thing</span>}
+<pre class=
+"src src-tex">\edef\next{\def\noexpand\thing{text}\thing}
 </pre></div>
 <p>
 又会给出宏<code>\thing</code>未定义的错误（但这次是由于它的第二次出现），因为<code>\thing</code>只有在<code>\next</code>被实际调用时才会被定义（在定义<code>\next</code>宏时是不会定义<code>\thing</code>的）。</p>
 </div>
 </div>
-<div id="outline-container-orgdde67ef" class="outline-3">
-<h3 id="orgdde67ef"><span class="section-number-3">7.3.</span>
+<div id="outline-container-orge1a56f5" class="outline-3">
+<h3 id="orge1a56f5"><span class="section-number-3">7.3.</span>
 展开与<code>\write</code></h3>
 <div class="outline-text-3" id="text-7-3">
 <p>
@@ -806,130 +666,92 @@ parameter⟩可以使用<code>\the</code>为前缀，展开结果是它们的内
 <p>
 在使用<code>\write</code>输出控制序列时，需要注意某些情况。其更复杂的原因来自于<code>\write</code>参量的展开仅在它被输出的时候发生。一个有启发性的例子：假设有一个宏<code>\somecs</code>，同时你希望将以下序列：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\def\othercs</span>{<span style=
-"color: #696969;">\somecs</span> 的展开}
+<pre class="src src-tex">\def\othercs{\somecs 的展开}
 </pre></div>
 <p>写入到文件中。</p>
 <p>首先想到的方法是：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\write\myfile</span>{<span style=
-"color: #696969;">\def\othercs</span>{<span style=
-"color: #696969;">\somecs</span>}}
+<pre class="src src-tex">\write\myfile{\def\othercs{\somecs}}
 </pre></div>
 <p>
 然而，这会提示<code>\othercs</code>未定义之错误，因为<code>\write</code>会尝试展开其。好事是<code>\somecs</code>也被展开，所以该部分目的算是被达到了。</p>
 <p>随后的实现是：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\write\myfile</span>{<span style=
-"color: #696969;">\def\noexpand\othercs</span>{<span style=
-"color: #696969;">\somecs</span>}}
+<pre class=
+"src src-tex">\write\myfile{\def\noexpand\othercs{\somecs}}
 </pre></div>
 <p>它几乎就对了，但不完全对。我们写出的定义是：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\def\othercs</span>{<span style=
-"color: #696969;">\somecs</span> 的展开}
+<pre class="src src-tex">\def\othercs{\somecs 的展开}
 </pre></div>
 <p>它看起来无可挑剔。</p>
 <p>
 但是，写入——当然也包括写入参量的展开——并非即时进行的，它是在（它出现的）该部分页面输出时才进行的。所以，那时<code>\somecs</code>的值可能会发生变化。这也就意味着写入到文件中的值不一定是<code>\write</code>命令被给出时的值。所以，必须以某种方式使用当前的展开结果作为<code>\write</code>的参量。</p>
 <p>于是我们尝试：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\edef\act</span>{<span style=
-"color: #696969;">\write\myfile</span>{<span style=
-"color: #696969;">\def\noexpand\othercs</span>{<span style=
-"color: #696969;">\somecs</span>}}}
-<span style="color: #696969;">\act</span>
+<pre class=
+"src src-tex">\edef\act{\write\myfile{\def\noexpand\othercs{\somecs}}}
+\act
 </pre></div>
 <p>这时写入的命令会是：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\write\myfile</span>{<span style=
-"color: #696969;">\def\othercs</span>{<span style=
-"color: #696969;">\somecs</span>}} 的值
+<pre class="src src-tex">\write\myfile{\def\othercs{\somecs}} 的值
 </pre></div>
 <p>
 命令<code>\noexpand</code>抑制了<code>\edef</code>对<code>\othercs</code>的展开，但在对<code>\act</code>定义后它就消失了，这就导致在写入时还将出现未定义控制序列的错误。于是我们最终的解决方案是如下的：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\edef\act</span>{<span style=
-"color: #696969;">\write\myfile</span>
-          {<span style="color: #696969;">\def</span> <span style=
-"color: #696969;">\noexpand\noexpand</span> <span style=
-"color: #696969;">\noexpand\othercs</span>{<span style=
-"color: #696969;">\somecs</span>}}}
-<span style="color: #696969;">\act</span>
+<pre class="src src-tex">\edef\act{\write\myfile
+          {\def \noexpand\noexpand \noexpand\othercs{\somecs}}}
+\act
 </pre></div>
 <p>此时<code>\act</code>开始的写入命令实际上是：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\write\myfile</span>{<span style=
-"color: #696969;">\def\noexpand\othercs</span>{<span style=
-"color: #696969;">\somecs</span> 的当前值}
+<pre class=
+"src src-tex">\write\myfile{\def\noexpand\othercs{\somecs 的当前值}
 </pre></div>
 <p>而实际写入的序列是:</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\def\othercs</span>{<span style=
-"color: #696969;">\somecs</span> 的当前值}
+<pre class="src src-tex">\def\othercs{\somecs 的当前值}
 </pre></div>
 <p>以上描述的机制即为一些宏集对宏进行交叉索引的底层原理。</p>
 </div>
 </div>
-<div id="outline-container-orgd3aee3b" class="outline-3">
-<h3 id="orgd3aee3b"><span class="section-number-3">7.4.</span>
+<div id="outline-container-orga244727" class="outline-3">
+<h3 id="orga244727"><span class="section-number-3">7.4.</span>
 在<code>\edef</code>中受控制的展开</h3>
 <div class="outline-text-3" id="text-7-4">
 <p>
 有时你需要使用<code>\edef</code>去取得当前的状态，你也许还会希望能仅将宏替换文本展开到某个特定的程度。假设已有：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\def\a</span>{<span style=
-"color: #696969;">\b</span>} <span style=
-"color: #696969;">\def\b</span>{c} <span style=
-"color: #696969;">\def\d</span>{<span style=
-"color: #696969;">\e</span>} <span style=
-"color: #696969;">\def\e</span>{f}
+<pre class="src src-tex">\def\a{\b} \def\b{c} \def\d{\e} \def\e{f}
 </pre></div>
 <p>
 而你希望定义使<code>\a</code>只展开一步、而使<code>\d</code>完全展开的宏<code>\g</code>。随后的代码可以实现之：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\edef\g</span>{<span style=
-"color: #696969;">\expandafter\noexpand\a</span> <span style=
-"color: #696969;">\d</span>}
+<pre class="src src-tex">\edef\g{\expandafter\noexpand\a \d}
 </pre></div>
 <p>
 因为<code>\expandafter</code>越过其后的<code>\noexpand</code>将<code>\a</code>展开了一步、于是便留下了<code>\noexpand\b</code>序列。</p>
 <p>
 在你需要在<code>\edef</code>中使用<code>\csname</code>构建一个控制序列时，这个技巧非常有用。如在<code>\edef</code>中，以下序列：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\expandafter\noexpand\csname</span> name<span style="color: #696969;">\endcsname</span>
+<pre class=
+"src src-tex">\expandafter\noexpand\csname name\endcsname
 </pre></div>
 <p>会恰好展开为<code>\name</code>，不多也不少。再举一个例子：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\def\condition</span>{true}
+<pre class="src src-tex">\def\condition{true}
 </pre></div>
 <p>首先有以上的定义，而后的：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\edef\setmycondition</span>{<span style=
-"color: #696969;">\expandafter\noexpand</span>
-                     <span style=
-"color: #696969;">\csname</span> mytest<span style=
-"color: #696969;">\condition\endcsname</span>}
+<pre class="src src-tex">\edef\setmycondition{\expandafter\noexpand
+                     \csname mytest\condition\endcsname}
 </pre></div>
 <p>就会将<code>\setmycondition</code>展开为<code>\mytesttrue</code>。</p>
 </div>
 </div>
-<div id="outline-container-orgde5ad6e" class="outline-3">
-<h3 id="orgde5ad6e"><span class="section-number-3">7.5.</span>
+<div id="outline-container-orge176f8d" class="outline-3">
+<h3 id="orge176f8d"><span class="section-number-3">7.5.</span>
 对展开的多重抑制</h3>
 <div class="outline-text-3" id="text-7-5">
 <p>
@@ -937,139 +759,102 @@ parameter⟩可以使用<code>\the</code>为前缀，展开结果是它们的内
 <p>
 下面是一个可以在此时被使用的技巧：在需要被扩展保护的命令前使用<code>\protect</code>。在不需要扩展的阶段，<code>\protect</code>的定义如下：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\def\protect</span>{<span style=
-"color: #696969;">\noexpand\protect\noexpand</span>}
+<pre class="src src-tex">\def\protect{\noexpand\protect\noexpand}
 </pre></div>
 <p>当随后这个命令需要被使用（展开）时，<code>\protect</code>是这样定义的：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\def\protect</span>{}
+<pre class="src src-tex">\def\protect{}
 </pre></div>
 <p>这为什么可以达到所需效果呢？以下：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\protect\somecs</span>
+<pre class="src src-tex">\protect\somecs
 </pre></div>
 <p>一开始的展开结果是：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\noexpand\protect\noexpand\somecs</span>
+<pre class="src src-tex">\noexpand\protect\noexpand\somecs
 </pre></div>
 <p>在<code>\edef</code>中该段序列则会更彻底地被展开，即为：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\protect\somecs</span>
+<pre class="src src-tex">\protect\somecs
 </pre></div>
 <p>所以，展开的结果等同于原序列。</p>
 </div>
 </div>
-<div id="outline-container-org58e39e7" class="outline-3">
-<h3 id="org58e39e7"><span class="section-number-3">7.6.</span>
+<div id="outline-container-org3a920cd" class="outline-3">
+<h3 id="org3a920cd"><span class="section-number-3">7.6.</span>
 <code>\relax</code>的更多示例</h3>
 <div class="outline-text-3" id="text-7-6">
 <p>
 在第一个例子中，<code>\relax</code>被用来阻止TeX读入多余的记号。以下就是一些使用其来界定数字的示例。</p>
 <p>以下赋值及定义：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\countdef\pageno</span>=0 <span style=
-"color: #696969;">\pageno</span>=1
-<span style="color: #696969;">\def\Par</span>{<span style=
-"color: #a020f0;">\par</span><span style=
-"color: #696969;">\penalty</span>200}
+<pre class="src src-tex">\countdef\pageno=0 \pageno=1
+\def\Par{\par\penalty200}
 </pre></div>
 <p>后，用以下的方式使用时：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\Par\number\pageno</span>
+<pre class="src src-tex">\Par\number\pageno
 </pre></div>
 <p>会让TeX错认为是：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #a020f0;">\par</span><span style=
-"color: #696969;">\penalty</span>2001
+<pre class="src src-tex">\par\penalty2001
 </pre></div>
 <p>此时简单地修改定义即可：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\def\Par</span>{<span style=
-"color: #a020f0;">\par</span><span style=
-"color: #696969;">\penalty</span>200 }
+<pre class="src src-tex">\def\Par{\par\penalty200 }
 </pre></div>
 <p>（因为⟨optional space⟩被允许在数字后出现）。</p>
 <p>但并非所有情况下都有简单的处理方法。如下的序列中：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\def\ifequal</span>#1#2{<span style=
-"color: #696969;">\ifnum</span>#1=#2 1<span style=
-"color: #696969;">\else</span> 0<span style=
-"color: #696969;">\fi</span>}
+<pre class="src src-tex">\def\ifequal#1#2{\ifnum#1=#2 1\else 0\fi}
 </pre></div>
 <p>
 此处的问题在于<code>#2</code>后的空格是必要的、多余的、亦或就是错的类似<code>\ifequal{27}{28}</code>的比较两个数字（的大小）的调用会给出正确的1或0。此时空格对于防止TeX误解是必要的。</p>
 <p>
 但是，<code>\ifequal\somecounter\othercounter</code>的调用则会在两个计数器相等时给出给出1。这时该空格则是多余的。能兼顾两种情况的解决方法是：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\def\ifequal</span>#1#2{<span style=
-"color: #696969;">\ifnum</span>#1=#2<span style=
-"color: #696969;">\relax</span> 1<span style=
-"color: #696969;">\else</span> 0<span style=
-"color: #696969;">\fi</span>}
+<pre class=
+"src src-tex">\def\ifequal#1#2{\ifnum#1=#2\relax 1\else 0\fi}
 </pre></div>
 <p>由于<code>\relax</code>不会被展开，所以注意：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\edef\foo</span>{1<span style=
-"color: #696969;">\ifequal\counta\countb</span>}
+<pre class="src src-tex">\edef\foo{1\ifequal\counta\countb}
 </pre></div>
 <p>
 会将宏<code>\foo</code>定义为<code>1\relax1</code>或<code>10</code>。</p>
 </div>
 </div>
-<div id="outline-container-org8531f3f" class="outline-3">
-<h3 id="org8531f3f"><span class="section-number-3">7.7.</span>
+<div id="outline-container-org73169a2" class="outline-3">
+<h3 id="org73169a2"><span class="section-number-3">7.7.</span>
 实例：存储及恢复类别码</h3>
 <div class="outline-text-3" id="text-7-7">
 <p>
 在很多应用情形中，有必要在某段代码执行时改变某个字符的类别码。如果该段代码的作者正好也是该段代码前后代码的作者，那么他只需简单地把它改回去即可。但如果前后代码是另一位作者写的，那么就需要存贮该类别码的值并最后恢复它。</p>
 <p>如果能够这么写：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\storecat@</span>
+<pre class="src src-tex">\storecat@
   ...some code...
-<span style="color: #696969;">\restorecat@</span>
+\restorecat@
 </pre></div>
 <p>来处理字符的类别码改变；以及这样写：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\storecat</span>\%
+<pre class="src src-tex">\storecat\%
 </pre></div>
 <p>来处理注释字符（或忽略、不合法字符）的类别码改变。基本原理是定义：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\def\storecat</span>#1{<span style=
-"color: #b22222;">%</span>
-    <span style=
-"color: #696969;">\expandafter\edef\csname</span> restorecat#1<span style="color: #696969;">\endcsname</span>
-    {<span style="color: #696969;">\catcode</span>`#1=<span style=
-"color: #696969;">\the\catcode</span>`#1}}
+<pre class="src src-tex">\def\storecat#1{%
+    \expandafter\edef\csname restorecat#1\endcsname
+    {\catcode`#1=\the\catcode`#1}}
 </pre></div>
 <p>所以，如<code>\storecat$</code>的语句会如此：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\catcode</span>`$=3
+<pre class="src src-tex">\catcode`$=3
 </pre></div>
 <p>
 定义<code>\restorecat$</code>单一控制序列而宏<code>\restorecat</code>可以被如此实现：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\def\restorecat</span>#1{<span style=
-"color: #b22222;">%</span>
-<span style=
-"color: #696969;">\csname</span> restorecat#1<span style=
-"color: #696969;">\endcsname</span>}
+<pre class="src src-tex">\def\restorecat#1{%
+\csname restorecat#1\endcsname}
 </pre></div>
 <p>很可惜，事情没这么简单。</p>
 <p>问题出在了活动字符身上，因为它们会在<code>\csname ...
@@ -1077,81 +862,44 @@ parameter⟩可以使用<code>\the</code>为前缀，展开结果是它们的内
 <p>
 完整（自然也是正确的）宏在此被给出。宏<code>\storecat</code>默认会让作为其参数的字符的类别码为12。</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\newcount\tempcounta</span> <span style=
-"color: #b22222;">% just a temporary</span>
-<span style="color: #696969;">\def\csarg</span>#1#2{<span style=
-"color: #696969;">\expandafter</span>#1<span style=
-"color: #696969;">\csname</span>#2<span style=
-"color: #696969;">\endcsname</span>}
-<span style="color: #696969;">\def\storecat</span>#1<span style=
-"color: #b22222;">%</span>
-    {<span style=
-"color: #696969;">\tempcounta\escapechar</span> <span style=
-"color: #696969;">\escapechar</span>=-1
-    <span style=
-"color: #696969;">\csarg\edef</span>{restorecat<span style=
-"color: #696969;">\string</span>#1}<span style=
-"color: #b22222;">%</span>
-    {<span style="color: #696969;">\catcode</span>`<span style=
-"color: #696969;">\string</span>#1=
-    <span style=
-"color: #696969;">\the\catcode\expandafter</span>`<span style=
-"color: #696969;">\string</span>#1}<span style=
-"color: #b22222;">%</span>
-    <span style=
-"color: #696969;">\catcode\expandafter</span>`<span style=
-"color: #696969;">\string</span>#1=12<span style=
-"color: #696969;">\relax</span>
-    <span style="color: #696969;">\escapechar\tempcounta</span>}
-<span style="color: #696969;">\def\restorecat</span>#1<span style=
-"color: #b22222;">%</span>
-    {<span style=
-"color: #696969;">\tempcounta\escapechar</span> <span style=
-"color: #696969;">\escapechar</span>=-1
-    <span style=
-"color: #696969;">\csname</span> restorecat<span style=
-"color: #696969;">\string</span>#1<span style=
-"color: #696969;">\endcsname</span>
-    <span style="color: #696969;">\escapechar\tempcounta</span>}
+<pre class="src src-tex">\newcount\tempcounta % just a temporary
+\def\csarg#1#2{\expandafter#1\csname#2\endcsname}
+\def\storecat#1%
+    {\tempcounta\escapechar \escapechar=-1
+    \csarg\edef{restorecat\string#1}%
+    {\catcode`\string#1=
+    \the\catcode\expandafter`\string#1}%
+    \catcode\expandafter`\string#1=12\relax
+    \escapechar\tempcounta}
+\def\restorecat#1%
+    {\tempcounta\escapechar \escapechar=-1
+    \csname restorecat\string#1\endcsname
+    \escapechar\tempcounta}
 </pre></div>
 </div>
 </div>
 </div>
-<div id="outline-container-orgcaa5c13" class="outline-2">
-<h2 id="orgcaa5c13"><span class="section-number-2">8.</span>
+<div id="outline-container-org2af03be" class="outline-2">
+<h2 id="org2af03be"><span class="section-number-2">8.</span>
 示例</h2>
 <div class="outline-text-2" id="text-8"></div>
-<div id="outline-container-org404132d" class="outline-3">
-<h3 id="org404132d"><span class="section-number-3">8.1.</span>
+<div id="outline-container-org8088c59" class="outline-3">
+<h3 id="org8088c59"><span class="section-number-3">8.1.</span>
 <code>\aftergroup</code>与盒子的结合</h3>
 <div class="outline-text-3" id="text-8-1">
 <p>
 有时，我们可能希望在构造完盒子后立即对它做些什么。<code>\aftergroup</code>命令可被用来将用来创建盒子的命令及处理盒子的命令融合到一个宏中。比如，此处有一个名为<code>\textvcenter</code>的宏。其可以用来构造能在数学模式之外使用的<code>\vcenter</code>盒子。</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\def\textvcenter</span>{<span style=
-"color: #696969;">\hbox</span> <span style=
-"color: #696969;">\bgroup</span><span style=
-"color: #8b4513;">$</span><span style=
-"color: #8b4513;">\everyvbox</span><span style=
-"color: #8b4513;">{</span><span style=
-"color: #8b4513;">\everyvbox</span><span style=
-"color: #8b4513;">{}</span><span style="color: #b22222;">%</span>
-<span style="color: #8b4513;">                 </span><span style=
-"color: #8b4513;">\aftergroup</span><span style=
-"color: #8b4513;">$</span><span style=
-"color: #696969;">\aftergroup\egroup</span>}<span style=
-"color: #696969;">\vcenter</span>}
+<pre class=
+"src src-tex">\def\textvcenter{\hbox \bgroup$\everyvbox{\everyvbox{}%
+                 \aftergroup$\aftergroup\egroup}\vcenter}
 </pre></div>
 <p>原理是该宏会插入<code>\hbox
 {$</code>，而与其配对的<code>$}</code>会被使用<code>\aftergroup</code>命令插入。为了使<code>\aftergroup</code>命令出现在盒子中，我们使用了<code>\everyvbox</code>命令。这个宏甚至能与⟨box
 specification⟩一起使用。比如说：</p>
 <div class="org-src-container">
-<pre class="src src-tex"><span style=
-"color: #696969;">\textvcenter</span> spread 8pt{<span style=
-"color: #696969;">\hbox</span>{a}<span style=
-"color: #696969;">\vfil\hbox</span>{b}}
+<pre class=
+"src src-tex">\textvcenter spread 8pt{\hbox{a}\vfil\hbox{b}}
 </pre></div>
 <p>
 同时也因为构造的结果单纯就是一个<code>\hbox</code>，它也能在<code>\setbox</code>复制中使用。</p>
@@ -1173,7 +921,7 @@ after」，故译为「滞后展开」。其意指将目前的记号滞后，先
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: RadioNoiseE</p>
-<p class="date">Created: 2024-11-06 Wed 21:27</p>
+<p class="date">Created: 2024-12-02 Mon 17:00</p>
 <p class="validation"><a href=
 "https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>

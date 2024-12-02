@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
 <meta name="generator" content=
 "HTML Tidy for HTML5 for Apple macOS version 5.8.0">
-<!-- 2024-11-06 Wed 21:27 -->
+<!-- 2024-12-02 Mon 17:00 -->
+<meta charset="utf-8">
 <meta name="viewport" content=
 "width=device-width, initial-scale=1">
 <title>自己写Emacs的ModeLine</title>
@@ -21,33 +21,33 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgb3c51a4">1. 写在前面</a></li>
-<li><a href="#org7a6c5dc">2. 宗旨</a></li>
-<li><a href="#orgbc4542b">3. 值从哪里来</a></li>
-<li><a href="#org00b0784">4. 状态栏中的属性</a></li>
-<li><a href="#orgbc7bb4c">5. 计算空格</a></li>
-<li><a href="#org6861b6a">6. 最后</a></li>
+<li><a href="#org3794bf5">1. 写在前面</a></li>
+<li><a href="#orga595cfa">2. 宗旨</a></li>
+<li><a href="#org3d72031">3. 值从哪里来</a></li>
+<li><a href="#orge396773">4. 状态栏中的属性</a></li>
+<li><a href="#org046e9a8">5. 计算空格</a></li>
+<li><a href="#orgbc526ba">6. 最后</a></li>
 </ul>
 </div>
 </nav>
-<div id="outline-container-orgb3c51a4" class="outline-2">
-<h2 id="orgb3c51a4"><span class="section-number-2">1.</span>
+<div id="outline-container-org3794bf5" class="outline-2">
+<h2 id="org3794bf5"><span class="section-number-2">1.</span>
 写在前面</h2>
 <div class="outline-text-2" id="text-1">
 <p>Emacs的ModeLine<sup><a id="fnr.1" class="footref" href="#fn.1"
 role=
 "doc-backlink">1</a></sup>作为一个常驻的状态栏，一直都是美化中较为重要的一部分。因为我之前一直是用Spacemacs的，它默认的状态栏还是很好看的，所以也没去折腾。昨天<del>因为感觉不舒服，</del>决定不用它、自己写一个<a href="https://github.com/RadioNoiseE/eMaCs">配置</a>，于是就仔细研究了一下这个东西。</p>
 <p>至于为什么不用那些成熟的方案，因为我觉得没必要。</p>
-<figure id="org8d96e07"><img src=
+<figure id="orgbca1141"><img src=
 "../static/image/emacs-modeline-01.png" alt="emacs-modeline-01.png"
-loading="lazy" class="img-center" width="85%">
+width="85%" class="img-center" loading="lazy">
 <figcaption><span class="figure-number">Figure 1:</span>
 最终效果</figcaption>
 </figure>
 </div>
 </div>
-<div id="outline-container-org7a6c5dc" class="outline-2">
-<h2 id="org7a6c5dc"><span class="section-number-2">2.</span>
+<div id="outline-container-orga595cfa" class="outline-2">
+<h2 id="orga595cfa"><span class="section-number-2">2.</span>
 宗旨</h2>
 <div class="outline-text-2" id="text-2">
 <p>
@@ -55,58 +55,48 @@ loading="lazy" class="img-center" width="85%">
 line construct</i>），即一个控制状态栏上内容的模板（列表）。直观一些，可以看如下的Emacs
 27.1的状态栏定义：</p>
 <div class="org-src-container">
-<pre class="src src-elisp">(<span style=
-"color: #a020f0;">setq</span> mode-line-format
-      (list (<span style=
-"color: #8b2252;">"%e"</span> mode-line-front-space mode-line-mule-info mode-line-client mode-line-modified mode-line-remote mode-line-frame-identification mode-line-buffer-identification mode-line-position (vc-mode vc-mode) mode-line-modes mode-line-misc-info mode-line-end-spaces)))
+<pre class="src src-elisp">(setq mode-line-format
+        (list ("%e" mode-line-front-space mode-line-mule-info mode-line-client mode-line-modified mode-line-remote mode-line-frame-identification mode-line-buffer-identification mode-line-position (vc-mode vc-mode) mode-line-modes mode-line-misc-info mode-line-end-spaces)))
 </pre></div>
 <p>简化版的默认值为：</p>
 <div class="org-src-container">
-<pre class="src src-elisp">(<span style=
-"color: #8b2252;">"-"</span>
+<pre class="src src-elisp">("-"
  mode-line-mule-info
  mode-line-modified
  mode-line-frame-identification
  mode-line-buffer-identification
- <span style="color: #8b2252;">"   "</span>
+ "   "
  mode-line-position
  (vc-mode vc-mode)
- <span style="color: #8b2252;">"   "</span>
+ "   "
  mode-line-modes
- (which-function-mode (<span style=
-"color: #8b2252;">""</span> which-func-format <span style=
-"color: #8b2252;">"--"</span>))
- (global-mode-string (<span style=
-"color: #8b2252;">"--"</span> global-mode-string))
- <span style="color: #8b2252;">"-%-"</span>)
+ (which-function-mode ("" which-func-format "--"))
+ (global-mode-string ("--" global-mode-string))
+ "-%-")
 </pre></div>
 <p>而列表中的每一个元素都代表一个状态栏上的模块，它们被如此定义：</p>
 <div class="org-src-container">
-<pre class="src src-elisp">(<span style=
-"color: #a020f0;">setq-default</span>
+<pre class="src src-elisp">(setq-default
  mode-line-buffer-identification
- '(<span style=
-"color: #483d8b;">:eval</span> (propertize <span style=
-"color: #8b2252;">"%12b"</span>
-                     'face (<span style=
-"color: #a020f0;">if</span> (mode-line-window-selected-p)
-                               'bold
-                             'italic))))
+ '(:eval (propertize "%12b"
+                       'face (if (mode-line-window-selected-p)
+                                 'bold
+                               'italic))))
 </pre></div>
 <p>关于状态栏数据结构完整的定义，请参阅<a href=
 "https://www.gnu.org/software/emacs/manual/html_node/elisp/Mode-Line-Data.html">官方文档</a>。</p>
 </div>
 </div>
-<div id="outline-container-orgbc4542b" class="outline-2">
-<h2 id="orgbc4542b"><span class="section-number-2">3.</span>
+<div id="outline-container-org3d72031" class="outline-2">
+<h2 id="org3d72031"><span class="section-number-2">3.</span>
 值从哪里来</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 我们可以使用<code>%</code>构造来作为替代各种类型的数据的字符串，比如使用<code>%f</code>来表示当前访问的文件名。完整的构造表格可以在<a href="https://www.gnu.org/software/emacs/manual/html_node/elisp/_0025_002dConstructs.html">这里</a>查看。</p>
 </div>
 </div>
-<div id="outline-container-org00b0784" class="outline-2">
-<h2 id="org00b0784"><span class="section-number-2">4.</span>
+<div id="outline-container-orge396773" class="outline-2">
+<h2 id="orge396773"><span class="section-number-2">4.</span>
 状态栏中的属性</h2>
 <div class="outline-text-2" id="text-4">
 <p>
@@ -123,28 +113,21 @@ form</code>的列表，同时使<code>form</code>计算为携带文本属性的�
 注意，<code>keymap</code>属性仅对鼠标点击有实际效果；绑定键无效，因为你（正常情况下）不可能将光标移到状态栏中。</p>
 </div>
 </div>
-<div id="outline-container-orgbc7bb4c" class="outline-2">
-<h2 id="orgbc7bb4c"><span class="section-number-2">5.</span>
+<div id="outline-container-org046e9a8" class="outline-2">
+<h2 id="org046e9a8"><span class="section-number-2">5.</span>
 计算空格</h2>
 <div class="outline-text-2" id="text-5">
 <p>当你希望让你的状态栏向两边分散对齐时，你需要使用计算空格（并填充）的方法。如下定义两个函数：</p>
 <div class="org-src-container">
-<pre class="src src-elisp">(<span style=
-"color: #a020f0;">defun</span> <span style=
-"color: #0000ff;">mode-line-fill</span> (reserve)
-  (<span style="color: #a020f0;">when</span>
-      (<span style=
-"color: #a020f0;">and</span> window-system (eq 'right (get-scroll-bar-mode)))
-    (<span style=
-"color: #a020f0;">setq</span> reserve (- reserve 3)))
-  (propertize <span style="color: #8b2252;">" "</span> 'display
-              `((space <span style=
-"color: #483d8b;">:align-to</span> (- (+ right right-fringe right-margin) ,reserve)))))
+<pre class="src src-elisp">(defun mode-line-fill (reserve)
+  (when
+        (and window-system (eq 'right (get-scroll-bar-mode)))
+    (setq reserve (- reserve 3)))
+  (propertize " " 'display
+                `((space :align-to (- (+ right right-fringe right-margin) ,reserve)))))
 
-(<span style="color: #a020f0;">defun</span> <span style=
-"color: #0000ff;">mode-line-flush-right</span> (right-line)
-  (<span style=
-"color: #a020f0;">let</span> ((right-length (length (format-mode-line right-line))))
+(defun mode-line-flush-right (right-line)
+  (let ((right-length (length (format-mode-line right-line))))
     (list (mode-line-fill right-length) right-line)))
 </pre></div>
 <p>其中，第一个函数填充空格直到右侧元素处于窗口的边缘；第二个函数计算右侧元素的宽度，并连接填充空格和右侧元素的列表。</p>
@@ -152,88 +135,56 @@ form</code>的列表，同时使<code>form</code>计算为携带文本属性的�
 注意使用的<code>format-mode-line</code>函数，它可被用来求得将出现在状态栏中的元素（包括<code>%</code>构造）的字符串。</p>
 </div>
 </div>
-<div id="outline-container-org6861b6a" class="outline-2">
-<h2 id="org6861b6a"><span class="section-number-2">6.</span>
+<div id="outline-container-orgbc526ba" class="outline-2">
+<h2 id="orgbc526ba"><span class="section-number-2">6.</span>
 最后</h2>
 <div class="outline-text-2" id="text-6">
 <p>相信看到这里，聪明的你一定能自己写出一个自己喜欢的轻量的状态栏了。最后给出我的配置（不想动脑的改一改就能用了）：</p>
 <div class="org-src-container">
-<pre class="src src-elisp"><span style=
-"color: #b22222;">;; </span><span style=
-"color: #b22222;">modeline</span>
+<pre class="src src-elisp">;; modeline
 
-(<span style="color: #a020f0;">setq</span> mode-line-position
-      (list
-       <span style=
-"color: #8b2252;">"  ("</span> (propertize <span style=
-"color: #8b2252;">"%l"</span> 'face 'font-lock-type-face)
-       <span style=
-"color: #8b2252;">","</span> (propertize <span style=
-"color: #8b2252;">"%c"</span> 'face 'font-lock-type-face) <span style="color: #8b2252;">")   "</span>))
+(setq mode-line-position
+        (list
+         "  (" (propertize "%l" 'face 'font-lock-type-face)
+         "," (propertize "%c" 'face 'font-lock-type-face) ")   "))
 
-(<span style="color: #a020f0;">defun</span> <span style=
-"color: #0000ff;">mode-line-fill</span> (reserve)
-  (<span style="color: #a020f0;">when</span>
-      (<span style=
-"color: #a020f0;">and</span> window-system (eq 'right (get-scroll-bar-mode)))
-    (<span style=
-"color: #a020f0;">setq</span> reserve (- reserve 3)))
-  (propertize <span style="color: #8b2252;">" "</span> 'display
-              `((space <span style=
-"color: #483d8b;">:align-to</span> (- (+ right right-fringe right-margin) ,reserve)))))
+(defun mode-line-fill (reserve)
+  (when
+        (and window-system (eq 'right (get-scroll-bar-mode)))
+    (setq reserve (- reserve 3)))
+  (propertize " " 'display
+                `((space :align-to (- (+ right right-fringe right-margin) ,reserve)))))
 
-(<span style="color: #a020f0;">defun</span> <span style=
-"color: #0000ff;">mode-line-flush-right</span> (right-line)
-  (<span style=
-"color: #a020f0;">let</span> ((right-length (length (format-mode-line right-line))))
+(defun mode-line-flush-right (right-line)
+  (let ((right-length (length (format-mode-line right-line))))
     (list (mode-line-fill right-length) right-line)))
 
-(<span style="color: #a020f0;">defun</span> <span style=
-"color: #0000ff;">truncate-mode-line-construct</span> (construct length)
-  (<span style=
-"color: #a020f0;">let*</span> ((full-string (format-mode-line construct))
-         (truncated-string (truncate-string-to-width full-string length)))
-    (replace-regexp-in-string <span style=
-"color: #8b2252;">"%"</span> <span style=
-"color: #8b2252;">"%%"</span> truncated-string)))
+(defun truncate-mode-line-construct (construct length)
+  (let* ((full-string (format-mode-line construct))
+           (truncated-string (truncate-string-to-width full-string length)))
+    (replace-regexp-in-string "%" "%%" truncated-string)))
 
-(<span style="color: #a020f0;">setq-default</span> mode-line-format
-              (list
-               '(<span style=
-"color: #483d8b;">:eval</span> (propertize <span style=
-"color: #8b2252;">"%e"</span> 'face 'font-lock-type-face))
-               mode-line-front-space
-               '(<span style=
-"color: #483d8b;">:eval</span> (propertize <span style=
-"color: #8b2252;">"%@"</span> 'face 'font-lock-constant-face))
-               '(<span style=
-"color: #483d8b;">:eval</span> (propertize <span style=
-"color: #8b2252;">"%t%Z"</span> 'face 'font-lock-string-face))
-               '(<span style=
-"color: #483d8b;">:eval</span> (propertize <span style=
-"color: #8b2252;">"%*%+"</span> 'face 'font-lock-warning-face))
-               '(<span style=
-"color: #483d8b;">:eval</span> (propertize <span style=
-"color: #8b2252;">"  %F"</span> 'face 'font-lock-keyword-face))
-               '(<span style=
-"color: #483d8b;">:eval</span> (propertize <span style=
-"color: #8b2252;">"  %b"</span> 'face 'font-lock-escape-face))
-               mode-line-position
-               '(<span style=
-"color: #483d8b;">:eval</span> (mode-line-flush-right
-                        (list
-                         mode-line-modes
-                         <span style="color: #8b2252;">" ["</span>
-                         (propertize (truncate-mode-line-construct <span style="color: #8b2252;">"%p"</span> 3) 'face 'font-lock-comment-face)
-                         (propertize <span style=
-"color: #8b2252;">":"</span> 'face 'font-lock-warning-face)
-                         (propertize <span style=
-"color: #8b2252;">"%I"</span> 'face 'font-lock-string-face)
-                         <span style="color: #8b2252;">"] "</span>
-                         mode-line-end-spaces)))))
+(setq-default mode-line-format
+                (list
+                 '(:eval (propertize "%e" 'face 'font-lock-type-face))
+                 mode-line-front-space
+                 '(:eval (propertize "%@" 'face 'font-lock-constant-face))
+                 '(:eval (propertize "%t%Z" 'face 'font-lock-string-face))
+                 '(:eval (propertize "%*%+" 'face 'font-lock-warning-face))
+                 '(:eval (propertize "  %F" 'face 'font-lock-keyword-face))
+                 '(:eval (propertize "  %b" 'face 'font-lock-escape-face))
+                 mode-line-position
+                 '(:eval (mode-line-flush-right
+                          (list
+                           mode-line-modes
+                           " ["
+                           (propertize (truncate-mode-line-construct "%p" 3) 'face 'font-lock-comment-face)
+                           (propertize ":" 'face 'font-lock-warning-face)
+                           (propertize "%I" 'face 'font-lock-string-face)
+                           "] "
+                           mode-line-end-spaces)))))
 
-(<span style="color: #a020f0;">provide</span> '<span style=
-"color: #008b8b;">modeline</span>)
+(provide 'modeline)
 </pre></div>
 </div>
 </div>
@@ -252,7 +203,7 @@ form</code>的列表，同时使<code>form</code>计算为携带文本属性的�
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: RadioNoiseE</p>
-<p class="date">Created: 2024-11-06 Wed 21:27</p>
+<p class="date">Created: 2024-12-02 Mon 17:00</p>
 <p class="validation"><a href=
 "https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
 <meta name="generator" content=
 "HTML Tidy for HTML5 for Apple macOS version 5.8.0">
-<!-- 2024-11-06 Wed 21:27 -->
+<!-- 2024-12-02 Mon 17:00 -->
+<meta charset="utf-8">
 <meta name="viewport" content=
 "width=device-width, initial-scale=1">
 <title>为小窗优化的Emacs配置</title>
@@ -21,28 +21,28 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgf00ebc0">1. 缘起</a></li>
-<li><a href="#org7a0a247">2. 为什么是小窗</a></li>
-<li><a href="#org3cadf0e">3. 改动</a>
+<li><a href="#orgd940b2e">1. 缘起</a></li>
+<li><a href="#org325c89a">2. 为什么是小窗</a></li>
+<li><a href="#orge7a2f8c">3. 改动</a>
 <ul>
-<li><a href="#org6ad4918">3.1. 状态栏</a></li>
-<li><a href="#orgd772dc9">3.2. PDF预览</a></li>
-<li><a href="#orgb583eab">3.3. ELDOC</a></li>
-<li><a href="#org5f63a22">3.4. 行号</a></li>
+<li><a href="#orgdb98a50">3.1. 状态栏</a></li>
+<li><a href="#org15e33d5">3.2. PDF预览</a></li>
+<li><a href="#orga959b82">3.3. ELDOC</a></li>
+<li><a href="#org2f159b0">3.4. 行号</a></li>
 </ul>
 </li>
-<li><a href="#org6acca75">4. 最后</a></li>
+<li><a href="#org5e42ffa">4. 最后</a></li>
 </ul>
 </div>
 </nav>
-<figure id="orgfa5319f"><img src="../static/image/emacs-mac-01.png"
-alt="emacs-mac-01.png" loading="lazy" class="img-center" width=
-"85%">
+<figure id="orgb84fe6e"><img src="../static/image/emacs-mac-01.png"
+alt="emacs-mac-01.png" width="85%" class="img-center" loading=
+"lazy">
 <figcaption><span class="figure-number">Figure 1:</span>
 启动介面</figcaption>
 </figure>
-<div id="outline-container-orgf00ebc0" class="outline-2">
-<h2 id="orgf00ebc0"><span class="section-number-2">1.</span>
+<div id="outline-container-orgd940b2e" class="outline-2">
+<h2 id="orgd940b2e"><span class="section-number-2">1.</span>
 缘起</h2>
 <div class="outline-text-2" id="text-1">
 <p>因为暑假里去考了SAT，又因为愚蠢的BlueBook不支持Linux （准确的说是只支持School Managed
@@ -52,8 +52,8 @@ M3的续航让我十分满意，于是我尝试在学校中使用她。在我将
 <p>于是重新改了一个配置出来，主要是让它更好看，以及更符合我所谓的「小窗哲学」。</p>
 </div>
 </div>
-<div id="outline-container-org7a0a247" class="outline-2">
-<h2 id="org7a0a247"><span class="section-number-2">2.</span>
+<div id="outline-container-org325c89a" class="outline-2">
+<h2 id="org325c89a"><span class="section-number-2">2.</span>
 为什么是小窗</h2>
 <div class="outline-text-2" id="text-2">
 <p>
@@ -62,56 +62,56 @@ M3的续航让我十分满意，于是我尝试在学校中使用她。在我将
 先前之所以使用窗口管理器，原因跟效率无关，而是因为Linux下无论是KDE还是Gnome的窗口都很丑。窗口管理器虽则简陋，但好歹不至于不好看。</p>
 </div>
 </div>
-<div id="outline-container-org3cadf0e" class="outline-2">
-<h2 id="org3cadf0e"><span class="section-number-2">3.</span>
+<div id="outline-container-orge7a2f8c" class="outline-2">
+<h2 id="orge7a2f8c"><span class="section-number-2">3.</span>
 改动</h2>
 <div class="outline-text-2" id="text-3"></div>
-<div id="outline-container-org6ad4918" class="outline-3">
-<h3 id="org6ad4918"><span class="section-number-3">3.1.</span>
+<div id="outline-container-orgdb98a50" class="outline-3">
+<h3 id="orgdb98a50"><span class="section-number-3">3.1.</span>
 状态栏</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 之前我写过一篇文章介绍怎么写一个好看且轻量的Modeline，但是右对齐的是所有的模式。在某些时候，他们会溢出。于是我就只保留了主模式。</p>
 </div>
 </div>
-<div id="outline-container-orgd772dc9" class="outline-3">
-<h3 id="orgd772dc9"><span class="section-number-3">3.2.</span>
+<div id="outline-container-org15e33d5" class="outline-3">
+<h3 id="org15e33d5"><span class="section-number-3">3.2.</span>
 PDF预览</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 我经常写TeX，所以有PDF预览的需求。之前用的是pdf-mode，但是它需要gcc，且Mac上有更好的替代品。（之前我在Gentoo下看PDF都是用gv的。）</p>
-<figure id="org7b3e809"><img src="../static/image/emacs-mac-02.png"
-alt="emacs-mac-02.png" loading="lazy" class="img-center" width=
-"85%">
+<figure id="orgf4983cc"><img src="../static/image/emacs-mac-02.png"
+alt="emacs-mac-02.png" width="85%" class="img-center" loading=
+"lazy">
 <figcaption><span class="figure-number">Figure 2:</span>
 经济IA准备</figcaption>
 </figure>
 </div>
 </div>
-<div id="outline-container-orgb583eab" class="outline-3">
-<h3 id="orgb583eab"><span class="section-number-3">3.3.</span>
+<div id="outline-container-orga959b82" class="outline-3">
+<h3 id="orga959b82"><span class="section-number-3">3.3.</span>
 ELDOC</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 我之前一直使用eldoc-box的at-hover-mode，但是因为窗口小，很容易挡到别的东西，于是现在把它放在右上角。</p>
-<figure id="org5e8d4c2"><img src="../static/image/emacs-mac-03.png"
-alt="emacs-mac-03.png" loading="lazy" class="img-center" width=
-"85%">
+<figure id="org55dbd5d"><img src="../static/image/emacs-mac-03.png"
+alt="emacs-mac-03.png" width="85%" class="img-center" loading=
+"lazy">
 <figcaption><span class="figure-number">Figure 3:</span>
 帮社团开发MD2TeX4PDF</figcaption>
 </figure>
 </div>
 </div>
-<div id="outline-container-org5f63a22" class="outline-3">
-<h3 id="org5f63a22"><span class="section-number-3">3.4.</span>
+<div id="outline-container-org2f159b0" class="outline-3">
+<h3 id="org2f159b0"><span class="section-number-3">3.4.</span>
 行号</h3>
 <div class="outline-text-3" id="text-3-4">
 <p>无关紧要的东西，我一直是放到状态栏里的。</p>
 </div>
 </div>
 </div>
-<div id="outline-container-org6acca75" class="outline-2">
-<h2 id="org6acca75"><span class="section-number-2">4.</span>
+<div id="outline-container-org5e42ffa" class="outline-2">
+<h2 id="org5e42ffa"><span class="section-number-2">4.</span>
 最后</h2>
 <div class="outline-text-2" id="text-4">
 <p>改动的地方不多。主要是我本来也没装多少个包。若需参考，我的配置在<a href=
@@ -124,7 +124,7 @@ alt="emacs-mac-03.png" loading="lazy" class="img-center" width=
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: RadioNoiseE</p>
-<p class="date">Created: 2024-11-06 Wed 21:27</p>
+<p class="date">Created: 2024-12-02 Mon 17:00</p>
 <p class="validation"><a href=
 "https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>

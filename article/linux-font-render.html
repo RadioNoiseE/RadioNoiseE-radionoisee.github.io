@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
 <meta name="generator" content=
 "HTML Tidy for HTML5 for Apple macOS version 5.8.0">
-<!-- 2024-11-06 Wed 21:27 -->
+<!-- 2024-12-02 Mon 17:00 -->
+<meta charset="utf-8">
 <meta name="viewport" content=
 "width=device-width, initial-scale=1">
 <title>Linux下字体渲染的优化</title>
@@ -21,28 +21,28 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgceed370">1. 生存策略</a>
+<li><a href="#org1948987">1. 生存策略</a>
 <ul>
-<li><a href="#orga56e77f">1.1. 当前之怪现状</a></li>
-<li><a href="#org77a7968">1.2. 关于FontConfig</a></li>
+<li><a href="#org8d8cbbc">1.1. 当前之怪现状</a></li>
+<li><a href="#org55dd36d">1.2. 关于FontConfig</a></li>
 </ul>
 </li>
-<li><a href="#org9af8d8d">2. 实践</a>
+<li><a href="#org0b97858">2. 实践</a>
 <ul>
-<li><a href="#orgb9d4441">2.1. 字体族配置</a></li>
-<li><a href="#org5e6438a">2.2. 启用对应预设</a></li>
+<li><a href="#orgdb77313">2.1. 字体族配置</a></li>
+<li><a href="#org8d1a094">2.2. 启用对应预设</a></li>
 </ul>
 </li>
-<li><a href="#orga2d139c">3. 最后</a></li>
+<li><a href="#orgef5c48e">3. 最后</a></li>
 </ul>
 </div>
 </nav>
-<div id="outline-container-orgceed370" class="outline-2">
-<h2 id="orgceed370"><span class="section-number-2">1.</span>
+<div id="outline-container-org1948987" class="outline-2">
+<h2 id="org1948987"><span class="section-number-2">1.</span>
 生存策略</h2>
 <div class="outline-text-2" id="text-1"></div>
-<div id="outline-container-orga56e77f" class="outline-3">
-<h3 id="orga56e77f"><span class="section-number-3">1.1.</span>
+<div id="outline-container-org8d8cbbc" class="outline-3">
+<h3 id="org8d8cbbc"><span class="section-number-3">1.1.</span>
 当前之怪现状</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>现在对于Linux下的字体渲染，感觉有几种（比较主流的）论调：</p>
@@ -58,8 +58,8 @@ class="footref" href="#fn.1" role="doc-backlink">1</a></sup>）；</li>
 2024年了，经过非常少的配置，7px大小的中文矢量字体在我的2K屏幕上轮廓依然锐利；而且是在我完全不使用字体微调的基础上（我极其厌恶扭曲了轮廓的字体）。靠（专利过期后默认开启的）次像素渲染和LCD滤镜善后加上抗锯齿足矣。</p>
 </div>
 </div>
-<div id="outline-container-org77a7968" class="outline-3">
-<h3 id="org77a7968"><span class="section-number-3">1.2.</span>
+<div id="outline-container-org55dd36d" class="outline-3">
+<h3 id="org55dd36d"><span class="section-number-3">1.2.</span>
 关于FontConfig</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
@@ -71,8 +71,9 @@ role="doc-backlink">2</a></sup>；</li>
 <li>渲染相关的事务。</li>
 </ul>
 <p>但实际上，FontConfig是有对应预设的，比如对于我系统上安装的字体，有：</p>
-<pre class="example">
-Available fontconfig .conf files (* is enabled):
+<div class="org-src-container">
+<pre class=
+"src src-nil">Available fontconfig .conf files (* is enabled):
   [1]   05-reset-dirs-sample.conf
   [2]   09-autohint-if-no-hinting.conf
   [3]   10-autohint.conf
@@ -134,141 +135,94 @@ Available fontconfig .conf files (* is enabled):
   [59]  70-yes-bitmaps.conf
   [60]  80-delicious.conf *
   [61]  90-synthetic.conf *
-</pre>
+</pre></div>
 <p>
 你只需要启用你需要的就好了。（<code>eselect</code>是Gentoo的好东西，其他发行版只需要链接<code>conf.avail</code>路径下的预设即可，见下文）。</p>
 <p>所以，实际上你需要写的只有这些：</p>
 <div class="org-src-container">
-<pre class="src src-xml">&lt;?<span style=
-"color: #a020f0;">xml</span> <span style=
-"color: #8b2252;">version="1.0"</span>?&gt;
+<pre class="src src-xml">&lt;?xml version="1.0"?&gt;
 &lt;!DOCTYPE fontconfig SYSTEM "fonts.dtd"&gt;
-&lt;<span style="color: #0000ff;">fontconfig</span>&gt;
-  &lt;<span style="color: #0000ff;">alias</span>&gt;
-    &lt;<span style=
-"color: #0000ff;">family</span>&gt;sans-serif&lt;/<span style=
-"color: #0000ff;">family</span>&gt;
-    &lt;<span style="color: #0000ff;">prefer</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">family</span>&gt;Liberation Sans&lt;/<span style=
-"color: #0000ff;">family</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">family</span>&gt;Noto Sans CJK SC&lt;/<span style="color: #0000ff;">family</span>&gt;
-    &lt;/<span style="color: #0000ff;">prefer</span>&gt;
-    &lt;<span style="color: #0000ff;">default</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">family</span>&gt;Apple Symbol&lt;/<span style=
-"color: #0000ff;">family</span>&gt;
-    &lt;/<span style="color: #0000ff;">default</span>&gt;
-  &lt;/<span style="color: #0000ff;">alias</span>&gt;
-  &lt;<span style="color: #0000ff;">alias</span>&gt;
-    &lt;<span style=
-"color: #0000ff;">family</span>&gt;serif&lt;/<span style=
-"color: #0000ff;">family</span>&gt;
-    &lt;<span style="color: #0000ff;">prefer</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">family</span>&gt;Liberation Serif&lt;/<span style="color: #0000ff;">family</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">family</span>&gt;Noto Serif CJK SC&lt;/<span style="color: #0000ff;">family</span>&gt;
-    &lt;/<span style="color: #0000ff;">prefer</span>&gt;
-    &lt;<span style="color: #0000ff;">default</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">family</span>&gt;Apple Symbol&lt;/<span style=
-"color: #0000ff;">family</span>&gt;
-    &lt;/<span style="color: #0000ff;">default</span>&gt;
-  &lt;/<span style="color: #0000ff;">alias</span>&gt;
-  &lt;<span style="color: #0000ff;">alias</span>&gt;
-    &lt;<span style=
-"color: #0000ff;">family</span>&gt;monospace&lt;/<span style=
-"color: #0000ff;">family</span>&gt;
-    &lt;<span style="color: #0000ff;">prefer</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">family</span>&gt;Iosevka Curly Slab&lt;/<span style="color: #0000ff;">family</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">family</span>&gt;Noto Sans CJK SC&lt;/<span style="color: #0000ff;">family</span>&gt;
-    &lt;/<span style="color: #0000ff;">prefer</span>&gt;
-    &lt;<span style="color: #0000ff;">default</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">family</span>&gt;Apple Symbol&lt;/<span style=
-"color: #0000ff;">family</span>&gt;
-    &lt;/<span style="color: #0000ff;">default</span>&gt;
-  &lt;/<span style="color: #0000ff;">alias</span>&gt;
-&lt;/<span style="color: #0000ff;">fontconfig</span>&gt;
+&lt;fontconfig&gt;
+  &lt;alias&gt;
+    &lt;family&gt;sans-serif&lt;/family&gt;
+    &lt;prefer&gt;
+      &lt;family&gt;Liberation Sans&lt;/family&gt;
+      &lt;family&gt;Noto Sans CJK SC&lt;/family&gt;
+    &lt;/prefer&gt;
+    &lt;default&gt;
+      &lt;family&gt;Apple Symbol&lt;/family&gt;
+    &lt;/default&gt;
+  &lt;/alias&gt;
+  &lt;alias&gt;
+    &lt;family&gt;serif&lt;/family&gt;
+    &lt;prefer&gt;
+      &lt;family&gt;Liberation Serif&lt;/family&gt;
+      &lt;family&gt;Noto Serif CJK SC&lt;/family&gt;
+    &lt;/prefer&gt;
+    &lt;default&gt;
+      &lt;family&gt;Apple Symbol&lt;/family&gt;
+    &lt;/default&gt;
+  &lt;/alias&gt;
+  &lt;alias&gt;
+    &lt;family&gt;monospace&lt;/family&gt;
+    &lt;prefer&gt;
+      &lt;family&gt;Iosevka Curly Slab&lt;/family&gt;
+      &lt;family&gt;Noto Sans CJK SC&lt;/family&gt;
+    &lt;/prefer&gt;
+    &lt;default&gt;
+      &lt;family&gt;Apple Symbol&lt;/family&gt;
+    &lt;/default&gt;
+  &lt;/alias&gt;
+&lt;/fontconfig&gt;
 </pre></div>
 <p>也就是说只需指定三个字体族的偏好字体即可。</p>
 </div>
 </div>
 </div>
-<div id="outline-container-org9af8d8d" class="outline-2">
-<h2 id="org9af8d8d"><span class="section-number-2">2.</span>
+<div id="outline-container-org0b97858" class="outline-2">
+<h2 id="org0b97858"><span class="section-number-2">2.</span>
 实践</h2>
 <div class="outline-text-2" id="text-2"></div>
-<div id="outline-container-orgb9d4441" class="outline-3">
-<h3 id="orgb9d4441"><span class="section-number-3">2.1.</span>
+<div id="outline-container-orgdb77313" class="outline-3">
+<h3 id="orgdb77313"><span class="section-number-3">2.1.</span>
 字体族配置</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>这一步极为简单，只需要创建配置文件<code>/etc/fonts/local.conf</code>并按格式：</p>
 <div class="org-src-container">
-<pre class="src src-xml">&lt;?<span style=
-"color: #a020f0;">xml</span> <span style=
-"color: #8b2252;">version="1.0"</span>?&gt;
+<pre class="src src-xml">&lt;?xml version="1.0"?&gt;
 &lt;!DOCTYPE fontconfig SYSTEM "fonts.dtd"&gt;
-&lt;<span style="color: #0000ff;">fontconfig</span>&gt;
-  &lt;<span style="color: #0000ff;">alias</span>&gt;
-    &lt;<span style=
-"color: #0000ff;">family</span>&gt;sans-serif&lt;/<span style=
-"color: #0000ff;">family</span>&gt;
-    &lt;<span style="color: #0000ff;">prefer</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">family</span>&gt;FSS1&lt;/<span style=
-"color: #0000ff;">family</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">family</span>&gt;FSS2&lt;/<span style=
-"color: #0000ff;">family</span>&gt;
-    &lt;/<span style="color: #0000ff;">prefer</span>&gt;
-    &lt;<span style="color: #0000ff;">default</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">family</span>&gt;FSSB&lt;/<span style=
-"color: #0000ff;">family</span>&gt;
-    &lt;/<span style="color: #0000ff;">default</span>&gt;
-  &lt;/<span style="color: #0000ff;">alias</span>&gt;
-  &lt;<span style="color: #0000ff;">alias</span>&gt;
-    &lt;<span style=
-"color: #0000ff;">family</span>&gt;serif&lt;/<span style=
-"color: #0000ff;">family</span>&gt;
-    &lt;<span style="color: #0000ff;">prefer</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">family</span>&gt;FSF1&lt;/<span style=
-"color: #0000ff;">family</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">family</span>&gt;FSF2&lt;/<span style=
-"color: #0000ff;">family</span>&gt;
-    &lt;/<span style="color: #0000ff;">prefer</span>&gt;
-    &lt;<span style="color: #0000ff;">default</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">family</span>&gt;FSFB&lt;/<span style=
-"color: #0000ff;">family</span>&gt;
-    &lt;/<span style="color: #0000ff;">default</span>&gt;
-  &lt;/<span style="color: #0000ff;">alias</span>&gt;
-  &lt;<span style="color: #0000ff;">alias</span>&gt;
-    &lt;<span style=
-"color: #0000ff;">family</span>&gt;monospace&lt;/<span style=
-"color: #0000ff;">family</span>&gt;
-    &lt;<span style="color: #0000ff;">prefer</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">family</span>&gt;FMS1&lt;/<span style=
-"color: #0000ff;">family</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">family</span>&gt;FMS2&lt;/<span style=
-"color: #0000ff;">family</span>&gt;
-    &lt;/<span style="color: #0000ff;">prefer</span>&gt;
-    &lt;<span style="color: #0000ff;">default</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">family</span>&gt;FMSB&lt;/<span style=
-"color: #0000ff;">family</span>&gt;
-    &lt;/<span style="color: #0000ff;">default</span>&gt;
-  &lt;/<span style="color: #0000ff;">alias</span>&gt;
-&lt;/<span style="color: #0000ff;">fontconfig</span>&gt;
+&lt;fontconfig&gt;
+  &lt;alias&gt;
+    &lt;family&gt;sans-serif&lt;/family&gt;
+    &lt;prefer&gt;
+      &lt;family&gt;FSS1&lt;/family&gt;
+      &lt;family&gt;FSS2&lt;/family&gt;
+    &lt;/prefer&gt;
+    &lt;default&gt;
+      &lt;family&gt;FSSB&lt;/family&gt;
+    &lt;/default&gt;
+  &lt;/alias&gt;
+  &lt;alias&gt;
+    &lt;family&gt;serif&lt;/family&gt;
+    &lt;prefer&gt;
+      &lt;family&gt;FSF1&lt;/family&gt;
+      &lt;family&gt;FSF2&lt;/family&gt;
+    &lt;/prefer&gt;
+    &lt;default&gt;
+      &lt;family&gt;FSFB&lt;/family&gt;
+    &lt;/default&gt;
+  &lt;/alias&gt;
+  &lt;alias&gt;
+    &lt;family&gt;monospace&lt;/family&gt;
+    &lt;prefer&gt;
+      &lt;family&gt;FMS1&lt;/family&gt;
+      &lt;family&gt;FMS2&lt;/family&gt;
+    &lt;/prefer&gt;
+    &lt;default&gt;
+      &lt;family&gt;FMSB&lt;/family&gt;
+    &lt;/default&gt;
+  &lt;/alias&gt;
+&lt;/fontconfig&gt;
 </pre></div>
 <p>
 写入你喜欢的字体即可，不需要什么<code>binding="strong"</code>。注意<code>prefer</code>里按喜好程度填，<code>default</code>里填回滚字体，不需要管什么「中文环境下引号全宽所以中文字体是写在西文字体前面还是后面」这种问题。</p>
@@ -276,15 +230,15 @@ Available fontconfig .conf files (* is enabled):
 顺便，该<code>local.conf</code>文件生效需要启用预设<code>51-local.conf</code>，见下。</p>
 </div>
 </div>
-<div id="outline-container-org5e6438a" class="outline-3">
-<h3 id="org5e6438a"><span class="section-number-3">2.2.</span>
+<div id="outline-container-org8d1a094" class="outline-3">
+<h3 id="org8d1a094"><span class="section-number-3">2.2.</span>
 启用对应预设</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>请确保主要字体（比如我使用的思源系列）是用包管理器安装的，否则可能会缺少对应的预设文件需要你想办法解决。</p>
 <p>在Gentoo上可以使用<code>eselect</code>，其他发行版只需要使用：</p>
 <div class="org-src-container">
 <pre class=
-"src src-shell">ln -s /usr/share/fontconfig/conf.avail/0-example-config.conf $<span style="color: #a0522d;">XDG_CONFIG_HOME</span>/fontconfig/conf.d
+"src src-shell">ln -s /usr/share/fontconfig/conf.avail/0-example-config.conf $XDG_CONFIG_HOME/fontconfig/conf.d
 </pre></div>
 <p>预设主要分两类，渲染相关的和语言环境下字体选择相关的：</p>
 <ul class="org-ul">
@@ -292,8 +246,8 @@ Available fontconfig .conf files (* is enabled):
 <p>
 渲染相关的有字体微调、抗锯齿（默认启用）和次像素渲染（其字节码解释器是默认打开的）。其中字体微调风格视你的喜好选择<code>hintnone</code>、<code>hintslight</code>、<code>hintmedium</code>还是<code>hintfull</code>。次像素渲染则根据你的显示屏选择像素排布是RGB、BGR、V-RGB还是V-BGR，可以参考<a href="http://www.lagom.nl/lcd-test/subpixel.php">Subpixel
 layout - Lagom LCD test</a>网站；滤镜也是根据你的喜好选择。预设文件有这些：</p>
-<pre class="example">
-[2]   09-autohint-if-no-hinting.conf
+<div class="org-src-container">
+<pre class="src src-nil">[2]   09-autohint-if-no-hinting.conf
 [3]   10-autohint.conf
 [4]   10-hinting-full.conf
 [5]   10-hinting-medium.conf
@@ -313,348 +267,168 @@ layout - Lagom LCD test</a>网站；滤镜也是根据你的喜好选择。预�
 [19]  11-lcdfilter-light.conf
 [20]  20-unhint-small-vera.conf *
 [21]  25-unhint-nonlatin.conf
-</pre></li>
+</pre></div>
+</li>
 <li>
 <p>语言环境下的预设文件有：</p>
-<pre class="example">
-[23]  35-lang-normalize.conf *
+<div class="org-src-container">
+<pre class="src src-nil">[23]  35-lang-normalize.conf *
 [24]  40-nonlatin.conf *
 [25]  45-generic.conf *
 [26]  45-latin.conf *
 [27]  48-spacing.conf *
 [28]  49-sansserif.conf *
 [50]  65-nonlatin.conf *
-</pre></li>
+</pre></div>
+</li>
 <li>
 <p>随字体如NotoCJK、Iosevka等分发的预设文件比如：</p>
-<pre class="example">
-[51]  66-iosevka.conf
+<div class="org-src-container">
+<pre class="src src-nil">[51]  66-iosevka.conf
 [52]  66-iosevka-curly.conf
 [53]  66-iosevka-curly-slab.conf *
 [54]  66-iosevka-slab.conf
 [57]  70-noto-cjk.conf *
-</pre>
+</pre></div>
 <p>
 其中<code>noto-cjk.conf</code>提供了根据<code>lang-normalize.conf</code>决定使用何种字体的特性：</p>
 <div class="org-src-container">
-<pre class="src src-xml">&lt;?<span style=
-"color: #a020f0;">xml</span> <span style=
-"color: #8b2252;">version="1.0"</span>?&gt;
+<pre class="src src-xml">&lt;?xml version="1.0"?&gt;
 &lt;!DOCTYPE fontconfig SYSTEM "fonts.dtd"&gt;
-&lt;<span style="color: #0000ff;">fontconfig</span>&gt;
-  &lt;<span style="color: #0000ff;">match</span> <span style=
-"color: #a0522d;">target</span>=<span style=
-"color: #8b2252;">"pattern"</span>&gt;
-    &lt;<span style="color: #0000ff;">test</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"lang"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;ja&lt;/<span style=
-"color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">test</span>&gt;
-    &lt;<span style="color: #0000ff;">test</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"family"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;serif&lt;/<span style=
-"color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">test</span>&gt;
-    &lt;<span style="color: #0000ff;">edit</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"family"</span> <span style=
-"color: #a0522d;">mode</span>=<span style=
-"color: #8b2252;">"prepend"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;Noto Serif CJK JP&lt;/<span style="color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">edit</span>&gt;
-  &lt;/<span style="color: #0000ff;">match</span>&gt;
-  &lt;<span style="color: #0000ff;">match</span> <span style=
-"color: #a0522d;">target</span>=<span style=
-"color: #8b2252;">"pattern"</span>&gt;
-    &lt;<span style="color: #0000ff;">test</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"lang"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;ko&lt;/<span style=
-"color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">test</span>&gt;
-    &lt;<span style="color: #0000ff;">test</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"family"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;serif&lt;/<span style=
-"color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">test</span>&gt;
-    &lt;<span style="color: #0000ff;">edit</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"family"</span> <span style=
-"color: #a0522d;">mode</span>=<span style=
-"color: #8b2252;">"prepend"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;Noto Serif CJK KR&lt;/<span style="color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">edit</span>&gt;
-  &lt;/<span style="color: #0000ff;">match</span>&gt;
-  &lt;<span style="color: #0000ff;">match</span> <span style=
-"color: #a0522d;">target</span>=<span style=
-"color: #8b2252;">"pattern"</span>&gt;
-    &lt;<span style="color: #0000ff;">test</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"lang"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;zh-cn&lt;/<span style=
-"color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">test</span>&gt;
-    &lt;<span style="color: #0000ff;">test</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"family"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;serif&lt;/<span style=
-"color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">test</span>&gt;
-    &lt;<span style="color: #0000ff;">edit</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"family"</span> <span style=
-"color: #a0522d;">mode</span>=<span style=
-"color: #8b2252;">"prepend"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;Noto Serif CJK SC&lt;/<span style="color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">edit</span>&gt;
-  &lt;/<span style="color: #0000ff;">match</span>&gt;
-  &lt;<span style="color: #0000ff;">match</span> <span style=
-"color: #a0522d;">target</span>=<span style=
-"color: #8b2252;">"pattern"</span>&gt;
-    &lt;<span style="color: #0000ff;">test</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"lang"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;zh-tw&lt;/<span style=
-"color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">test</span>&gt;
-    &lt;<span style="color: #0000ff;">test</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"family"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;serif&lt;/<span style=
-"color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">test</span>&gt;
-    &lt;<span style="color: #0000ff;">edit</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"family"</span> <span style=
-"color: #a0522d;">mode</span>=<span style=
-"color: #8b2252;">"prepend"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;Noto Serif CJK TC&lt;/<span style="color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">edit</span>&gt;
-  &lt;/<span style="color: #0000ff;">match</span>&gt;
-  &lt;<span style="color: #0000ff;">match</span> <span style=
-"color: #a0522d;">target</span>=<span style=
-"color: #8b2252;">"pattern"</span>&gt;
-    &lt;<span style="color: #0000ff;">test</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"lang"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;ja&lt;/<span style=
-"color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">test</span>&gt;
-    &lt;<span style="color: #0000ff;">test</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"family"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;sans-serif&lt;/<span style=
-"color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">test</span>&gt;
-    &lt;<span style="color: #0000ff;">edit</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"family"</span> <span style=
-"color: #a0522d;">mode</span>=<span style=
-"color: #8b2252;">"prepend"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;Noto Sans CJK JP&lt;/<span style="color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">edit</span>&gt;
-  &lt;/<span style="color: #0000ff;">match</span>&gt;
-  &lt;<span style="color: #0000ff;">match</span> <span style=
-"color: #a0522d;">target</span>=<span style=
-"color: #8b2252;">"pattern"</span>&gt;
-    &lt;<span style="color: #0000ff;">test</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"lang"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;ko&lt;/<span style=
-"color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">test</span>&gt;
-    &lt;<span style="color: #0000ff;">test</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"family"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;sans-serif&lt;/<span style=
-"color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">test</span>&gt;
-    &lt;<span style="color: #0000ff;">edit</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"family"</span> <span style=
-"color: #a0522d;">mode</span>=<span style=
-"color: #8b2252;">"prepend"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;Noto Sans CJK KR&lt;/<span style="color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">edit</span>&gt;
-  &lt;/<span style="color: #0000ff;">match</span>&gt;
-  &lt;<span style="color: #0000ff;">match</span> <span style=
-"color: #a0522d;">target</span>=<span style=
-"color: #8b2252;">"pattern"</span>&gt;
-    &lt;<span style="color: #0000ff;">test</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"lang"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;zh-cn&lt;/<span style=
-"color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">test</span>&gt;
-    &lt;<span style="color: #0000ff;">test</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"family"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;sans-serif&lt;/<span style=
-"color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">test</span>&gt;
-    &lt;<span style="color: #0000ff;">edit</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"family"</span> <span style=
-"color: #a0522d;">mode</span>=<span style=
-"color: #8b2252;">"prepend"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;Noto Sans CJK SC&lt;/<span style="color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">edit</span>&gt;
-  &lt;/<span style="color: #0000ff;">match</span>&gt;
-  &lt;<span style="color: #0000ff;">match</span> <span style=
-"color: #a0522d;">target</span>=<span style=
-"color: #8b2252;">"pattern"</span>&gt;
-    &lt;<span style="color: #0000ff;">test</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"lang"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;zh-tw&lt;/<span style=
-"color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">test</span>&gt;
-    &lt;<span style="color: #0000ff;">test</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"family"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;sans-serif&lt;/<span style=
-"color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">test</span>&gt;
-    &lt;<span style="color: #0000ff;">edit</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"family"</span> <span style=
-"color: #a0522d;">mode</span>=<span style=
-"color: #8b2252;">"prepend"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;Noto Sans CJK TC&lt;/<span style="color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">edit</span>&gt;
-  &lt;/<span style="color: #0000ff;">match</span>&gt;
-  &lt;<span style="color: #0000ff;">match</span> <span style=
-"color: #a0522d;">target</span>=<span style=
-"color: #8b2252;">"pattern"</span>&gt;
-    &lt;<span style="color: #0000ff;">test</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"lang"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;ja&lt;/<span style=
-"color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">test</span>&gt;
-    &lt;<span style="color: #0000ff;">test</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"family"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;monospace&lt;/<span style=
-"color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">test</span>&gt;
-    &lt;<span style="color: #0000ff;">edit</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"family"</span> <span style=
-"color: #a0522d;">mode</span>=<span style=
-"color: #8b2252;">"prepend"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;Noto Sans Mono CJK JP&lt;/<span style="color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">edit</span>&gt;
-  &lt;/<span style="color: #0000ff;">match</span>&gt;
-  &lt;<span style="color: #0000ff;">match</span> <span style=
-"color: #a0522d;">target</span>=<span style=
-"color: #8b2252;">"pattern"</span>&gt;
-    &lt;<span style="color: #0000ff;">test</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"lang"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;ko&lt;/<span style=
-"color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">test</span>&gt;
-    &lt;<span style="color: #0000ff;">test</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"family"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;monospace&lt;/<span style=
-"color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">test</span>&gt;
-    &lt;<span style="color: #0000ff;">edit</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"family"</span> <span style=
-"color: #a0522d;">mode</span>=<span style=
-"color: #8b2252;">"prepend"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;Noto Sans Mono CJK KR&lt;/<span style="color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">edit</span>&gt;
-  &lt;/<span style="color: #0000ff;">match</span>&gt;
-  &lt;<span style="color: #0000ff;">match</span> <span style=
-"color: #a0522d;">target</span>=<span style=
-"color: #8b2252;">"pattern"</span>&gt;
-    &lt;<span style="color: #0000ff;">test</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"lang"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;zh-cn&lt;/<span style=
-"color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">test</span>&gt;
-    &lt;<span style="color: #0000ff;">test</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"family"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;monospace&lt;/<span style=
-"color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">test</span>&gt;
-    &lt;<span style="color: #0000ff;">edit</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"family"</span> <span style=
-"color: #a0522d;">mode</span>=<span style=
-"color: #8b2252;">"prepend"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;Noto Sans Mono CJK SC&lt;/<span style="color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">edit</span>&gt;
-  &lt;/<span style="color: #0000ff;">match</span>&gt;
-  &lt;<span style="color: #0000ff;">match</span> <span style=
-"color: #a0522d;">target</span>=<span style=
-"color: #8b2252;">"pattern"</span>&gt;
-    &lt;<span style="color: #0000ff;">test</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"lang"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;zh-tw&lt;/<span style=
-"color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">test</span>&gt;
-    &lt;<span style="color: #0000ff;">test</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"family"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;monospace&lt;/<span style=
-"color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">test</span>&gt;
-    &lt;<span style="color: #0000ff;">edit</span> <span style=
-"color: #a0522d;">name</span>=<span style=
-"color: #8b2252;">"family"</span> <span style=
-"color: #a0522d;">mode</span>=<span style=
-"color: #8b2252;">"prepend"</span>&gt;
-      &lt;<span style=
-"color: #0000ff;">string</span>&gt;Noto Sans Mono CJK TC&lt;/<span style="color: #0000ff;">string</span>&gt;
-    &lt;/<span style="color: #0000ff;">edit</span>&gt;
-  &lt;/<span style="color: #0000ff;">match</span>&gt;
-&lt;/<span style="color: #0000ff;">fontconfig</span>&gt;
+&lt;fontconfig&gt;
+  &lt;match target="pattern"&gt;
+    &lt;test name="lang"&gt;
+      &lt;string&gt;ja&lt;/string&gt;
+    &lt;/test&gt;
+    &lt;test name="family"&gt;
+      &lt;string&gt;serif&lt;/string&gt;
+    &lt;/test&gt;
+    &lt;edit name="family" mode="prepend"&gt;
+      &lt;string&gt;Noto Serif CJK JP&lt;/string&gt;
+    &lt;/edit&gt;
+  &lt;/match&gt;
+  &lt;match target="pattern"&gt;
+    &lt;test name="lang"&gt;
+      &lt;string&gt;ko&lt;/string&gt;
+    &lt;/test&gt;
+    &lt;test name="family"&gt;
+      &lt;string&gt;serif&lt;/string&gt;
+    &lt;/test&gt;
+    &lt;edit name="family" mode="prepend"&gt;
+      &lt;string&gt;Noto Serif CJK KR&lt;/string&gt;
+    &lt;/edit&gt;
+  &lt;/match&gt;
+  &lt;match target="pattern"&gt;
+    &lt;test name="lang"&gt;
+      &lt;string&gt;zh-cn&lt;/string&gt;
+    &lt;/test&gt;
+    &lt;test name="family"&gt;
+      &lt;string&gt;serif&lt;/string&gt;
+    &lt;/test&gt;
+    &lt;edit name="family" mode="prepend"&gt;
+      &lt;string&gt;Noto Serif CJK SC&lt;/string&gt;
+    &lt;/edit&gt;
+  &lt;/match&gt;
+  &lt;match target="pattern"&gt;
+    &lt;test name="lang"&gt;
+      &lt;string&gt;zh-tw&lt;/string&gt;
+    &lt;/test&gt;
+    &lt;test name="family"&gt;
+      &lt;string&gt;serif&lt;/string&gt;
+    &lt;/test&gt;
+    &lt;edit name="family" mode="prepend"&gt;
+      &lt;string&gt;Noto Serif CJK TC&lt;/string&gt;
+    &lt;/edit&gt;
+  &lt;/match&gt;
+  &lt;match target="pattern"&gt;
+    &lt;test name="lang"&gt;
+      &lt;string&gt;ja&lt;/string&gt;
+    &lt;/test&gt;
+    &lt;test name="family"&gt;
+      &lt;string&gt;sans-serif&lt;/string&gt;
+    &lt;/test&gt;
+    &lt;edit name="family" mode="prepend"&gt;
+      &lt;string&gt;Noto Sans CJK JP&lt;/string&gt;
+    &lt;/edit&gt;
+  &lt;/match&gt;
+  &lt;match target="pattern"&gt;
+    &lt;test name="lang"&gt;
+      &lt;string&gt;ko&lt;/string&gt;
+    &lt;/test&gt;
+    &lt;test name="family"&gt;
+      &lt;string&gt;sans-serif&lt;/string&gt;
+    &lt;/test&gt;
+    &lt;edit name="family" mode="prepend"&gt;
+      &lt;string&gt;Noto Sans CJK KR&lt;/string&gt;
+    &lt;/edit&gt;
+  &lt;/match&gt;
+  &lt;match target="pattern"&gt;
+    &lt;test name="lang"&gt;
+      &lt;string&gt;zh-cn&lt;/string&gt;
+    &lt;/test&gt;
+    &lt;test name="family"&gt;
+      &lt;string&gt;sans-serif&lt;/string&gt;
+    &lt;/test&gt;
+    &lt;edit name="family" mode="prepend"&gt;
+      &lt;string&gt;Noto Sans CJK SC&lt;/string&gt;
+    &lt;/edit&gt;
+  &lt;/match&gt;
+  &lt;match target="pattern"&gt;
+    &lt;test name="lang"&gt;
+      &lt;string&gt;zh-tw&lt;/string&gt;
+    &lt;/test&gt;
+    &lt;test name="family"&gt;
+      &lt;string&gt;sans-serif&lt;/string&gt;
+    &lt;/test&gt;
+    &lt;edit name="family" mode="prepend"&gt;
+      &lt;string&gt;Noto Sans CJK TC&lt;/string&gt;
+    &lt;/edit&gt;
+  &lt;/match&gt;
+  &lt;match target="pattern"&gt;
+    &lt;test name="lang"&gt;
+      &lt;string&gt;ja&lt;/string&gt;
+    &lt;/test&gt;
+    &lt;test name="family"&gt;
+      &lt;string&gt;monospace&lt;/string&gt;
+    &lt;/test&gt;
+    &lt;edit name="family" mode="prepend"&gt;
+      &lt;string&gt;Noto Sans Mono CJK JP&lt;/string&gt;
+    &lt;/edit&gt;
+  &lt;/match&gt;
+  &lt;match target="pattern"&gt;
+    &lt;test name="lang"&gt;
+      &lt;string&gt;ko&lt;/string&gt;
+    &lt;/test&gt;
+    &lt;test name="family"&gt;
+      &lt;string&gt;monospace&lt;/string&gt;
+    &lt;/test&gt;
+    &lt;edit name="family" mode="prepend"&gt;
+      &lt;string&gt;Noto Sans Mono CJK KR&lt;/string&gt;
+    &lt;/edit&gt;
+  &lt;/match&gt;
+  &lt;match target="pattern"&gt;
+    &lt;test name="lang"&gt;
+      &lt;string&gt;zh-cn&lt;/string&gt;
+    &lt;/test&gt;
+    &lt;test name="family"&gt;
+      &lt;string&gt;monospace&lt;/string&gt;
+    &lt;/test&gt;
+    &lt;edit name="family" mode="prepend"&gt;
+      &lt;string&gt;Noto Sans Mono CJK SC&lt;/string&gt;
+    &lt;/edit&gt;
+  &lt;/match&gt;
+  &lt;match target="pattern"&gt;
+    &lt;test name="lang"&gt;
+      &lt;string&gt;zh-tw&lt;/string&gt;
+    &lt;/test&gt;
+    &lt;test name="family"&gt;
+      &lt;string&gt;monospace&lt;/string&gt;
+    &lt;/test&gt;
+    &lt;edit name="family" mode="prepend"&gt;
+      &lt;string&gt;Noto Sans Mono CJK TC&lt;/string&gt;
+    &lt;/edit&gt;
+  &lt;/match&gt;
+&lt;/fontconfig&gt;
 </pre></div>
 </li>
 </ul>
@@ -663,8 +437,8 @@ layout - Lagom LCD test</a>网站；滤镜也是根据你的喜好选择。预�
 </div>
 </div>
 </div>
-<div id="outline-container-orga2d139c" class="outline-2">
-<h2 id="orga2d139c"><span class="section-number-2">3.</span>
+<div id="outline-container-orgef5c48e" class="outline-2">
+<h2 id="orgef5c48e"><span class="section-number-2">3.</span>
 最后</h2>
 <div class="outline-text-2" id="text-3">
 <p>
@@ -691,7 +465,7 @@ layout - Lagom LCD test</a>网站；滤镜也是根据你的喜好选择。预�
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: RadioNoiseE</p>
-<p class="date">Created: 2024-11-06 Wed 21:27</p>
+<p class="date">Created: 2024-12-02 Mon 17:00</p>
 <p class="validation"><a href=
 "https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
