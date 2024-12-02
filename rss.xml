@@ -7,10 +7,18 @@
     <title>Archive RNE</title>
     <copyright>Copyright (c) 2024, RnE</copyright>
     <language>en-us</language>
-    <pubDate>Sat, 09 Nov 2024 22:46:03 +0800</pubDate>
-    <lastBuildDate>Sat, 09 Nov 2024 14:46:03 +0000</lastBuildDate>
+    <pubDate>Mon, 02 Dec 2024 17:34:55 +0800</pubDate>
+    <lastBuildDate>Mon, 02 Dec 2024 09:34:55 +0000</lastBuildDate>
     <item>
-      <title>Article: </title>
+      <title>Article: Efficient assembled ML/I macro processor on Apple Silicon</title>
+      <link>https://radionoisee.github.io/article/ml1-silicon.html</link>
+      <description><![CDATA[<p>About installing the macro processor ML/I from LOWL-map.</p><p>This time in English.</p>]]></description>
+      <category>mac</category>
+      <pubdate>Mon, 02 Dec 2024 17:34:55 +0800</pubdate>
+      <guid isPermaLink="false">tag:archrne,2024:article</guid>
+    </item>
+    <item>
+      <title>Article: Gentoo clean boot with EFI stub</title>
       <link>https://radionoisee.github.io/article/gentoo-efi.html</link>
       <description><![CDATA[<p>About Linux boot.</p><p>This time in English.</p>]]></description>
       <category>linux</category>

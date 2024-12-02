@@ -1,0 +1,43 @@
+#+OPTIONS: html-style:nil
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../style/article.css">
+#+TITLE: Install ML/I on Apple Silicon from LOWL Source
+
+* Background
+
+ML/I is a general macro processor, which is good at processing any kind of text. There is an Intel Mac implementation available on the official website, and I guess the C-map process will also work on my Silicon machine, but it's not as efficient as an LOWL-map could be.
+
+Fortunately there is an [[https://github.com/glguida/ml1-llvm][LOWL-to-LLVM]] map available, so that we can installed an assembled one rather than the compiled one.
+
+* LLVM
+
+~ml1-llvm~ requires LLVM to be installed on your system, as it utilizes ~llc~, ~opt~ and ~llvm-as~. To build LLVM and no other subprojects, these will do:
+
+#+BEGIN_SRC sh
+  git clone --depth 1 https://github.com/llvm/llvm-project.git
+  cd llvm-project
+  cmake -S llvm -B build -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
+  cd build
+  sudo make install -j
+#+END_SRC
+
+Make sure that you have cmake correctly installed. You can also build a standalone version of the LLVM.
+
+* ML/I
+
+Fetch the LOWL sources and extract ~ml1ajb.lwl~:
+
+#+BEGIN_SRC sh
+  curl -O "http://www.ml1.org.uk/tgz/lowlml1.tar.gz"
+  unar lowlml1.tar.gz
+#+END_SRC
+
+Then clone ~ml1-llvm~ and make the executable:
+
+#+BEGIN_SRC sh
+  git clone git@github.com:glguida/ml1-llvm.git
+  cd ml1-llvm
+  make ML1SRC=../lowlml1/ml1ajb.lwl
+  sudo install -s -m 755 ml1 /usr/local/bin/ml1
+#+END_SRC
+
+Enjoy.

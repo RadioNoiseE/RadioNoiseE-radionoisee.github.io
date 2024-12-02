@@ -5,6 +5,10 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://radionoisee.github.io/article/ml1-silicon.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://radionoisee.github.io/article/gentoo-efi.html</loc>
     <priority>0.8</priority>
   </url>

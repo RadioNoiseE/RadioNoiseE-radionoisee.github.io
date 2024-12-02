@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2024-12-02 Mon 17:33 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Install ML/I on Apple Silicon from LOWL Source</title>
+<meta name="author" content="RadioNoiseE" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" type="text/css" href="../style/article.css">
+</head>
+<body>
+<div id="content" class="content">
+<header>
+<h1 class="title">Install ML/I on Apple Silicon from LOWL Source</h1>
+</header><nav id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org4fcdfa3">1. Background</a></li>
+<li><a href="#orgefc565f">2. LLVM</a></li>
+<li><a href="#orgb1ea7f4">3. ML/I</a></li>
+</ul>
+</div>
+</nav>
+<div id="outline-container-org4fcdfa3" class="outline-2">
+<h2 id="org4fcdfa3"><span class="section-number-2">1.</span> Background</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+ML/I is a general macro processor, which is good at processing any kind of text. There is an Intel Mac implementation available on the official website, and I guess the C-map process will also work on my Silicon machine, but it's not as efficient as an LOWL-map could be.
+</p>
+
+<p>
+Fortunately there is an <a href="https://github.com/glguida/ml1-llvm">LOWL-to-LLVM</a> map available, so that we can installed an assembled one rather than the compiled one.
+</p>
+</div>
+</div>
+<div id="outline-container-orgefc565f" class="outline-2">
+<h2 id="orgefc565f"><span class="section-number-2">2.</span> LLVM</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+<code>ml1-llvm</code> requires LLVM to be installed on your system, as it utilizes <code>llc</code>, <code>opt</code> and <code>llvm-as</code>. To build LLVM and no other subprojects, these will do:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">git clone --depth 1 https://github.com/llvm/llvm-project.git
+cd llvm-project
+cmake -S llvm -B build -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
+cd build
+sudo make install -j
+</pre>
+</div>
+
+<p>
+Make sure that you have cmake correctly installed. You can also build a standalone version of the LLVM.
+</p>
+</div>
+</div>
+<div id="outline-container-orgb1ea7f4" class="outline-2">
+<h2 id="orgb1ea7f4"><span class="section-number-2">3.</span> ML/I</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Fetch the LOWL sources and extract <code>ml1ajb.lwl</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">curl -O "http://www.ml1.org.uk/tgz/lowlml1.tar.gz"
+unar lowlml1.tar.gz
+</pre>
+</div>
+
+<p>
+Then clone <code>ml1-llvm</code> and make the executable:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">git clone git@github.com:glguida/ml1-llvm.git
+cd ml1-llvm
+make ML1SRC=../lowlml1/ml1ajb.lwl
+sudo install -s -m 755 ml1 /usr/local/bin/ml1
+</pre>
+</div>
+
+<p>
+Enjoy.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: RadioNoiseE</p>
+<p class="date">Created: 2024-12-02 Mon 17:33</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
