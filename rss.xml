@@ -14,40 +14,40 @@
       <link>https://radionoisee.github.io/article/ml1-silicon.html</link>
       <description><![CDATA[<p>About installing the macro processor ML/I from LOWL-map.</p><p>This time in English.</p>]]></description>
       <category>mac</category>
-      <pubdate>Mon, 02 Dec 2024 17:34:55 +0800</pubdate>
-      <guid isPermaLink="false">tag:archrne,2024:article</guid>
+      <pubDate>Mon, 02 Dec 2024 17:34:55 +0800</pubDate>
+      <guid isPermaLink="false">tag:archrne,2024:article#4</guid>
     </item>
     <item>
       <title>Article: Gentoo clean boot with EFI stub</title>
       <link>https://radionoisee.github.io/article/gentoo-efi.html</link>
       <description><![CDATA[<p>About Linux boot.</p><p>This time in English.</p>]]></description>
       <category>linux</category>
-      <pubdate>Sat, 09 Nov 2024 22:46:03 +0800</pubdate>
-      <guid isPermaLink="false">tag:archrne,2024:article</guid>
+      <pubDate>Sat, 09 Nov 2024 22:46:03 +0800</pubDate>
+      <guid isPermaLink="false">tag:archrne,2024:article#3</guid>
     </item>
     <item>
       <title>Note: Type theory and formal proof</title>
       <link>https://radionoisee.github.io/article/ttafp-note.html</link>
       <description><![CDATA[<p>About untyped lambda calculus.</p><p>Expect future update.</p>]]></description>
       <category>type theory</category>
-      <pubdate>Fri, 18 Oct 2024 10:02:23 +0800</pubdate>
-      <guid isPermaLink="false">tag:archrne,2024:note</guid>
+      <pubDate>Fri, 18 Oct 2024 10:02:23 +0800</pubDate>
+      <guid isPermaLink="false">tag:archrne,2024:note#1</guid>
     </item>
     <item>
       <title>Article: Package management current status on Mach</title>
       <link>https://radionoisee.github.io/article/mac-infer.html</link>
       <description><![CDATA[<p>Just some little modifications.</p><p>Nothing new.</p>]]></description>
       <category>mac</category>
-      <pubdate>Fri, 11 Oct 2024 12:18:27 +0800</pubdate>
-      <guid isPermaLink="false">tag:archrne,2024:article</guid>
+      <pubDate>Fri, 11 Oct 2024 12:18:27 +0800</pubDate>
+      <guid isPermaLink="false">tag:archrne,2024:article#2</guid>
     </item>
     <item>
       <title>Article: Emacs configured for Mach's small window</title>
       <link>https://radionoisee.github.io/article/emacs-mac.html</link>
       <description><![CDATA[<p>Just some little modifications.</p><p>Nothing new.</p>]]></description>
       <category>emacs</category>
-      <pubdate>Fri, 27 Sep 2024 21:04:39 +0800</pubdate>
-      <guid isPermaLink="false">tag:archrne,2024:article</guid>
+      <pubDate>Fri, 27 Sep 2024 21:04:39 +0800</pubDate>
+      <guid isPermaLink="false">tag:archrne,2024:article#1</guid>
     </item>
     <item>
       <title>Maint: JS generated entry made obsolete</title>
@@ -55,7 +55,7 @@
       <description><![CDATA[<p>For flexibility, entries are now hand written.</p><p>The old entry is moved to <code>./old.html</code>.</p>]]></description>
       <category>misc</category>
       <pubDate>Tue, 03 Sep 2024 16:48:06 +0800</pubDate>
-      <guid isPermaLink="false">tag:archrne,2024:maintain</guid>
+      <guid isPermaLink="false">tag:archrne,2024:maintain#1</guid>
     </item>
   </channel>
 </rss>
