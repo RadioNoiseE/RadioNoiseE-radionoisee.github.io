@@ -27,7 +27,7 @@
     </item>
     <item>
       <title>Note: Type theory and formal proof</title>
-      <link>https://radionoisee.github.io/article/ttapf-note.html</link>
+      <link>https://radionoisee.github.io/article/ttafp-note.html</link>
       <description><![CDATA[<p>About untyped lambda calculus.</p><p>Expect future update.</p>]]></description>
       <category>type theory</category>
       <pubdate>Fri, 18 Oct 2024 10:02:23 +0800</pubdate>
@@ -51,7 +51,7 @@
     </item>
     <item>
       <title>Maint: JS generated entry made obsolete</title>
-      <link>https://radionoisee.github.io/old.html</link>
+      <link>https://radionoisee.github.io/maintain/old.html</link>
       <description><![CDATA[<p>For flexibility, entries are now hand written</p><p>The old entry is moved to <code>./old.html</code></p>]]></description>
       <category>misc</category>
       <pubDate>Tue, 03 Sep 2024 16:48:06 +0800</pubDate>
