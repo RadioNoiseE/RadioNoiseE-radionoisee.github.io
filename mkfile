@@ -17,6 +17,6 @@ $DST/([^/.]+)\.html:RD: $SRC/\\1.org
 publish:V: ${ART:%=$DST/%.html}
 
 %-valid:V: $DST/%.html
- wtidy -quiet -modify $prereq
+ tidy -quiet -modify $prereq
 
 validate:V: ${ART:%=%-valid}
