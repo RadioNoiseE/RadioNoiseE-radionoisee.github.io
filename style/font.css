@@ -101,7 +101,6 @@
 @font-face {
     font-family: LAT-MS;
     src: url("../static/font/IBMPlexMono-Regular.woff2") format("woff2");
-    size-adjust: 91%;
     font-weight: normal;
     font-style: normal;
     font-display: block;
@@ -110,7 +109,6 @@
 @font-face {
     font-family: LAT-MS;
     src: url("../static/font/IBMPlexMono-Italic.woff2") format("woff2");
-    size-adjust: 91%;
     font-weight: normal;
     font-style: italic;
     font-display: block;
@@ -119,7 +117,6 @@
 @font-face {
     font-family: LAT-MS;
     src: url("../static/font/IBMPlexMono-Bold.woff2") format("woff2");
-    size-adjust: 91%;
     font-weight: bold;
     font-style: normal;
     font-display: block;
@@ -128,7 +125,6 @@
 @font-face {
     font-family: LAT-MS;
     src: url("../static/font/IBMPlexMono-BoldItalic.woff2") format("woff2");
-    size-adjust: 91%;
     font-weight: bold;
     font-style: italic;
     font-display: block;

@@ -111,6 +111,7 @@ p.verse {
 
 code {
     font-family: LAT-MS, monospace;
+    font-size: 0.94rem;
 }
 
 pre {
@@ -119,6 +120,7 @@ pre {
     background-color: #f2f2f2;
     padding: 8pt;
     font-family: LAT-MS, monospace;
+    font-size: 0.94rem;
     overflow: auto;
     margin: 1.2em;
 }
@@ -569,7 +571,7 @@ textarea {
 }
 
 .linenr {
-    font-size: smaller
+    font-size: smaller;
 }
 
 .code-highlighted {
@@ -590,7 +592,4 @@ textarea {
     background-color: #ffff00;
     color: #000000;
     font-weight: bold;
-}
-
-.org-svg {
 }

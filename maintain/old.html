@@ -14,27 +14,7 @@
 <h2>Content Directory Listing</h2>
 <ul id="link-container"></ul>
 <script>
-        document.addEventListener('DOMContentLoaded', function() {
-          const container = document.getElementById('link-container');    
-          fetch(`https://api.github.com/repos/RadioNoiseE/radionoisee.github.io/contents/article`)
-           .then(response => {
-              if (!response.ok) { throw new Error(`HTTP error! status: ${response.status}`); }
-              return response.json(); })
-           .then(data => {
-              data.forEach(file => {
-                if (file.name.endsWith('.html')) {
-                  const listItem = document.createElement('li');
-                  const link = document.createElement('a');
-                  link.href = `cnt/${file.name}`;
-                  link.textContent = file.name.replaceAll('-', ' ').replace('.', ' dot ');
-                  link.style.display = 'block';
-                  listItem.appendChild(link);
-                  container.appendChild(listItem); }}); })
-           .catch(error => {
-              console.error('Error fetching the content:', error);
-              const errorText = document.createElement('p');
-              errorText.textContent = 'Failed to load content directory.';
-              container.appendChild(errorText); }); });
+document.addEventListener("DOMContentLoaded",function(){function a(a){return 1024>a?`${a} bytes`:1048576>a?`${(a/1024).toFixed(2)} KB`:`${(a/1048576).toFixed(2)} MB`}const b=document.getElementById("link-container");fetch(`https://api.github.com/repos/RadioNoiseE/radionoisee.github.io/contents/article`).then(a=>{if(!a.ok)throw new Error(`HTTP error! status: ${a.status}`);return a.json()}).then(c=>{c.forEach(c=>{if(c.name.endsWith(".html")){const d=document.createElement("li"),e=document.createElement("a");e.href=`../article/${c.name}`,e.textContent=c.name;const f=document.createElement("span");f.textContent=a(c.size),f.classList.add("file-size"),d.appendChild(e),d.appendChild(f),b.appendChild(d)}})}).catch(a=>{console.error("Error fetching the content:",a);const c=document.createElement("p");c.textContent="Failed to load content directory.",b.appendChild(c)})});
 </script></div>
 </body>
 </html>
