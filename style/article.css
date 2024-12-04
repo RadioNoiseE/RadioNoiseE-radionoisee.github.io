@@ -111,7 +111,7 @@ p.verse {
 
 code {
     font-family: LAT-MS, monospace;
-    font-size: 0.94rem;
+    font-size: 94%;
 }
 
 pre {
@@ -120,7 +120,7 @@ pre {
     background-color: #f2f2f2;
     padding: 8pt;
     font-family: LAT-MS, monospace;
-    font-size: 0.94rem;
+    font-size: 94%;
     overflow: auto;
     margin: 1.2em;
 }
