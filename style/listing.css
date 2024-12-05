@@ -12,7 +12,7 @@ body {
 #content {
     max-width: 600px;
     margin: 70px auto;
-    padding: 20px;
+    padding: 10px;
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -28,7 +28,8 @@ h2 {
 #link-container {
     font-family: CJK-SF, LAT-SF, serif;
     list-style-type: none;
-    margin: 0px 10px 0px -24px;
+    padding: 0px;
+    margin: 10px 20px 10px 20px;
 }
 
 #link-container li {
@@ -56,10 +57,4 @@ a {
 
 a:hover {
     background-color: #e6e6fa;
-}
-
-@media only screen and (min-width: 600px) {
-    .de {
-        display: block;
-    }
 }
