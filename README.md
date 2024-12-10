@@ -4,13 +4,14 @@ Built using Emacs and plan9 Mk, pure JS-free HTML5 pages.
 
 ### Prerequisites
 
-You basically need a Emacs installation with optional *builtin* treesit support and `htmlize` package for verbatim highlight and plan9 Mk. If you want to validate the generated HTMLs, you should also have HTML Tidy installed as `wtidy` (in order to override the obsolete one supplied by Mach-O and protected by SIP).
+You basically need a Emacs 29 or later and plan9 Mk. If you want to validate the generated HTMLs, you should also have HTML Tidy installed as `tidy` ~~(in order to override the obsolete one supplied by Mach-O and protected by SIP)~~.
 
 Custom supplied scripts are `chain/web.el` for web publishing and `mkfile` for automated build.
 
 ### Build
 
 ```sh
+export NPROC=16
 mk publish # generate the updated HTML5 pages
 mk validate # validtae all webpages under article
 mk # do the above stuff
