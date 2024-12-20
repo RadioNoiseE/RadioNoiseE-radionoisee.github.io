@@ -7,8 +7,16 @@
     <title>Archive RNE</title>
     <copyright>Copyright (C) 2024, RnE</copyright>
     <language>en-us</language>
-    <pubDate>Mon, 02 Dec 2024 17:34:55 +0800</pubDate>
-    <lastBuildDate>Mon, 02 Dec 2024 09:34:55 +0000</lastBuildDate>
+    <pubDate>Fri, 20 Dec 2024 12:23:46 +0800</pubDate>
+    <lastBuildDate>Fri, 20 Dec 2024 04:23:46 +0000</lastBuildDate>
+    <item>
+      <title>Article: Tiny TeX distribution</title>
+      <link>https://radionoisee.github.io/article/apltex-dist.html</link>
+      <description><![CDATA[<p>An attempt in minimizing TeX distro.</p><p>This time in English.</p>]]></description>
+      <category>tex</category>
+      <pubDate>Fri, 20 Dec 2024 12:23:46 +0800</pubDate>
+      <guid isPermaLink="false">tag:archrne,2024:article#5</guid>
+    </item>
     <item>
       <title>Article: Efficient assembled ML/I macro processor on Apple Silicon</title>
       <link>https://radionoisee.github.io/article/ml1-silicon.html</link>

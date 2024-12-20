@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
 <meta name="generator" content=
 "HTML Tidy for HTML5 for Apple macOS version 5.8.0">
-<!-- 2024-12-02 Mon 17:00 -->
+<!-- 2024-12-20 Fri 12:18 -->
+<meta charset="utf-8">
 <meta name="viewport" content=
 "width=device-width, initial-scale=1">
 <title>修正Facebook静态分析器Infer于无Homebrew之Mac</title>
@@ -21,15 +21,15 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org27875db">1. 前面</a></li>
-<li><a href="#org8aed631">2. 修正</a></li>
-<li><a href="#org976f227">3. 成果</a></li>
-<li><a href="#org43603f6">4. Mac上包管理器现状</a></li>
+<li><a href="#orgf4158ca">1. 前面</a></li>
+<li><a href="#orgb081a32">2. 修正</a></li>
+<li><a href="#org02b4714">3. 成果</a></li>
+<li><a href="#org241e8e9">4. Mac上包管理器现状</a></li>
 </ul>
 </div>
 </nav>
-<div id="outline-container-org27875db" class="outline-2">
-<h2 id="org27875db"><span class="section-number-2">1.</span>
+<div id="outline-container-orgf4158ca" class="outline-2">
+<h2 id="orgf4158ca"><span class="section-number-2">1.</span>
 前面</h2>
 <div class="outline-text-2" id="text-1">
 <p>
@@ -43,8 +43,8 @@
 <p>于是我们修正它，并且就Homebrew展开讨论。</p>
 </div>
 </div>
-<div id="outline-container-org8aed631" class="outline-2">
-<h2 id="org8aed631"><span class="section-number-2">2.</span>
+<div id="outline-container-orgb081a32" class="outline-2">
+<h2 id="orgb081a32"><span class="section-number-2">2.</span>
 修正</h2>
 <div class="outline-text-2" id="text-2">
 <p>首先使用<code>otool</code>检查：</p>
@@ -68,11 +68,11 @@ bin/infer:
 <p>最终，只要你足够有耐心，你就会得到一个最终能够正常工作的Infer。</p>
 </div>
 </div>
-<div id="outline-container-org976f227" class="outline-2">
-<h2 id="org976f227"><span class="section-number-2">3.</span>
+<div id="outline-container-org02b4714" class="outline-2">
+<h2 id="org02b4714"><span class="section-number-2">3.</span>
 成果</h2>
 <div class="outline-text-2" id="text-3">
-<figure id="org45945f8"><img src="../static/image/mac-infer-01.png"
+<figure id="org4429826"><img src="../static/image/mac-infer-01.png"
 alt="mac-infer-01.png" width="85%" class="img-center" loading=
 "lazy">
 <figcaption><span class="figure-number">Figure 1:</span>
@@ -96,8 +96,8 @@ alt="mac-infer-01.png" width="85%" class="img-center" loading=
 </pre></div>
 </div>
 </div>
-<div id="outline-container-org43603f6" class="outline-2">
-<h2 id="org43603f6"><span class="section-number-2">4.</span>
+<div id="outline-container-org241e8e9" class="outline-2">
+<h2 id="org241e8e9"><span class="section-number-2">4.</span>
 Mac上包管理器现状</h2>
 <div class="outline-text-2" id="text-4">
 <p>
@@ -111,7 +111,7 @@ Mac上包管理器现状</h2>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: RadioNoiseE</p>
-<p class="date">Created: 2024-12-02 Mon 17:00</p>
+<p class="date">Created: 2024-12-20 Fri 12:18</p>
 <p class="validation"><a href=
 "https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>

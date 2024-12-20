@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="generator" content=
+"HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+<!-- 2024-12-20 Fri 12:18 -->
+<meta charset="utf-8">
+<meta name="viewport" content=
+"width=device-width, initial-scale=1">
+<title>Tiny TeX Distribution Based on Web2C and LuaTeX</title>
+<meta name="author" content="RadioNoiseE">
+<meta name="generator" content="Org Mode">
+<link rel="stylesheet" type="text/css" href="../style/article.css">
+</head>
+<body>
+<div id="content" class="content">
+<header>
+<h1 class="title">Tiny TeX Distribution Based on Web2C and
+LuaTeX</h1>
+</header>
+<nav id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgb2dc9ce">1. Why Build A New TeX
+Distribution</a></li>
+<li><a href="#org8659586">2. My Choice</a></li>
+<li><a href="#org9c0ca7a">3. Construction</a>
+<ul>
+<li><a href="#orgccba7c0">3.1. Kpathsea</a></li>
+<li><a href="#org81fd07f">3.2. LuaTeX</a></li>
+<li><a href="#orgf558e0f">3.3. Fonts</a></li>
+<li><a href="#org364780d">3.4. Format</a></li>
+</ul>
+</li>
+<li><a href="#org94bee85">4. Dist Release</a></li>
+<li><a href="#org638995e">5. Installation</a></li>
+</ul>
+</div>
+</nav>
+<div id="outline-container-orgb2dc9ce" class="outline-2">
+<h2 id="orgb2dc9ce"><span class="section-number-2">1.</span> Why
+Build A New TeX Distribution</h2>
+<div class="outline-text-2" id="text-1">
+<p>Finally I decided to build my own TeX distribution<sup><a id=
+"fnr.1" class="footref" href="#fn.1" role=
+"doc-backlink">1</a></sup>, as the current TeXLive (even the
+minimal installlation) is too bloated for me. All I need is a basic
+TeX engine and a compact directory containing the files that TeX
+reads. I use Type1 fonts, but I certainly don't need a tool
+generate font maps for me. <code>ls-R</code> database unnecessary
+unless there are <i>many</i> files under the directory Kpathsea
+searches. Strictly speaking, I also don't need LaTeX2e.</p>
+</div>
+</div>
+<div id="outline-container-org8659586" class="outline-2">
+<h2 id="org8659586"><span class="section-number-2">2.</span> My
+Choice</h2>
+<div class="outline-text-2" id="text-2">
+<p>I chose LuaTeX as the TeX engine. While it doesn't come with
+many fancy features out of the box, its functionality can be
+greatly extended through the embedded Lua scripting language. As
+the successor to Omega/Aleph, LuaTeX greatly enhances vanilla TeX's
+multilingual typesetting capabilities. It also includes a built-in
+graphic library, <code>mplib</code>, which eliminates the need for
+TikZ and such.</p>
+<p>The default format is plainTeX, which I find much easier to
+write compared to LaTeX2e. It doesn't involve many high-level
+abstractions (i.e., NFSS2 for fonts), making it more
+straightforward. It also doesn't uselessly try to separate format
+and content. There are some drawbacks though, such as a less active
+community.</p>
+</div>
+</div>
+<div id="outline-container-org9c0ca7a" class="outline-2">
+<h2 id="org9c0ca7a"><span class="section-number-2">3.</span>
+Construction</h2>
+<div class="outline-text-2" id="text-3"></div>
+<div id="outline-container-orgccba7c0" class="outline-3">
+<h3 id="orgccba7c0"><span class="section-number-3">3.1.</span>
+Kpathsea</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>The main focus here is on optimizing compile-time and runtime
+path configuration. This is also where I modified the TDS. In
+addition to optimizing directory reading, I removed support for
+engines other than LuaTeX and eliminated support for most helper
+scripts.</p>
+</div>
+</div>
+<div id="outline-container-org81fd07f" class="outline-3">
+<h3 id="org81fd07f"><span class="section-number-3">3.2.</span>
+LuaTeX</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>Nothing special here, I just compiled it inside TeXLive's source
+tree (and its banner remains). More specifically, I'm compiling
+LuaHBTeX. I had tried embedding LuaJIT before, but it seems that it
+is incompatible with so many Lua scripts.</p>
+</div>
+</div>
+<div id="outline-container-orgf558e0f" class="outline-3">
+<h3 id="orgf558e0f"><span class="section-number-3">3.3.</span>
+Fonts</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>The basic installation includes only the Type1 and TFM files for
+Computer Modern and all fonts included in AMSFonts. They can be
+used in the good old ways, and are for dumping the format. In
+further versions, the Concrete Math font might be included.</p>
+<p>To use OpenType or TrueType fonts, you will need
+<code>luaotfload</code>, a font loader adapted from ConTeXt for
+plainTeX. This is bundled in <code>dist.tar.gz</code>.</p>
+</div>
+</div>
+<div id="outline-container-org364780d" class="outline-3">
+<h3 id="org364780d"><span class="section-number-3">3.4.</span>
+Format</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>The default format is plainTeX, which has been patched in a way
+to utilize the extensions of eTeX, pdfTeX, and LuaTeX. It is also
+Unicode-aware. Additionally, I've added a <code>\everyjob</code>
+hook so that LuaTeX will read <code>luatex.map</code> (rather than
+the frustrating <code>pdftex.map</code>).</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org94bee85" class="outline-2">
+<h2 id="org94bee85"><span class="section-number-2">4.</span> Dist
+Release</h2>
+<div class="outline-text-2" id="text-4">
+<p>The poor man's version doesn't come with any macro packages –
+only plainTeX. I believe external macro packages are generally
+unnecessary for plainTeX, except in a few rare cases.</p>
+<p>For these rare cases, I've packaged a few macros packages. These
+are mainly for demonstration purposes (showing how the modified TDS
+works), and to handle some complex dependencies (many of which
+aren't even documented). The packaged ones include:</p>
+<ul class="org-ul">
+<li><code>luamplib</code>: Offers a convenient way to use LuaTeX's
+<code>mplib</code> for plotting.</li>
+<li><code>luaotfload</code>: A plainTeX migration of ConTeXt's font
+loader, making it easier to use OTF fonts with their features.</li>
+<li><code>luatexja</code>: High-quality CJK typesetting support.
+Note that the HaranoAji font, which <code>luatexja</code> uses by
+default, is not included. You will need to download it and place it
+in the <code>fonts/opentype</code> directory, or you can override
+this default font choice.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org638995e" class="outline-2">
+<h2 id="org638995e"><span class="section-number-2">5.</span>
+Installation</h2>
+<div class="outline-text-2" id="text-5">
+<p>For installation instructions, please refer to the project's
+<a href="https://github.com/RadioNoiseE/apltex">README</a>.</p>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes:</h2>
+<div id="text-footnotes">
+<div class="footdef"><sup><a id="fn.1" class="footnum" href=
+"#fnr.1" role="doc-backlink">1</a></sup>
+<div class="footpara" role="doc-footnote">
+<p class="footpara">Thanks to LdBeth for advertising.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: RadioNoiseE</p>
+<p class="date">Created: 2024-12-20 Fri 12:18</p>
+<p class="validation"><a href=
+"https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

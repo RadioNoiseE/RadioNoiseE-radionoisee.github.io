@@ -2,6 +2,8 @@
 
 ;; Copyright (C) 2024, RnE
 
+(setq user-full-name "RadioNoiseE")
+
 (setq org-html-doctype "html5"
       org-html-html5-fancy t)
 
