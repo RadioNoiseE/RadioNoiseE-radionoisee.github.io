@@ -4,7 +4,7 @@
 
 * Why Build A New TeX Distribution
 
-Finally I decided to build my own TeX distribution[fn:: Thanks to LdBeth for advertising.], as the current TeXLive (even the minimal installlation) is too bloated for me. All I need is a basic TeX engine and a compact directory containing the files that TeX reads. I use Type1 fonts, but I certainly don't need a tool to generate font maps for me. ~ls-R~ database is unnecessary unless there are /many/ files under the directory Kpathsea searches. Strictly speaking, I also don't need LaTeX2e.
+Finally I decided to build my own TeX distribution[fn:: Thanks to LdBeth for advertising.], as the current TeXLive (even the minimal installation) is too bloated for me. All I need is a basic TeX engine and a compact directory containing the files that TeX reads. I use Type1 fonts, but I certainly don't need a tool to generate font maps for me. ~ls-R~ database is unnecessary unless there are /many/ files under the directory Kpathsea searches. Strictly speaking, I also don't need LaTeX2e.
 
 * My Choice
 
