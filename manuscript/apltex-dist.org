@@ -4,13 +4,13 @@
 
 * Why Build A New TeX Distribution
 
-Finally I decided to build my own TeX distribution[fn:: Thanks to LdBeth for advertising.], as the current TeXLive (even the minimal installlation) is too bloated for me. All I need is a basic TeX engine and a compact directory containing the files that TeX reads. I use Type1 fonts, but I certainly don't need a tool generate font maps for me. ~ls-R~ database unnecessary unless there are /many/ files under the directory Kpathsea searches. Strictly speaking, I also don't need LaTeX2e.
+Finally I decided to build my own TeX distribution[fn:: Thanks to LdBeth for advertising.], as the current TeXLive (even the minimal installlation) is too bloated for me. All I need is a basic TeX engine and a compact directory containing the files that TeX reads. I use Type1 fonts, but I certainly don't need a tool to generate font maps for me. ~ls-R~ database is unnecessary unless there are /many/ files under the directory Kpathsea searches. Strictly speaking, I also don't need LaTeX2e.
 
 * My Choice
 
-I chose LuaTeX as the TeX engine. While it doesn't come with many fancy features out of the box, its functionality can be greatly extended through the embedded Lua scripting language. As the successor to Omega/Aleph, LuaTeX greatly enhances vanilla TeX's multilingual typesetting capabilities. It also includes a built-in graphic library, ~mplib~, which eliminates the need for TikZ and such.
+I chose LuaTeX as the TeX engine. While it doesn't come with many fancy features out of the box, its functionality can be greatly extended using the embedded Lua scripting language. As the successor to Omega/Aleph, LuaTeX greatly enhances vanilla TeX's multilingual typesetting capabilities. It also includes a built-in graphic library, ~mplib~, which eliminates the need for TikZ and such.
 
-The default format is plainTeX, which I find much easier to write compared to LaTeX2e. It doesn't involve many high-level abstractions (i.e., NFSS2 for fonts), making it more straightforward. It also doesn't uselessly try to separate format and content. There are some drawbacks though, such as a less active community.
+The default format is plainTeX, which I find much easier to work with compared to LaTeX2e. It doesn't involve many high-level abstractions (i.e., NFSS2 for fonts), making it more straightforward. It also doesn't uselessly try to separate format and content. There are some drawbacks though, such as a less active community.
 
 * Construction
 
@@ -20,27 +20,27 @@ The main focus here is on optimizing compile-time and runtime path configuration
 
 ** LuaTeX
 
-Nothing special here, I just compiled it inside TeXLive's source tree (and its banner remains). More specifically, I'm compiling LuaHBTeX. I had tried embedding LuaJIT before, but it seems that it is incompatible with so many Lua scripts.
+Nothing special here, I just compiled it inside TeXLive's source tree (and its banner remains). More specifically, I'm compiling LuaHBTeX. I had tried embedding LuaJIT before, but it seems like it is incompatible with so many Lua-based macro packages.
 
 ** Fonts
 
-The basic installation includes only the Type1 and TFM files for Computer Modern and all fonts included in AMSFonts. They can be used in the good old ways, and are for dumping the format. In further versions, the Concrete Math font might be included.
+The basic installation includes only the Type1 and TFM files for Computer Modern and all fonts included in AMSFonts. You can use them with the good old ways. In further versions, the Concrete Math font might be included.
 
 To use OpenType or TrueType fonts, you will need ~luaotfload~, a font loader adapted from ConTeXt for plainTeX. This is bundled in ~dist.tar.gz~.
 
 ** Format
 
-The default format is plainTeX, which has been patched in a way to utilize the extensions of eTeX, pdfTeX, and LuaTeX. It is also Unicode-aware. Additionally, I've added a ~\everyjob~ hook so that LuaTeX will read ~luatex.map~ (rather than the frustrating ~pdftex.map~).
+The default format is plainTeX, which has been patched in a way to utilize the extensions of eTeX, pdfTeX, and LuaTeX. It is also Unicode-aware. Additionally, I've added an ~\everyjob~ hook so that LuaTeX will read ~luatex.map~ (rather than the frustrating ~pdftex.map~).
 
 * Dist Release
 
 The poor man's version doesn't come with any macro packages -- only plainTeX. I believe external macro packages are generally unnecessary for plainTeX, except in a few rare cases.
 
-For these rare cases, I've packaged a few macros packages. These are mainly for demonstration purposes (showing how the modified TDS works), and to handle some complex dependencies (many of which aren't even documented). The packaged ones include:
+For these rare cases, I've packaged a few macros packages. These are mainly for demonstration purposes (showing how the modified TDS works), and to handle some of the complex dependencies (many of which weren't even documented). The packaged ones include:
 
 - ~luamplib~: Offers a convenient way to use LuaTeX's ~mplib~ for plotting.
 - ~luaotfload~: A plainTeX migration of ConTeXt's font loader, making it easier to use OTF fonts with their features.
-- ~luatexja~: High-quality CJK typesetting support. Note that the HaranoAji font, which ~luatexja~ uses by default, is not included. You will need to download it and place it in the ~fonts/opentype~ directory, or you can override this default font choice.
+- ~luatexja~: High-quality CJK typesetting support. Note that the HaranoAji font, which ~luatexja~ uses by default, is not included. You will need to download it manually and place it in the ~fonts/opentype~ directory, or you can override this default font choice.
 
 * Installation
 
