@@ -1,5 +1,6 @@
 #+OPTIONS: html-style:nil
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../style/article.css" />
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../style/article.css">
+#+HTML_HEAD: <script src="../script/register.js"></script>
 #+MACRO: ruby @@html:<ruby>$1<rt>$2</rt></ruby>@@
 #+TITLE: About +Me+ This Site
 
@@ -7,14 +8,16 @@
 
 Ordinary IB student studying at WFLA. Learning Formal Proof, Type Theory and PLT.
 
-I care about tools.
+I care about tools: text editors, typesetting engines, macro assemblers, programming languages, etc.
 
 You can reach me at [[mailto:RadioNoiseE@gmail.com][~RadioNoiseE@gmail.com~]]. I may be slow to respond as my Gmail is not frequently checked.
 
 * About This Site
 
-Build using Emacs with alien technology. Recently migrated from XHTML 1.0 Strict to HTML 5.0. Clean static web pages.
+Built using Emacs with alien technology. Recently migrated from XHTML 1.0 Strict to HTML 5.0. Clean static web pages.
+
+As of December 2024, this site uses service worker to cache all web fonts, which may cause slower loading times on the first visit. It benefits the further viewing experience though.
 
 This site archives my articles, and (at present) most of them are written in Mandarin Chinese. However, future articles may be written in English. You should be able to distinguish between them without pain from the entry names.
 
-I write about Emacs, TeX, DocBook XSLT, Unix tools, Gentoo Linux, Mach-O, C/C++, OCaML, PL, Formal Proof (Coq), Type Theory and PLT. Despite CS, I may also write about {{{ruby(アニメ,Anime)}}} and Galgames.
+I write about a variety of topics including Emacs, TeX, DocBook XSLT, Unix tools, Gentoo Linux, Mach-O, C/C++, OCaML, PL, Formal Proof (Coq), Type Theory and PLT. Despite CS, I may also write about {{{ruby(アニメ,Anime)}}} and Galgames.
