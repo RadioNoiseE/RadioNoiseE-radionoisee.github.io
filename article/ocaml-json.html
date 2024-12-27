@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
 <meta name="generator" content=
 "HTML Tidy for HTML5 for Apple macOS version 5.8.0">
-<!-- 2024-12-20 Fri 12:18 -->
+<!-- 2024-12-27 Fri 10:33 -->
+<meta charset="utf-8">
 <meta name="viewport" content=
 "width=device-width, initial-scale=1">
 <title>用OCaml写JSON解析器</title>
 <meta name="author" content="RadioNoiseE">
 <meta name="generator" content="Org Mode">
 <link rel="stylesheet" type="text/css" href="../style/article.css">
+<script src="../script/register.js"></script>
 </head>
 <body>
 <div id="content" class="content">
@@ -21,18 +22,18 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org49519c5">1. 写在前面</a></li>
-<li><a href="#org35d6a6b">2. 数据类型</a></li>
-<li><a href="#org8dbbd6c">3. 定义解析器</a></li>
-<li><a href="#orge3de35a">4. 词法分析</a></li>
-<li><a href="#org1ecdbc6">5. 集成</a></li>
-<li><a href="#org3f240f9">6. 使用</a></li>
-<li><a href="#org99757c9">7. 最后</a></li>
+<li><a href="#org7030cb4">1. 写在前面</a></li>
+<li><a href="#org802705a">2. 数据类型</a></li>
+<li><a href="#orgbae5401">3. 定义解析器</a></li>
+<li><a href="#org4839338">4. 词法分析</a></li>
+<li><a href="#org867ed49">5. 集成</a></li>
+<li><a href="#org9b70f0d">6. 使用</a></li>
+<li><a href="#org90a01f5">7. 最后</a></li>
 </ul>
 </div>
 </nav>
-<div id="outline-container-org49519c5" class="outline-2">
-<h2 id="org49519c5"><span class="section-number-2">1.</span>
+<div id="outline-container-org7030cb4" class="outline-2">
+<h2 id="org7030cb4"><span class="section-number-2">1.</span>
 写在前面</h2>
 <div class="outline-text-2" id="text-1">
 <p>本文实际上补完『Real World
@@ -42,8 +43,8 @@ OCaml』一书中的第16章。不同之处在于我们只使用标准库（而�
 <p>你只需要有最基础的OCaml开发环境即可，Opam不是必须的。你最好有OCaml相关语法知识，虽然没有我觉得也能看懂。</p>
 </div>
 </div>
-<div id="outline-container-org35d6a6b" class="outline-2">
-<h2 id="org35d6a6b"><span class="section-number-2">2.</span>
+<div id="outline-container-org802705a" class="outline-2">
+<h2 id="org802705a"><span class="section-number-2">2.</span>
 数据类型</h2>
 <div class="outline-text-2" id="text-2">
 <p>
@@ -63,8 +64,8 @@ OCaml』一书中的第16章。不同之处在于我们只使用标准库（而�
 即，我们分别定义了JSON中的整型数、浮点数、布尔值、字符串、数组（作为由<code>stt</code>中一个类型组成的列表）和对象（作为由一个字符串及其对应的<code>stt</code>中一个类型组成的列表）。</p>
 </div>
 </div>
-<div id="outline-container-org8dbbd6c" class="outline-2">
-<h2 id="org8dbbd6c"><span class="section-number-2">3.</span>
+<div id="outline-container-orgbae5401" class="outline-2">
+<h2 id="orgbae5401"><span class="section-number-2">3.</span>
 定义解析器</h2>
 <div class="outline-text-2" id="text-3">
 <p>
@@ -141,8 +142,8 @@ rev_array_fields:
 </pre></div>
 </div>
 </div>
-<div id="outline-container-orge3de35a" class="outline-2">
-<h2 id="orge3de35a"><span class="section-number-2">4.</span>
+<div id="outline-container-org4839338" class="outline-2">
+<h2 id="org4839338"><span class="section-number-2">4.</span>
 词法分析</h2>
 <div class="outline-text-2" id="text-4">
 <p>
@@ -213,8 +214,8 @@ and read_string buf =
 对于字符串开始处的引号，它会调用随后定义的一个<code>read_string</code>工具（其是被递归定义的）：处理一些被转义的特殊字符，将它们读入缓冲区；读入所有不特殊的字符，并在读到另一个（象征字符串结束的）引号时返回<code>STRING</code>类型的token，而缓冲区内的字符串将会被作为值传回。当读到非法字符，和在字符串未结束即到达文件末尾时会抛出错误。</p>
 </div>
 </div>
-<div id="outline-container-org1ecdbc6" class="outline-2">
-<h2 id="org1ecdbc6"><span class="section-number-2">5.</span>
+<div id="outline-container-org867ed49" class="outline-2">
+<h2 id="org867ed49"><span class="section-number-2">5.</span>
 集成</h2>
 <div class="outline-text-2" id="text-5">
 <p>最后我们可以将上面的词法分析和文法解析集成起来。命名为<code>util.ml</code>。</p>
@@ -285,8 +286,8 @@ let get_child k = function
 <p>上面我们定义了一些帮手函数，用于从解析之后的数据结构中取得我们需要的信息。</p>
 </div>
 </div>
-<div id="outline-container-org3f240f9" class="outline-2">
-<h2 id="org3f240f9"><span class="section-number-2">6.</span>
+<div id="outline-container-org9b70f0d" class="outline-2">
+<h2 id="org9b70f0d"><span class="section-number-2">6.</span>
 使用</h2>
 <div class="outline-text-2" id="text-6">
 <p>我们可以执行：</p>
@@ -331,8 +332,8 @@ ocamlopt json.cmx test.cmx
 <p>完成对JSON的解析。</p>
 </div>
 </div>
-<div id="outline-container-org99757c9" class="outline-2">
-<h2 id="org99757c9"><span class="section-number-2">7.</span>
+<div id="outline-container-org90a01f5" class="outline-2">
+<h2 id="org90a01f5"><span class="section-number-2">7.</span>
 最后</h2>
 <div class="outline-text-2" id="text-7">
 <p>
@@ -343,7 +344,7 @@ ocamlopt json.cmx test.cmx
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: RadioNoiseE</p>
-<p class="date">Created: 2024-12-20 Fri 12:18</p>
+<p class="date">Created: 2024-12-27 Fri 10:33</p>
 <p class="validation"><a href=
 "https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>

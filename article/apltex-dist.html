@@ -3,7 +3,7 @@
 <head>
 <meta name="generator" content=
 "HTML Tidy for HTML5 for Apple macOS version 5.8.0">
-<!-- 2024-12-21 Sat 19:36 -->
+<!-- 2024-12-27 Fri 10:33 -->
 <meta charset="utf-8">
 <meta name="viewport" content=
 "width=device-width, initial-scale=1">
@@ -11,6 +11,7 @@
 <meta name="author" content="RadioNoiseE">
 <meta name="generator" content="Org Mode">
 <link rel="stylesheet" type="text/css" href="../style/article.css">
+<script src="../script/register.js"></script>
 </head>
 <body>
 <div id="content" class="content">
@@ -22,24 +23,24 @@ LuaTeX</h1>
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org682aa3b">1. Why Build A New TeX
+<li><a href="#orged59ab5">1. Why Build A New TeX
 Distribution</a></li>
-<li><a href="#org20c5714">2. My Choice</a></li>
-<li><a href="#orgea7cd70">3. Construction</a>
+<li><a href="#org762fc7b">2. My Choice</a></li>
+<li><a href="#org39bbb02">3. Construction</a>
 <ul>
-<li><a href="#orgf586199">3.1. Kpathsea</a></li>
-<li><a href="#org0616110">3.2. LuaTeX</a></li>
-<li><a href="#orgd9d1bd4">3.3. Fonts</a></li>
-<li><a href="#org62fc5b9">3.4. Format</a></li>
+<li><a href="#orgd8749e9">3.1. Kpathsea</a></li>
+<li><a href="#org6bb9431">3.2. LuaTeX</a></li>
+<li><a href="#org3505b68">3.3. Fonts</a></li>
+<li><a href="#org75988e3">3.4. Format</a></li>
 </ul>
 </li>
-<li><a href="#orgd9c27fe">4. Dist Release</a></li>
-<li><a href="#org02bcb91">5. Installation</a></li>
+<li><a href="#org944ba73">4. Dist Release</a></li>
+<li><a href="#org41df591">5. Installation</a></li>
 </ul>
 </div>
 </nav>
-<div id="outline-container-org682aa3b" class="outline-2">
-<h2 id="org682aa3b"><span class="section-number-2">1.</span> Why
+<div id="outline-container-orged59ab5" class="outline-2">
+<h2 id="orged59ab5"><span class="section-number-2">1.</span> Why
 Build A New TeX Distribution</h2>
 <div class="outline-text-2" id="text-1">
 <p>Finally I decided to build my own TeX distribution<sup><a id=
@@ -54,8 +55,8 @@ Kpathsea searches. Strictly speaking, I also don't need
 LaTeX2e.</p>
 </div>
 </div>
-<div id="outline-container-org20c5714" class="outline-2">
-<h2 id="org20c5714"><span class="section-number-2">2.</span> My
+<div id="outline-container-org762fc7b" class="outline-2">
+<h2 id="org762fc7b"><span class="section-number-2">2.</span> My
 Choice</h2>
 <div class="outline-text-2" id="text-2">
 <p>I chose LuaTeX as the TeX engine. While it doesn't come with
@@ -73,12 +74,12 @@ and content. There are some drawbacks though, such as a less active
 community.</p>
 </div>
 </div>
-<div id="outline-container-orgea7cd70" class="outline-2">
-<h2 id="orgea7cd70"><span class="section-number-2">3.</span>
+<div id="outline-container-org39bbb02" class="outline-2">
+<h2 id="org39bbb02"><span class="section-number-2">3.</span>
 Construction</h2>
 <div class="outline-text-2" id="text-3"></div>
-<div id="outline-container-orgf586199" class="outline-3">
-<h3 id="orgf586199"><span class="section-number-3">3.1.</span>
+<div id="outline-container-orgd8749e9" class="outline-3">
+<h3 id="orgd8749e9"><span class="section-number-3">3.1.</span>
 Kpathsea</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>The main focus here is on optimizing compile-time and runtime
@@ -88,8 +89,8 @@ engines other than LuaTeX and eliminated support for most helper
 scripts.</p>
 </div>
 </div>
-<div id="outline-container-org0616110" class="outline-3">
-<h3 id="org0616110"><span class="section-number-3">3.2.</span>
+<div id="outline-container-org6bb9431" class="outline-3">
+<h3 id="org6bb9431"><span class="section-number-3">3.2.</span>
 LuaTeX</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>Nothing special here, I just compiled it inside TeXLive's source
@@ -98,8 +99,8 @@ LuaHBTeX. I had tried embedding LuaJIT before, but it seems like it
 is incompatible with so many Lua-based macro packages.</p>
 </div>
 </div>
-<div id="outline-container-orgd9d1bd4" class="outline-3">
-<h3 id="orgd9d1bd4"><span class="section-number-3">3.3.</span>
+<div id="outline-container-org3505b68" class="outline-3">
+<h3 id="org3505b68"><span class="section-number-3">3.3.</span>
 Fonts</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>The basic installation includes only the Type1 and TFM files for
@@ -111,8 +112,8 @@ font might be included.</p>
 plainTeX. This is bundled in <code>dist.tar.gz</code>.</p>
 </div>
 </div>
-<div id="outline-container-org62fc5b9" class="outline-3">
-<h3 id="org62fc5b9"><span class="section-number-3">3.4.</span>
+<div id="outline-container-org75988e3" class="outline-3">
+<h3 id="org75988e3"><span class="section-number-3">3.4.</span>
 Format</h3>
 <div class="outline-text-3" id="text-3-4">
 <p>The default format is plainTeX, which has been patched in a way
@@ -123,8 +124,8 @@ the frustrating <code>pdftex.map</code>).</p>
 </div>
 </div>
 </div>
-<div id="outline-container-orgd9c27fe" class="outline-2">
-<h2 id="orgd9c27fe"><span class="section-number-2">4.</span> Dist
+<div id="outline-container-org944ba73" class="outline-2">
+<h2 id="org944ba73"><span class="section-number-2">4.</span> Dist
 Release</h2>
 <div class="outline-text-2" id="text-4">
 <p>The poor man's version doesn't come with any macro packages –
@@ -147,8 +148,8 @@ override this default font choice.</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org02bcb91" class="outline-2">
-<h2 id="org02bcb91"><span class="section-number-2">5.</span>
+<div id="outline-container-org41df591" class="outline-2">
+<h2 id="org41df591"><span class="section-number-2">5.</span>
 Installation</h2>
 <div class="outline-text-2" id="text-5">
 <p>For installation instructions, please refer to the project's
@@ -169,7 +170,7 @@ Installation</h2>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: RadioNoiseE</p>
-<p class="date">Created: 2024-12-21 Sat 19:36</p>
+<p class="date">Created: 2024-12-27 Fri 10:33</p>
 <p class="validation"><a href=
 "https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>

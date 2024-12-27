@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
 <meta name="generator" content=
 "HTML Tidy for HTML5 for Apple macOS version 5.8.0">
-<!-- 2024-12-20 Fri 12:18 -->
+<!-- 2024-12-27 Fri 10:33 -->
+<meta charset="utf-8">
 <meta name="viewport" content=
 "width=device-width, initial-scale=1">
 <title>Linux下字体渲染的优化</title>
 <meta name="author" content="RadioNoiseE">
 <meta name="generator" content="Org Mode">
 <link rel="stylesheet" type="text/css" href="../style/article.css">
+<script src="../script/register.js"></script>
 </head>
 <body>
 <div id="content" class="content">
@@ -21,28 +22,28 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org3310ca8">1. 生存策略</a>
+<li><a href="#orgb83bec3">1. 生存策略</a>
 <ul>
-<li><a href="#orgb011617">1.1. 当前之怪现状</a></li>
-<li><a href="#orge86f1d2">1.2. 关于FontConfig</a></li>
+<li><a href="#org9fe8a2c">1.1. 当前之怪现状</a></li>
+<li><a href="#org042c0a2">1.2. 关于FontConfig</a></li>
 </ul>
 </li>
-<li><a href="#org7a48344">2. 实践</a>
+<li><a href="#org9f9b5e6">2. 实践</a>
 <ul>
-<li><a href="#org1008f2f">2.1. 字体族配置</a></li>
-<li><a href="#orgc91fd76">2.2. 启用对应预设</a></li>
+<li><a href="#org266561e">2.1. 字体族配置</a></li>
+<li><a href="#org5dc372f">2.2. 启用对应预设</a></li>
 </ul>
 </li>
-<li><a href="#org45e5dc4">3. 最后</a></li>
+<li><a href="#org902a97c">3. 最后</a></li>
 </ul>
 </div>
 </nav>
-<div id="outline-container-org3310ca8" class="outline-2">
-<h2 id="org3310ca8"><span class="section-number-2">1.</span>
+<div id="outline-container-orgb83bec3" class="outline-2">
+<h2 id="orgb83bec3"><span class="section-number-2">1.</span>
 生存策略</h2>
 <div class="outline-text-2" id="text-1"></div>
-<div id="outline-container-orgb011617" class="outline-3">
-<h3 id="orgb011617"><span class="section-number-3">1.1.</span>
+<div id="outline-container-org9fe8a2c" class="outline-3">
+<h3 id="org9fe8a2c"><span class="section-number-3">1.1.</span>
 当前之怪现状</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>现在对于Linux下的字体渲染，感觉有几种（比较主流的）论调：</p>
@@ -58,8 +59,8 @@ class="footref" href="#fn.1" role="doc-backlink">1</a></sup>）；</li>
 2024年了，经过非常少的配置，7px大小的中文矢量字体在我的2K屏幕上轮廓依然锐利；而且是在我完全不使用字体微调的基础上（我极其厌恶扭曲了轮廓的字体）。靠（专利过期后默认开启的）次像素渲染和LCD滤镜善后加上抗锯齿足矣。</p>
 </div>
 </div>
-<div id="outline-container-orge86f1d2" class="outline-3">
-<h3 id="orge86f1d2"><span class="section-number-3">1.2.</span>
+<div id="outline-container-org042c0a2" class="outline-3">
+<h3 id="org042c0a2"><span class="section-number-3">1.2.</span>
 关于FontConfig</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
@@ -179,12 +180,12 @@ role="doc-backlink">2</a></sup>；</li>
 </div>
 </div>
 </div>
-<div id="outline-container-org7a48344" class="outline-2">
-<h2 id="org7a48344"><span class="section-number-2">2.</span>
+<div id="outline-container-org9f9b5e6" class="outline-2">
+<h2 id="org9f9b5e6"><span class="section-number-2">2.</span>
 实践</h2>
 <div class="outline-text-2" id="text-2"></div>
-<div id="outline-container-org1008f2f" class="outline-3">
-<h3 id="org1008f2f"><span class="section-number-3">2.1.</span>
+<div id="outline-container-org266561e" class="outline-3">
+<h3 id="org266561e"><span class="section-number-3">2.1.</span>
 字体族配置</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>这一步极为简单，只需要创建配置文件<code>/etc/fonts/local.conf</code>并按格式：</p>
@@ -230,8 +231,8 @@ role="doc-backlink">2</a></sup>；</li>
 顺便，该<code>local.conf</code>文件生效需要启用预设<code>51-local.conf</code>，见下。</p>
 </div>
 </div>
-<div id="outline-container-orgc91fd76" class="outline-3">
-<h3 id="orgc91fd76"><span class="section-number-3">2.2.</span>
+<div id="outline-container-org5dc372f" class="outline-3">
+<h3 id="org5dc372f"><span class="section-number-3">2.2.</span>
 启用对应预设</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>请确保主要字体（比如我使用的思源系列）是用包管理器安装的，否则可能会缺少对应的预设文件需要你想办法解决。</p>
@@ -437,8 +438,8 @@ layout - Lagom LCD test</a>网站；滤镜也是根据你的喜好选择。预�
 </div>
 </div>
 </div>
-<div id="outline-container-org45e5dc4" class="outline-2">
-<h2 id="org45e5dc4"><span class="section-number-2">3.</span>
+<div id="outline-container-org902a97c" class="outline-2">
+<h2 id="org902a97c"><span class="section-number-2">3.</span>
 最后</h2>
 <div class="outline-text-2" id="text-3">
 <p>
@@ -465,7 +466,7 @@ layout - Lagom LCD test</a>网站；滤镜也是根据你的喜好选择。预�
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: RadioNoiseE</p>
-<p class="date">Created: 2024-12-20 Fri 12:18</p>
+<p class="date">Created: 2024-12-27 Fri 10:33</p>
 <p class="validation"><a href=
 "https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>

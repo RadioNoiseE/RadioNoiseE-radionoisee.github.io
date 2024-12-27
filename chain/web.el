@@ -73,3 +73,6 @@
            (concat
             "\\(" fix-regexp "\\) *\n *\\(" fix-regexp "\\)") "\\1\\2" origin-contents)))
     (ad-set-arg 1 fixed-contents)))
+
+(setq-default org-html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"../style/article.css\">\n<script src=\"../script/register.js\"></script>")
+(setq org-html-head-include-default-style nil)

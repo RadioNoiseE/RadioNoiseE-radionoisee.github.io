@@ -1,5 +1,3 @@
-#+OPTIONS: html-style:nil
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../style/article.css">
 #+TITLE: Type Theory and Formal Proof: Notes
 
 * An Introduction

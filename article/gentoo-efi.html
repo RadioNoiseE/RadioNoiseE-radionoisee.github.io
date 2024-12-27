@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
 <meta name="generator" content=
 "HTML Tidy for HTML5 for Apple macOS version 5.8.0">
-<!-- 2024-12-20 Fri 12:18 -->
+<!-- 2024-12-27 Fri 10:33 -->
+<meta charset="utf-8">
 <meta name="viewport" content=
 "width=device-width, initial-scale=1">
 <title>Boot Gentoo Cleanly using EFI Stub</title>
 <meta name="author" content="RadioNoiseE">
 <meta name="generator" content="Org Mode">
 <link rel="stylesheet" type="text/css" href="../style/article.css">
+<script src="../script/register.js"></script>
 </head>
 <body>
 <div id="content" class="content">
@@ -21,23 +22,23 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org6b66014">1. Background</a></li>
-<li><a href="#orgc9631a1">2. Kernel</a>
+<li><a href="#orgc210252">1. Background</a></li>
+<li><a href="#orgde6731f">2. Kernel</a>
 <ul>
-<li><a href="#org3aefa77">2.1. Configuration</a></li>
-<li><a href="#org713c234">2.2. Install</a></li>
-<li><a href="#org1cbda89">2.3. Initramfs</a></li>
+<li><a href="#org6a2fe96">2.1. Configuration</a></li>
+<li><a href="#org781ffbd">2.2. Install</a></li>
+<li><a href="#org6179d44">2.3. Initramfs</a></li>
 </ul>
 </li>
-<li><a href="#org759e90e">3. EFI Partition</a></li>
-<li><a href="#org31d49f2">4. EFI Variables Filesystem</a></li>
-<li><a href="#orgf982e2f">5. Create Boot Entry</a></li>
-<li><a href="#orgdafbe59">6. Troubleshoot</a></li>
+<li><a href="#org3ef3bdc">3. EFI Partition</a></li>
+<li><a href="#orgc7ca3e7">4. EFI Variables Filesystem</a></li>
+<li><a href="#org166aaa2">5. Create Boot Entry</a></li>
+<li><a href="#orgfa56187">6. Troubleshoot</a></li>
 </ul>
 </div>
 </nav>
-<div id="outline-container-org6b66014" class="outline-2">
-<h2 id="org6b66014"><span class="section-number-2">1.</span>
+<div id="outline-container-orgc210252" class="outline-2">
+<h2 id="orgc210252"><span class="section-number-2">1.</span>
 Background</h2>
 <div class="outline-text-2" id="text-1">
 <p>In order to boot the Linux kernel, one traditionally needs a
@@ -50,12 +51,12 @@ load kernel images from the EFI partition without the need for any
 bootloader or chainloaders.</p>
 </div>
 </div>
-<div id="outline-container-orgc9631a1" class="outline-2">
-<h2 id="orgc9631a1"><span class="section-number-2">2.</span>
+<div id="outline-container-orgde6731f" class="outline-2">
+<h2 id="orgde6731f"><span class="section-number-2">2.</span>
 Kernel</h2>
 <div class="outline-text-2" id="text-2"></div>
-<div id="outline-container-org3aefa77" class="outline-3">
-<h3 id="org3aefa77"><span class="section-number-3">2.1.</span>
+<div id="outline-container-org6a2fe96" class="outline-3">
+<h3 id="org6a2fe96"><span class="section-number-3">2.1.</span>
 Configuration</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>You should enable native EFI support and EFI stub support for
@@ -75,8 +76,8 @@ into the kernel.</p>
 </pre></div>
 </div>
 </div>
-<div id="outline-container-org713c234" class="outline-3">
-<h3 id="org713c234"><span class="section-number-3">2.2.</span>
+<div id="outline-container-org781ffbd" class="outline-3">
+<h3 id="org781ffbd"><span class="section-number-3">2.2.</span>
 Install</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>Build the kernel and install the kernel modules.</p>
@@ -85,8 +86,8 @@ Install</h3>
 </pre></div>
 </div>
 </div>
-<div id="outline-container-org1cbda89" class="outline-3">
-<h3 id="org1cbda89"><span class="section-number-3">2.3.</span>
+<div id="outline-container-org6179d44" class="outline-3">
+<h3 id="org6179d44"><span class="section-number-3">2.3.</span>
 Initramfs</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>An initramfs might be necessary. For example if you embedded the
@@ -95,8 +96,8 @@ subvolumes.</p>
 </div>
 </div>
 </div>
-<div id="outline-container-org759e90e" class="outline-2">
-<h2 id="org759e90e"><span class="section-number-2">3.</span> EFI
+<div id="outline-container-org3ef3bdc" class="outline-2">
+<h2 id="org3ef3bdc"><span class="section-number-2">3.</span> EFI
 Partition</h2>
 <div class="outline-text-2" id="text-3">
 <p>Create an EFI system partition if you don't have one (will this
@@ -118,8 +119,8 @@ one subdirectories containing stub images for more than one
 system.</p>
 </div>
 </div>
-<div id="outline-container-org31d49f2" class="outline-2">
-<h2 id="org31d49f2"><span class="section-number-2">4.</span> EFI
+<div id="outline-container-orgc7ca3e7" class="outline-2">
+<h2 id="orgc7ca3e7"><span class="section-number-2">4.</span> EFI
 Variables Filesystem</h2>
 <div class="outline-text-2" id="text-4">
 <p>The tool we use to create and manage the boot entries requires
@@ -135,8 +136,8 @@ properly:</p>
 entries.</p>
 </div>
 </div>
-<div id="outline-container-orgf982e2f" class="outline-2">
-<h2 id="orgf982e2f"><span class="section-number-2">5.</span> Create
+<div id="outline-container-org166aaa2" class="outline-2">
+<h2 id="org166aaa2"><span class="section-number-2">5.</span> Create
 Boot Entry</h2>
 <div class="outline-text-2" id="text-5">
 <p>First execute <code>efibootmgr</code> without any options to
@@ -157,8 +158,8 @@ unmerge <code>efibootmgr</code>. Just copy new kernel images and
 initramfs to the same position on the EFI partition.</p>
 </div>
 </div>
-<div id="outline-container-orgdafbe59" class="outline-2">
-<h2 id="orgdafbe59"><span class="section-number-2">6.</span>
+<div id="outline-container-orgfa56187" class="outline-2">
+<h2 id="orgfa56187"><span class="section-number-2">6.</span>
 Troubleshoot</h2>
 <div class="outline-text-2" id="text-6">
 <p>If you encountered the common <q>VFS: Cannot open root device or
@@ -185,7 +186,7 @@ disappears.</p>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: RadioNoiseE</p>
-<p class="date">Created: 2024-12-20 Fri 12:18</p>
+<p class="date">Created: 2024-12-27 Fri 10:33</p>
 <p class="validation"><a href=
 "https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>

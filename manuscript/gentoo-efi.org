@@ -1,5 +1,3 @@
-#+OPTIONS: html-style:nil
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../style/article.css">
 #+MACRO: quote @@html:<q>$1</q>@@
 #+TITLE: Boot Gentoo Cleanly using EFI Stub
 

@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
 <meta name="generator" content=
 "HTML Tidy for HTML5 for Apple macOS version 5.8.0">
-<!-- 2024-12-20 Fri 12:18 -->
+<!-- 2024-12-27 Fri 10:33 -->
+<meta charset="utf-8">
 <meta name="viewport" content=
 "width=device-width, initial-scale=1">
 <title>2024年，用Mutt来处理邮件</title>
 <meta name="author" content="RadioNoiseE">
 <meta name="generator" content="Org Mode">
 <link rel="stylesheet" type="text/css" href="../style/article.css">
+<script src="../script/register.js"></script>
 </head>
 <body>
 <div id="content" class="content">
@@ -21,22 +22,22 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orge0c3c83">1. 写在前面</a></li>
-<li><a href="#org7ef2e00">2. 安装</a></li>
-<li><a href="#orgabc3255">3. 配置</a>
+<li><a href="#orgf4390e9">1. 写在前面</a></li>
+<li><a href="#org7b2f8c8">2. 安装</a></li>
+<li><a href="#orgbaeef5a">3. 配置</a>
 <ul>
-<li><a href="#org06fc330">3.1. 接收邮件</a></li>
-<li><a href="#org565342f">3.2. 发送邮件</a></li>
-<li><a href="#org78aa996">3.3. MIME</a>
+<li><a href="#orgc74535c">3.1. 接收邮件</a></li>
+<li><a href="#org8ac44fc">3.2. 发送邮件</a></li>
+<li><a href="#orgb506029">3.3. MIME</a>
 <ul>
-<li><a href="#org0250b6d">3.3.1. HTML邮件</a></li>
-<li><a href="#org759004d">3.3.2. 其他格式</a></li>
+<li><a href="#org9ff4808">3.3.1. HTML邮件</a></li>
+<li><a href="#org3bb4af4">3.3.2. 其他格式</a></li>
 </ul>
 </li>
-<li><a href="#org02e863c">3.4. 优化</a></li>
+<li><a href="#org93dc17e">3.4. 优化</a></li>
 </ul>
 </li>
-<li><a href="#org053acd8">4. 最后</a></li>
+<li><a href="#orgc2e5be4">4. 最后</a></li>
 </ul>
 </div>
 </nav>
@@ -44,15 +45,15 @@
 <p>“All mail clients suck. This one just sucks less.” — Michael
 Elkins, circa 1995</p>
 </blockquote>
-<div id="outline-container-orge0c3c83" class="outline-2">
-<h2 id="orge0c3c83"><span class="section-number-2">1.</span>
+<div id="outline-container-orgf4390e9" class="outline-2">
+<h2 id="orgf4390e9"><span class="section-number-2">1.</span>
 写在前面</h2>
 <div class="outline-text-2" id="text-1">
 <p>处理邮件，我之前一直用的是ThunderBird，所谓「Mozilla's solution to mail
 client」。它的界面很好看，然而真的很重，而且当发送的邮件中有尺寸较大的附件时的体验一直很差，会一直卡着。直到三天前，我用它接收一个使用邮件传送的9MiB的附件时，它的进度蓝条卡了半个小时还没将页面加载出来，同时还把切换其他信息的动作卡住了。这时我才真正意识到了什么叫「All
 mail clients suck」，并打算换一个；试了试号称「sucks
 less」的Mutt，感觉情况的确比之前有较大改善。</p>
-<figure id="org3faab7e"><img src=
+<figure id="orgf34c36f"><img src=
 "../static/image/mutt-intro-01.png" alt="mutt-intro-01.png" width=
 "85%" class="img-center" loading="lazy">
 <figcaption><span class="figure-number">Figure 1:</span>
@@ -60,8 +61,8 @@ less」的Mutt，感觉情况的确比之前有较大改善。</p>
 </figure>
 </div>
 </div>
-<div id="outline-container-org7ef2e00" class="outline-2">
-<h2 id="org7ef2e00"><span class="section-number-2">2.</span>
+<div id="outline-container-org7b2f8c8" class="outline-2">
+<h2 id="org7b2f8c8"><span class="section-number-2">2.</span>
 安装</h2>
 <div class="outline-text-2" id="text-2">
 <p>Gentoo用户需要启用这些USE旗标：</p>
@@ -78,12 +79,12 @@ less」的Mutt，感觉情况的确比之前有较大改善。</p>
 其中，<code>lmdb</code>和<code>hcache</code>是头字段缓存，可选。<code>smtp</code>和<code>imap</code>是其支持的两种协议，你需要查阅文档看一下你的邮件服务供应商支持什么协议；<code>ssl</code>同理。至于<code>slang</code>是一个TUI框架，我只是想试试，你可以保持默认。</p>
 </div>
 </div>
-<div id="outline-container-orgabc3255" class="outline-2">
-<h2 id="orgabc3255"><span class="section-number-2">3.</span>
+<div id="outline-container-orgbaeef5a" class="outline-2">
+<h2 id="orgbaeef5a"><span class="section-number-2">3.</span>
 配置</h2>
 <div class="outline-text-2" id="text-3"></div>
-<div id="outline-container-org06fc330" class="outline-3">
-<h3 id="org06fc330"><span class="section-number-3">3.1.</span>
+<div id="outline-container-orgc74535c" class="outline-3">
+<h3 id="orgc74535c"><span class="section-number-3">3.1.</span>
 接收邮件</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
@@ -106,8 +107,8 @@ set postponed = "+Drafts"
 <p>需根据你的邮箱服务供应商而定。比如iCloud，你需要生成一个app-specific的密码。</p>
 </div>
 </div>
-<div id="outline-container-org565342f" class="outline-3">
-<h3 id="org565342f"><span class="section-number-3">3.2.</span>
+<div id="outline-container-org8ac44fc" class="outline-3">
+<h3 id="org8ac44fc"><span class="section-number-3">3.2.</span>
 发送邮件</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>一般使用<code>smtp</code>协议。如下：</p>
@@ -120,14 +121,14 @@ set record = "+Sent Messages"
 </pre></div>
 </div>
 </div>
-<div id="outline-container-org78aa996" class="outline-3">
-<h3 id="org78aa996"><span class="section-number-3">3.3.</span>
+<div id="outline-container-orgb506029" class="outline-3">
+<h3 id="orgb506029"><span class="section-number-3">3.3.</span>
 MIME</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>邮件里经常会夹带各种奇奇怪怪的附件，而对这些附件的处理正是Mutt做的不错而ThunderBird略有不足之处。</p>
 </div>
-<div id="outline-container-org0250b6d" class="outline-4">
-<h4 id="org0250b6d"><span class="section-number-4">3.3.1.</span>
+<div id="outline-container-org9ff4808" class="outline-4">
+<h4 id="org9ff4808"><span class="section-number-4">3.3.1.</span>
 HTML邮件</h4>
 <div class="outline-text-4" id="text-3-3-1">
 <p>
@@ -146,8 +147,8 @@ auto_view text/html
 </pre></div>
 </div>
 </div>
-<div id="outline-container-org759004d" class="outline-4">
-<h4 id="org759004d"><span class="section-number-4">3.3.2.</span>
+<div id="outline-container-org3bb4af4" class="outline-4">
+<h4 id="org3bb4af4"><span class="section-number-4">3.3.2.</span>
 其他格式</h4>
 <div class="outline-text-4" id="text-3-3-2">
 <p>
@@ -171,7 +172,7 @@ image/*; muttach imv %s;
 audio/*; muttach mpv %s;
 video/*; muttach mpv %s;
 </pre></div>
-<figure id="orgdc03478"><img src=
+<figure id="orgb09af35"><img src=
 "../static/image/mutt-intro-02.png" alt="mutt-intro-02.png" width=
 "85%" class="img-center" loading="lazy">
 <figcaption><span class="figure-number">Figure 2:</span>
@@ -180,8 +181,8 @@ video/*; muttach mpv %s;
 </div>
 </div>
 </div>
-<div id="outline-container-org02e863c" class="outline-3">
-<h3 id="org02e863c"><span class="section-number-3">3.4.</span>
+<div id="outline-container-org93dc17e" class="outline-3">
+<h3 id="org93dc17e"><span class="section-number-3">3.4.</span>
 优化</h3>
 <div class="outline-text-3" id="text-3-4">
 <p>默认的Headers很多，大概率我们不需要看到那些，于是我们：</p>
@@ -224,8 +225,8 @@ bind index,pager &lt;Esc&gt;d sidebar-page-down
 </div>
 </div>
 </div>
-<div id="outline-container-org053acd8" class="outline-2">
-<h2 id="org053acd8"><span class="section-number-2">4.</span>
+<div id="outline-container-orgc2e5be4" class="outline-2">
+<h2 id="orgc2e5be4"><span class="section-number-2">4.</span>
 最后</h2>
 <div class="outline-text-2" id="text-4">
 <p>颅内高潮：</p>
@@ -239,7 +240,7 @@ bind index,pager &lt;Esc&gt;d sidebar-page-down
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: RadioNoiseE</p>
-<p class="date">Created: 2024-12-20 Fri 12:18</p>
+<p class="date">Created: 2024-12-27 Fri 10:33</p>
 <p class="validation"><a href=
 "https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>

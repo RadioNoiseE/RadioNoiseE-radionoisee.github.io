@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
 <meta name="generator" content=
 "HTML Tidy for HTML5 for Apple macOS version 5.8.0">
-<!-- 2024-12-20 Fri 12:18 -->
+<!-- 2024-12-27 Fri 10:33 -->
+<meta charset="utf-8">
 <meta name="viewport" content=
 "width=device-width, initial-scale=1">
 <title>Plain-TeX宏集</title>
 <meta name="author" content="RadioNoiseE">
 <meta name="generator" content="Org Mode">
 <link rel="stylesheet" type="text/css" href="../style/article.css">
+<script src="../script/register.js"></script>
 </head>
 <body>
 <div id="content" class="content">
@@ -21,33 +22,33 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org1a0f458">1. 介绍</a></li>
-<li><a href="#org8c64922">2. 字体类</a>
+<li><a href="#orge3bad98">1. 介绍</a></li>
+<li><a href="#org72eb383">2. 字体类</a>
 <ul>
-<li><a href="#org5383dc3">2.1. HZ</a></li>
-<li><a href="#org714ee74">2.2. Protrude</a></li>
-<li><a href="#org7b4d916">2.3. 尺寸相关</a></li>
-<li><a href="#orgdb5d123">2.4. 更换字体</a></li>
+<li><a href="#org9e7cd5f">2.1. HZ</a></li>
+<li><a href="#orgb0fc4ee">2.2. Protrude</a></li>
+<li><a href="#orgc4762b3">2.3. 尺寸相关</a></li>
+<li><a href="#org2f61b65">2.4. 更换字体</a></li>
 </ul>
 </li>
-<li><a href="#orgc0a88ca">3. 标记元素</a>
+<li><a href="#orgc1fc2dd">3. 标记元素</a>
 <ul>
-<li><a href="#orgcb06a21">3.1. 标题</a></li>
-<li><a href="#org7f93f15">3.2. 章节</a></li>
-<li><a href="#orgb630fd2">3.3. 图文混排</a></li>
-<li><a href="#orga4692ea">3.4. 列表</a></li>
+<li><a href="#org1bf245f">3.1. 标题</a></li>
+<li><a href="#org8082ebe">3.2. 章节</a></li>
+<li><a href="#orgf137301">3.3. 图文混排</a></li>
+<li><a href="#org3e58b68">3.4. 列表</a></li>
 </ul>
 </li>
-<li><a href="#org006fb2d">4. 未完待续</a></li>
+<li><a href="#org590e0c7">4. 未完待续</a></li>
 </ul>
 </div>
 </nav>
-<div id="outline-container-org1a0f458" class="outline-2">
-<h2 id="org1a0f458"><span class="section-number-2">1.</span>
+<div id="outline-container-orge3bad98" class="outline-2">
+<h2 id="orge3bad98"><span class="section-number-2">1.</span>
 介绍</h2>
 <div class="outline-text-2" id="text-1">
 <p>本文记录并收集一些在LuaTeX引擎下使用plain-TeX排版的宏集。效果如此：</p>
-<figure id="org33376ed"><img src=
+<figure id="org52f4b55"><img src=
 "../static/image/plaintex-mac-01.png" alt="plaintex-mac-01.png"
 width="85%" class="img-center" loading="lazy">
 <figcaption><span class="figure-number">Figure 1:</span>
@@ -55,12 +56,12 @@ width="85%" class="img-center" loading="lazy">
 </figure>
 </div>
 </div>
-<div id="outline-container-org8c64922" class="outline-2">
-<h2 id="org8c64922"><span class="section-number-2">2.</span>
+<div id="outline-container-org72eb383" class="outline-2">
+<h2 id="org72eb383"><span class="section-number-2">2.</span>
 字体类</h2>
 <div class="outline-text-2" id="text-2"></div>
-<div id="outline-container-org5383dc3" class="outline-3">
-<h3 id="org5383dc3"><span class="section-number-3">2.1.</span>
+<div id="outline-container-org9e7cd5f" class="outline-3">
+<h3 id="org9e7cd5f"><span class="section-number-3">2.1.</span>
 HZ</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>即在断行结果较差时自动调整字符宽度以优化结果。注意在我的设定下该特性会影响断行算法。</p>
@@ -71,8 +72,8 @@ HZ</h3>
 <p>应用例：<code>\hzf\tenrm</code>。</p>
 </div>
 </div>
-<div id="outline-container-org714ee74" class="outline-3">
-<h3 id="org714ee74"><span class="section-number-3">2.2.</span>
+<div id="outline-container-orgb0fc4ee" class="outline-3">
+<h3 id="orgb0fc4ee"><span class="section-number-3">2.2.</span>
 Protrude</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>类似标点悬挂，也会影响断行算法。比较坑的一点是Han The
@@ -97,8 +98,8 @@ THanh的设定不能直接用，因为LuaTeX下数值含义改变了。</p>
 </pre></div>
 </div>
 </div>
-<div id="outline-container-org7b4d916" class="outline-3">
-<h3 id="org7b4d916"><span class="section-number-3">2.3.</span>
+<div id="outline-container-orgc4762b3" class="outline-3">
+<h3 id="orgc4762b3"><span class="section-number-3">2.3.</span>
 尺寸相关</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>LaTeX2e的NFSS2果然是好文明，虽然有点粗暴。幸好，手动枚举也还能接受。</p>
@@ -129,8 +130,8 @@ THanh的设定不能直接用，因为LuaTeX下数值含义改变了。</p>
 </pre></div>
 </div>
 </div>
-<div id="outline-container-orgdb5d123" class="outline-3">
-<h3 id="orgdb5d123"><span class="section-number-3">2.4.</span>
+<div id="outline-container-org2f61b65" class="outline-3">
+<h3 id="org2f61b65"><span class="section-number-3">2.4.</span>
 更换字体</h3>
 <div class="outline-text-3" id="text-2-4">
 <p>使用老爷子排版Concrete
@@ -248,12 +249,12 @@ Mathematics时用的字体组合（注意此时主要字体变为了<code>\textr
 </div>
 </div>
 </div>
-<div id="outline-container-orgc0a88ca" class="outline-2">
-<h2 id="orgc0a88ca"><span class="section-number-2">3.</span>
+<div id="outline-container-orgc1fc2dd" class="outline-2">
+<h2 id="orgc1fc2dd"><span class="section-number-2">3.</span>
 标记元素</h2>
 <div class="outline-text-2" id="text-3"></div>
-<div id="outline-container-orgcb06a21" class="outline-3">
-<h3 id="orgcb06a21"><span class="section-number-3">3.1.</span>
+<div id="outline-container-org1bf245f" class="outline-3">
+<h3 id="org1bf245f"><span class="section-number-3">3.1.</span>
 标题</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>从TeXbook的<i>Example Formats</i>一节摘出来的。</p>
@@ -270,8 +271,8 @@ Mathematics时用的字体组合（注意此时主要字体变为了<code>\textr
 Here}\au{A.U.Thor}\ft</code>，应该是LaTeX-style的。</p>
 </div>
 </div>
-<div id="outline-container-org7f93f15" class="outline-3">
-<h3 id="org7f93f15"><span class="section-number-3">3.2.</span>
+<div id="outline-container-org8082ebe" class="outline-3">
+<h3 id="org8082ebe"><span class="section-number-3">3.2.</span>
 章节</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>少用不优雅的<code>%</code>的技巧在于进入Vertical Mode。</p>
@@ -286,8 +287,8 @@ Here}\au{A.U.Thor}\ft</code>，应该是LaTeX-style的。</p>
 </pre></div>
 </div>
 </div>
-<div id="outline-container-orgb630fd2" class="outline-3">
-<h3 id="orgb630fd2"><span class="section-number-3">3.3.</span>
+<div id="outline-container-orgf137301" class="outline-3">
+<h3 id="orgf137301"><span class="section-number-3">3.3.</span>
 图文混排</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>用的是设置hbox宽度的方法。</p>
@@ -313,8 +314,8 @@ Here}\au{A.U.Thor}\ft</code>，应该是LaTeX-style的。</p>
 </pre></div>
 </div>
 </div>
-<div id="outline-container-orga4692ea" class="outline-3">
-<h3 id="orga4692ea"><span class="section-number-3">3.4.</span>
+<div id="outline-container-org3e58b68" class="outline-3">
+<h3 id="org3e58b68"><span class="section-number-3">3.4.</span>
 列表</h3>
 <div class="outline-text-3" id="text-3-4">
 <div class="org-src-container">
@@ -339,8 +340,8 @@ Here}\au{A.U.Thor}\ft</code>，应该是LaTeX-style的。</p>
 </div>
 </div>
 </div>
-<div id="outline-container-org006fb2d" class="outline-2">
-<h2 id="org006fb2d"><span class="section-number-2">4.</span>
+<div id="outline-container-org590e0c7" class="outline-2">
+<h2 id="org590e0c7"><span class="section-number-2">4.</span>
 未完待续</h2>
 <div class="outline-text-2" id="text-4">
 <p>暑假作业好多。</p>
@@ -349,7 +350,7 @@ Here}\au{A.U.Thor}\ft</code>，应该是LaTeX-style的。</p>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: RadioNoiseE</p>
-<p class="date">Created: 2024-12-20 Fri 12:18</p>
+<p class="date">Created: 2024-12-27 Fri 10:33</p>
 <p class="validation"><a href=
 "https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>

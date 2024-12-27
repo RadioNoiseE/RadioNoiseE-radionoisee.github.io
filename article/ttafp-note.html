@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
 <meta name="generator" content=
 "HTML Tidy for HTML5 for Apple macOS version 5.8.0">
-<!-- 2024-12-20 Fri 12:18 -->
+<!-- 2024-12-27 Fri 10:33 -->
+<meta charset="utf-8">
 <meta name="viewport" content=
 "width=device-width, initial-scale=1">
 <title>Type Theory and Formal Proof: Notes</title>
 <meta name="author" content="RadioNoiseE">
 <meta name="generator" content="Org Mode">
 <link rel="stylesheet" type="text/css" href="../style/article.css">
+<script src="../script/register.js"></script>
 <script>
   window.MathJax = {
     tex: {
@@ -49,38 +50,38 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org953a2ac">1. An Introduction</a></li>
-<li><a href="#org9b5317f">2. Untyped Lambda Calculus</a>
+<li><a href="#org9edbf47">1. An Introduction</a></li>
+<li><a href="#org1bd988c">2. Untyped Lambda Calculus</a>
 <ul>
-<li><a href="#org03c0ea7">2.1. Construction Principles</a></li>
-<li><a href="#orgc8e7593">2.2. Lambda Terms</a></li>
-<li><a href="#org47f4cd2">2.3. Free and Bound Variables</a></li>
-<li><a href="#org8b7c66c">2.4. Alpha Conversation</a></li>
-<li><a href="#orgda161d8">2.5. Beta Reduction</a></li>
-<li><a href="#org3bd79af">2.6. Fixed Point Theorem</a></li>
+<li><a href="#org5b2cdb9">2.1. Construction Principles</a></li>
+<li><a href="#orge39c927">2.2. Lambda Terms</a></li>
+<li><a href="#org5d65126">2.3. Free and Bound Variables</a></li>
+<li><a href="#org9c77cc8">2.4. Alpha Conversation</a></li>
+<li><a href="#orgfa2363b">2.5. Beta Reduction</a></li>
+<li><a href="#org5e91494">2.6. Fixed Point Theorem</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </nav>
-<div id="outline-container-org953a2ac" class="outline-2">
-<h2 id="org953a2ac"><span class="section-number-2">1.</span> An
+<div id="outline-container-org9edbf47" class="outline-2">
+<h2 id="org9edbf47"><span class="section-number-2">1.</span> An
 Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>These notes are based on the book <i>Type Theory and Formal
 Proof</i> by Rob Nederpelt and Herman Geuvers.</p>
 </div>
 </div>
-<div id="outline-container-org9b5317f" class="outline-2">
-<h2 id="org9b5317f"><span class="section-number-2">2.</span>
+<div id="outline-container-org1bd988c" class="outline-2">
+<h2 id="org1bd988c"><span class="section-number-2">2.</span>
 Untyped Lambda Calculus</h2>
 <div class="outline-text-2" id="text-2">
 <p><i>Lambda-calculus</i> encapsulates a formalization of the basic
 aspects of functions. Untyped lambda-calculus means we do not
 consider the types in this chapter.</p>
 </div>
-<div id="outline-container-org03c0ea7" class="outline-3">
-<h3 id="org03c0ea7"><span class="section-number-3">2.1.</span>
+<div id="outline-container-org5b2cdb9" class="outline-3">
+<h3 id="org5b2cdb9"><span class="section-number-3">2.1.</span>
 Construction Principles</h3>
 <div class="outline-text-3" id="text-2-1">
 <ul class="org-ul">
@@ -93,8 +94,8 @@ to \(N\)</i>.</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgc8e7593" class="outline-3">
-<h3 id="orgc8e7593"><span class="section-number-3">2.2.</span>
+<div id="outline-container-orge39c927" class="outline-3">
+<h3 id="orge39c927"><span class="section-number-3">2.2.</span>
 Lambda Terms</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>Expressions in the lambda calculus are called lambda-terms. We
@@ -139,8 +140,8 @@ associativity:</p>
 </ul>
 </div>
 </div>
-<div id="outline-container-org47f4cd2" class="outline-3">
-<h3 id="org47f4cd2"><span class="section-number-3">2.3.</span> Free
+<div id="outline-container-org5d65126" class="outline-3">
+<h3 id="org5d65126"><span class="section-number-3">2.3.</span> Free
 and Bound Variables</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>Variable occurrences in a lambda-term can be divided into three
@@ -166,8 +167,8 @@ closed set is also called a <i>combinator</i>. The set of all close
 lambda-terms is denoted by \(\Lambda^0\).</p>
 </div>
 </div>
-<div id="outline-container-org8b7c66c" class="outline-3">
-<h3 id="org8b7c66c"><span class="section-number-3">2.4.</span>
+<div id="outline-container-org9c77cc8" class="outline-3">
+<h3 id="org9c77cc8"><span class="section-number-3">2.4.</span>
 Alpha Conversation</h3>
 <div class="outline-text-3" id="text-2-4">
 <p>Functions in the lambda-notation have the property that the
@@ -195,8 +196,8 @@ variables, by considering lambda-terms <i>modulo
 alpha-equivalence</i>.</p>
 </div>
 </div>
-<div id="outline-container-orgda161d8" class="outline-3">
-<h3 id="orgda161d8"><span class="section-number-3">2.5.</span> Beta
+<div id="outline-container-orgfa2363b" class="outline-3">
+<h3 id="orgfa2363b"><span class="section-number-3">2.5.</span> Beta
 Reduction</h3>
 <div class="outline-text-3" id="text-2-5">
 <ol class="org-ol">
@@ -266,8 +267,8 @@ N_2\), then there is a lambda-term \(N_3\) such that \(N_1
 N_3\). This is the <i>Church-Rosser Theorem</i>.</p>
 </div>
 </div>
-<div id="outline-container-org3bd79af" class="outline-3">
-<h3 id="org3bd79af"><span class="section-number-3">2.6.</span>
+<div id="outline-container-org5e91494" class="outline-3">
+<h3 id="org5e91494"><span class="section-number-3">2.6.</span>
 Fixed Point Theorem</h3>
 <div class="outline-text-3" id="text-2-6">
 <p>Every lambda-term \(L\) has a <i>fixed point</i>, which can be
@@ -285,7 +286,7 @@ L(xx))(\lambda x . L(xx)))\\ &amp;=_\beta L(YL). \end{align*}\]</p>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: RadioNoiseE</p>
-<p class="date">Created: 2024-12-20 Fri 12:18</p>
+<p class="date">Created: 2024-12-27 Fri 10:33</p>
 <p class="validation"><a href=
 "https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>

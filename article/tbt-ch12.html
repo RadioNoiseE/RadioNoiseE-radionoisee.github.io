@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
 <meta name="generator" content=
 "HTML Tidy for HTML5 for Apple macOS version 5.8.0">
-<!-- 2024-12-20 Fri 12:18 -->
+<!-- 2024-12-27 Fri 10:33 -->
+<meta charset="utf-8">
 <meta name="viewport" content=
 "width=device-width, initial-scale=1">
 <title>TeX by Topic第12章〈翻译〉</title>
 <meta name="author" content="RadioNoiseE">
 <meta name="generator" content="Org Mode">
 <link rel="stylesheet" type="text/css" href="../style/article.css">
+<script src="../script/register.js"></script>
 <script>
   window.MathJax = {
     tex: {
@@ -49,56 +50,56 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org5c12b57">1. 摘要</a></li>
-<li><a href="#orgef08257">2. 简介</a></li>
-<li><a href="#orgd288f50">3. 展开惯例</a></li>
-<li><a href="#org4f8834e">4. 颠倒展开顺序</a>
+<li><a href="#org902ac77">1. 摘要</a></li>
+<li><a href="#org401f79b">2. 简介</a></li>
+<li><a href="#orge495b69">3. 展开惯例</a></li>
+<li><a href="#org6b0717f">4. 颠倒展开顺序</a>
 <ul>
-<li><a href="#orge93eeee">4.1.
+<li><a href="#orge5abc7e">4.1.
 提前一步展开：<code>\expandafter</code></a></li>
-<li><a href="#org898da7f">4.2. 完全展开：<code>\edef</code></a></li>
-<li><a href="#orgb0d531e">4.3.
+<li><a href="#org9d482f3">4.2. 完全展开：<code>\edef</code></a></li>
+<li><a href="#org9f4243c">4.3.
 <code>\afterassignment</code></a></li>
-<li><a href="#orgb0943df">4.4. <code>\aftergroup</code></a></li>
+<li><a href="#orgaf85b5e">4.4. <code>\aftergroup</code></a></li>
 </ul>
 </li>
-<li><a href="#org38f0385">5. 抑制展开</a>
+<li><a href="#org855895c">5. 抑制展开</a>
 <ul>
-<li><a href="#orgeeb8453">5.1. <code>\noexpand</code></a></li>
-<li><a href="#orgf106fc3">5.2. <code>\noexpand</code>及活动字符</a></li>
+<li><a href="#orgda66889">5.1. <code>\noexpand</code></a></li>
+<li><a href="#org5009d78">5.2. <code>\noexpand</code>及活动字符</a></li>
 </ul>
 </li>
-<li><a href="#org831a69c">6. <code>\relax</code></a>
+<li><a href="#org88bf2a3">6. <code>\relax</code></a>
 <ul>
-<li><a href="#orgff1c588">6.1.
+<li><a href="#org7bb96a5">6.1.
 <code>\relax</code>与<code>\csname</code></a></li>
-<li><a href="#org794b421">6.2. 使用<code>\relax</code>抑制展开</a></li>
-<li><a href="#org09e4b0c">6.3. TeX自动插入的<code>\relax</code></a></li>
-<li><a href="#org84c228e">6.4. 表示非宏的值：<code>\the</code></a></li>
+<li><a href="#org7443a97">6.2. 使用<code>\relax</code>抑制展开</a></li>
+<li><a href="#orgeb67dfb">6.3. TeX自动插入的<code>\relax</code></a></li>
+<li><a href="#orgd9671b3">6.4. 表示非宏的值：<code>\the</code></a></li>
 </ul>
 </li>
-<li><a href="#org24da821">7. 实例</a>
+<li><a href="#org6189c7e">7. 实例</a>
 <ul>
-<li><a href="#orgd47f5d9">7.1. 滞后展开</a></li>
-<li><a href="#org5b2c44a">7.2. <code>\edef</code>内部的定义</a></li>
-<li><a href="#orgc227e25">7.3. 展开与<code>\write</code></a></li>
-<li><a href="#orgd6e67ac">7.4. 在<code>\edef</code>中受控制的展开</a></li>
-<li><a href="#org2624e08">7.5. 对展开的多重抑制</a></li>
-<li><a href="#org719fe1c">7.6. <code>\relax</code>的更多示例</a></li>
-<li><a href="#orga8c439e">7.7. 实例：存储及恢复类别码</a></li>
+<li><a href="#org09fb7fc">7.1. 滞后展开</a></li>
+<li><a href="#org44bd3fc">7.2. <code>\edef</code>内部的定义</a></li>
+<li><a href="#org6c6bcf4">7.3. 展开与<code>\write</code></a></li>
+<li><a href="#org6c4b7df">7.4. 在<code>\edef</code>中受控制的展开</a></li>
+<li><a href="#orgdb60003">7.5. 对展开的多重抑制</a></li>
+<li><a href="#org5beefe1">7.6. <code>\relax</code>的更多示例</a></li>
+<li><a href="#org98e0d92">7.7. 实例：存储及恢复类别码</a></li>
 </ul>
 </li>
-<li><a href="#org56cfc0b">8. 示例</a>
+<li><a href="#orga2fb3b5">8. 示例</a>
 <ul>
-<li><a href="#orgd6272d5">8.1.
+<li><a href="#org0bc7d2d">8.1.
 <code>\aftergroup</code>与盒子的结合</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </nav>
-<div id="outline-container-org5c12b57" class="outline-2">
-<h2 id="org5c12b57"><span class="section-number-2">1.</span>
+<div id="outline-container-org902ac77" class="outline-2">
+<h2 id="org902ac77"><span class="section-number-2">1.</span>
 摘要</h2>
 <div class="outline-text-2" id="text-1">
 <p>TeX中的展开不同于其他许多程序设计语言中的过程调用。本章将讨论与展开相关的命令，并给出一些（不那么具体）的实例。</p>
@@ -114,16 +115,16 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-orgef08257" class="outline-2">
-<h2 id="orgef08257"><span class="section-number-2">2.</span>
+<div id="outline-container-org401f79b" class="outline-2">
+<h2 id="org401f79b"><span class="section-number-2">2.</span>
 简介</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 TeX的展开处理器接受来自输入处理器中的记号流，并将其输出为供执行处理器处理的记号流。对于输入处理器而言有两种记号：可展开的和不可展开的。那类不可展开的主要包含赋值或供排版内容的记号会原封不动通过展开处理器；而可展开的记号则会被展开，同时展开的结果会被重新检验（以确保其已经完全展开）。</p>
 </div>
 </div>
-<div id="outline-container-orgd288f50" class="outline-2">
-<h2 id="orgd288f50"><span class="section-number-2">3.</span>
+<div id="outline-container-orge495b69" class="outline-2">
+<h2 id="orge495b69"><span class="section-number-2">3.</span>
 展开惯例</h2>
 <div class="outline-text-2" id="text-3">
 <p>那些若不进行抑制，则会被展开的结构体有：</p>
@@ -172,14 +173,14 @@ variable⟩的记号列表、<code>\uppercase</code>、<code>\lowercase</code>�
 </ul>
 </div>
 </div>
-<div id="outline-container-org4f8834e" class="outline-2">
-<h2 id="org4f8834e"><span class="section-number-2">4.</span>
+<div id="outline-container-org6b0717f" class="outline-2">
+<h2 id="org6b0717f"><span class="section-number-2">4.</span>
 颠倒展开顺序</h2>
 <div class="outline-text-2" id="text-4">
 <p>有时会出现需要调整记号的一般展开顺序的情况。为此，TeX提供了几种机制。本节中描述的某些控制序列的应用并不局限于展开。</p>
 </div>
-<div id="outline-container-orge93eeee" class="outline-3">
-<h3 id="orge93eeee"><span class="section-number-3">4.1.</span>
+<div id="outline-container-orge5abc7e" class="outline-3">
+<h3 id="orge5abc7e"><span class="section-number-3">4.1.</span>
 提前一步展开：<code>\expandafter</code></h3>
 <div class="outline-text-3" id="text-4-1">
 <p>最常用的可用于颠倒展开顺序的工具是<code>\expandafter</code>。以下：</p>
@@ -214,8 +215,8 @@ variable⟩的记号列表、<code>\uppercase</code>、<code>\lowercase</code>�
 </ul>
 </div>
 </div>
-<div id="outline-container-org898da7f" class="outline-3">
-<h3 id="org898da7f"><span class="section-number-3">4.2.</span>
+<div id="outline-container-org9d482f3" class="outline-3">
+<h3 id="org9d482f3"><span class="section-number-3">4.2.</span>
 完全展开：<code>\edef</code></h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
@@ -271,8 +272,8 @@ variable⟩的记号列表、<code>\uppercase</code>、<code>\lowercase</code>�
 <p>同时其后的<code>\next</code>调用将执行该定义。</p>
 </div>
 </div>
-<div id="outline-container-orgb0d531e" class="outline-3">
-<h3 id="orgb0d531e"><span class="section-number-3">4.3.</span>
+<div id="outline-container-org9f4243c" class="outline-3">
+<h3 id="org9f4243c"><span class="section-number-3">4.3.</span>
 <code>\afterassignment</code></h3>
 <div class="outline-text-3" id="text-4-3">
 <p>
@@ -303,8 +304,8 @@ variable⟩的记号列表、<code>\uppercase</code>、<code>\lowercase</code>�
 此时，这个宏看上去更像一个赋值：等号是可选的。实际上它的展开以一个将会被赋值的变量结束。控制序列<code>\setbaselineskip</code>被存储直至对<code>\thefontsize</code>赋值后才执行。</p>
 </div>
 </div>
-<div id="outline-container-orgb0943df" class="outline-3">
-<h3 id="orgb0943df"><span class="section-number-3">4.4.</span>
+<div id="outline-container-orgaf85b5e" class="outline-3">
+<h3 id="orgaf85b5e"><span class="section-number-3">4.4.</span>
 <code>\aftergroup</code></h3>
 <div class="outline-text-3" id="text-4-4">
 <p>某些记号可被</p>
@@ -361,8 +362,8 @@ variable⟩的记号列表、<code>\uppercase</code>、<code>\lowercase</code>�
 </div>
 </div>
 </div>
-<div id="outline-container-org38f0385" class="outline-2">
-<h2 id="org38f0385"><span class="section-number-2">5.</span>
+<div id="outline-container-org855895c" class="outline-2">
+<h2 id="org855895c"><span class="section-number-2">5.</span>
 抑制展开</h2>
 <div class="outline-text-2" id="text-5">
 <p>
@@ -370,8 +371,8 @@ variable⟩的记号列表、<code>\uppercase</code>、<code>\lowercase</code>�
 <code>\string</code>的使用较为局限，这是由于它会将一个控制序列记号转换为一个字符串（此时<code>\escapechar</code>的值会被用于替换原类别码为0的字符）。显而易见，它很适合用在使用<code>\write</code>的场合，来输出一个控制序列的名字；其别的用途可见对<code>\newif</code>的介绍。</p>
 <p>所有<code>\string</code>输出的字符除类别码10的空格外，都属于类别码12（「其他」）。</p>
 </div>
-<div id="outline-container-orgeeb8453" class="outline-3">
-<h3 id="orgeeb8453"><span class="section-number-3">5.1.</span>
+<div id="outline-container-orgda66889" class="outline-3">
+<h3 id="orgda66889"><span class="section-number-3">5.1.</span>
 <code>\noexpand</code></h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
@@ -392,8 +393,8 @@ variable⟩的记号列表、<code>\uppercase</code>、<code>\lowercase</code>�
 因<code>\noexpand</code>使控制序列<code>\a</code>暂时等同于\relax，故上段代码将不会产生任何输出。</p>
 </div>
 </div>
-<div id="outline-container-orgf106fc3" class="outline-3">
-<h3 id="orgf106fc3"><span class="section-number-3">5.2.</span>
+<div id="outline-container-org5009d78" class="outline-3">
+<h3 id="org5009d78"><span class="section-number-3">5.2.</span>
 <code>\noexpand</code>及活动字符</h3>
 <div class="outline-text-3" id="text-5-2">
 <p>
@@ -416,8 +417,8 @@ character⟩</code>的序列等同于该字符不可展开的形式。这时条�
 </div>
 </div>
 </div>
-<div id="outline-container-org831a69c" class="outline-2">
-<h2 id="org831a69c"><span class="section-number-2">6.</span>
+<div id="outline-container-org88bf2a3" class="outline-2">
+<h2 id="org88bf2a3"><span class="section-number-2">6.</span>
 <code>\relax</code></h2>
 <div class="outline-text-2" id="text-6">
 <p>控制序列<code>\relax</code>不可展开，它被执行的时候则什么也不会做。</p>
@@ -452,8 +453,8 @@ L</code>虽然看起来不太正常，但实际上是一种合法的表示<code>
 <pre class="src src-tex">\everypar{\hskip 0cm plus 1fil\relax}
 </pre></div>
 </div>
-<div id="outline-container-orgff1c588" class="outline-3">
-<h3 id="orgff1c588"><span class="section-number-3">6.1.</span>
+<div id="outline-container-org7bb96a5" class="outline-3">
+<h3 id="org7bb96a5"><span class="section-number-3">6.1.</span>
 <code>\relax</code>与<code>\csname</code></h3>
 <div class="outline-text-3" id="text-6-1">
 <p>若<code>\csname ...
@@ -485,8 +486,8 @@ L</code>虽然看起来不太正常，但实际上是一种合法的表示<code>
 此处使用<code>\begingroup</code>、<code>\endgroup</code>而非<code>\bgroup</code>、<code>\egroup</code>的原理见下文。</p>
 </div>
 </div>
-<div id="outline-container-org794b421" class="outline-3">
-<h3 id="org794b421"><span class="section-number-3">6.2.</span>
+<div id="outline-container-org7443a97" class="outline-3">
+<h3 id="org7443a97"><span class="section-number-3">6.2.</span>
 使用<code>\relax</code>抑制展开</h3>
 <div class="outline-text-3" id="text-6-2">
 <p>
@@ -499,8 +500,8 @@ L</code>虽然看起来不太正常，但实际上是一种合法的表示<code>
 该代码片段则会将<code>`\somemacro'</code>写入到输出文件中。若<code>\let</code>部分被遗漏，则会将宏<code>\somemacro</code>的展开结果写入到文件中（若其未定义则给出该宏未定义之错误）。</p>
 </div>
 </div>
-<div id="outline-container-org09e4b0c" class="outline-3">
-<h3 id="org09e4b0c"><span class="section-number-3">6.3.</span>
+<div id="outline-container-orgeb67dfb" class="outline-3">
+<h3 id="orgeb67dfb"><span class="section-number-3">6.3.</span>
 TeX自动插入的<code>\relax</code></h3>
 <div class="outline-text-3" id="text-6-3">
 <p>
@@ -529,8 +530,8 @@ definition⟩——即，一个⟨registerdef⟩或<code>\chardef</code>、<code
 </pre></div>
 </div>
 </div>
-<div id="outline-container-org84c228e" class="outline-3">
-<h3 id="org84c228e"><span class="section-number-3">6.4.</span>
+<div id="outline-container-orgd9671b3" class="outline-3">
+<h3 id="orgd9671b3"><span class="section-number-3">6.4.</span>
 表示非宏的值：<code>\the</code></h3>
 <div class="outline-text-3" id="text-6-4">
 <p>
@@ -571,12 +572,12 @@ parameter⟩可以使用<code>\the</code>为前缀，展开结果是它们的内
 </div>
 </div>
 </div>
-<div id="outline-container-org24da821" class="outline-2">
-<h2 id="org24da821"><span class="section-number-2">7.</span>
+<div id="outline-container-org6189c7e" class="outline-2">
+<h2 id="org6189c7e"><span class="section-number-2">7.</span>
 实例</h2>
 <div class="outline-text-2" id="text-7"></div>
-<div id="outline-container-orgd47f5d9" class="outline-3">
-<h3 id="orgd47f5d9"><span class="section-number-3">7.1.</span>
+<div id="outline-container-org09fb7fc" class="outline-3">
+<h3 id="org09fb7fc"><span class="section-number-3">7.1.</span>
 滞后展开<sup><a id="fnr.1" class="footref" href="#fn.1" role=
 "doc-backlink">1</a></sup></h3>
 <div class="outline-text-3" id="text-7-1">
@@ -631,8 +632,8 @@ parameter⟩可以使用<code>\the</code>为前缀，展开结果是它们的内
 则可以（使其被加粗）。控制序列<code>\expandafter</code>会让TeX先一步看到<code>\fi</code>并在它构建宏<code>\bold</code>的参数之前移除之。</p>
 </div>
 </div>
-<div id="outline-container-org5b2c44a" class="outline-3">
-<h3 id="org5b2c44a"><span class="section-number-3">7.2.</span>
+<div id="outline-container-org44bd3fc" class="outline-3">
+<h3 id="org44bd3fc"><span class="section-number-3">7.2.</span>
 <code>\edef</code>内部的定义</h3>
 <div class="outline-text-3" id="text-7-2">
 <p>有一个以执行代替展开的TeX命令值得特别指出：元命令\def（以及所有其他的⟨def⟩命令）不会被展开。所以以下写法：</p>
@@ -657,8 +658,8 @@ parameter⟩可以使用<code>\the</code>为前缀，展开结果是它们的内
 又会给出宏<code>\thing</code>未定义的错误（但这次是由于它的第二次出现），因为<code>\thing</code>只有在<code>\next</code>被实际调用时才会被定义（在定义<code>\next</code>宏时是不会定义<code>\thing</code>的）。</p>
 </div>
 </div>
-<div id="outline-container-orgc227e25" class="outline-3">
-<h3 id="orgc227e25"><span class="section-number-3">7.3.</span>
+<div id="outline-container-org6c6bcf4" class="outline-3">
+<h3 id="org6c6bcf4"><span class="section-number-3">7.3.</span>
 展开与<code>\write</code></h3>
 <div class="outline-text-3" id="text-7-3">
 <p>
@@ -716,8 +717,8 @@ parameter⟩可以使用<code>\the</code>为前缀，展开结果是它们的内
 <p>以上描述的机制即为一些宏集对宏进行交叉索引的底层原理。</p>
 </div>
 </div>
-<div id="outline-container-orgd6e67ac" class="outline-3">
-<h3 id="orgd6e67ac"><span class="section-number-3">7.4.</span>
+<div id="outline-container-org6c4b7df" class="outline-3">
+<h3 id="org6c4b7df"><span class="section-number-3">7.4.</span>
 在<code>\edef</code>中受控制的展开</h3>
 <div class="outline-text-3" id="text-7-4">
 <p>
@@ -750,8 +751,8 @@ parameter⟩可以使用<code>\the</code>为前缀，展开结果是它们的内
 <p>就会将<code>\setmycondition</code>展开为<code>\mytesttrue</code>。</p>
 </div>
 </div>
-<div id="outline-container-org2624e08" class="outline-3">
-<h3 id="org2624e08"><span class="section-number-3">7.5.</span>
+<div id="outline-container-orgdb60003" class="outline-3">
+<h3 id="orgdb60003"><span class="section-number-3">7.5.</span>
 对展开的多重抑制</h3>
 <div class="outline-text-3" id="text-7-5">
 <p>
@@ -780,8 +781,8 @@ parameter⟩可以使用<code>\the</code>为前缀，展开结果是它们的内
 <p>所以，展开的结果等同于原序列。</p>
 </div>
 </div>
-<div id="outline-container-org719fe1c" class="outline-3">
-<h3 id="org719fe1c"><span class="section-number-3">7.6.</span>
+<div id="outline-container-org5beefe1" class="outline-3">
+<h3 id="org5beefe1"><span class="section-number-3">7.6.</span>
 <code>\relax</code>的更多示例</h3>
 <div class="outline-text-3" id="text-7-6">
 <p>
@@ -824,8 +825,8 @@ parameter⟩可以使用<code>\the</code>为前缀，展开结果是它们的内
 会将宏<code>\foo</code>定义为<code>1\relax1</code>或<code>10</code>。</p>
 </div>
 </div>
-<div id="outline-container-orga8c439e" class="outline-3">
-<h3 id="orga8c439e"><span class="section-number-3">7.7.</span>
+<div id="outline-container-org98e0d92" class="outline-3">
+<h3 id="org98e0d92"><span class="section-number-3">7.7.</span>
 实例：存储及恢复类别码</h3>
 <div class="outline-text-3" id="text-7-7">
 <p>
@@ -879,12 +880,12 @@ parameter⟩可以使用<code>\the</code>为前缀，展开结果是它们的内
 </div>
 </div>
 </div>
-<div id="outline-container-org56cfc0b" class="outline-2">
-<h2 id="org56cfc0b"><span class="section-number-2">8.</span>
+<div id="outline-container-orga2fb3b5" class="outline-2">
+<h2 id="orga2fb3b5"><span class="section-number-2">8.</span>
 示例</h2>
 <div class="outline-text-2" id="text-8"></div>
-<div id="outline-container-orgd6272d5" class="outline-3">
-<h3 id="orgd6272d5"><span class="section-number-3">8.1.</span>
+<div id="outline-container-org0bc7d2d" class="outline-3">
+<h3 id="org0bc7d2d"><span class="section-number-3">8.1.</span>
 <code>\aftergroup</code>与盒子的结合</h3>
 <div class="outline-text-3" id="text-8-1">
 <p>
@@ -921,7 +922,7 @@ after」，故译为「滞后展开」。其意指将目前的记号滞后，先
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: RadioNoiseE</p>
-<p class="date">Created: 2024-12-20 Fri 12:18</p>
+<p class="date">Created: 2024-12-27 Fri 10:33</p>
 <p class="validation"><a href=
 "https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>

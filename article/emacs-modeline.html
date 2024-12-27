@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
 <meta name="generator" content=
 "HTML Tidy for HTML5 for Apple macOS version 5.8.0">
-<!-- 2024-12-20 Fri 12:18 -->
+<!-- 2024-12-27 Fri 10:33 -->
+<meta charset="utf-8">
 <meta name="viewport" content=
 "width=device-width, initial-scale=1">
 <title>自己写Emacs的ModeLine</title>
 <meta name="author" content="RadioNoiseE">
 <meta name="generator" content="Org Mode">
 <link rel="stylesheet" type="text/css" href="../style/article.css">
+<script src="../script/register.js"></script>
 </head>
 <body>
 <div id="content" class="content">
@@ -21,24 +22,24 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org86490f1">1. 写在前面</a></li>
-<li><a href="#orga15fe2a">2. 宗旨</a></li>
-<li><a href="#orga8983a5">3. 值从哪里来</a></li>
-<li><a href="#orgedc3b61">4. 状态栏中的属性</a></li>
-<li><a href="#orgd182b7d">5. 计算空格</a></li>
-<li><a href="#org0442da9">6. 最后</a></li>
+<li><a href="#orgdbc60a3">1. 写在前面</a></li>
+<li><a href="#org290d3d4">2. 宗旨</a></li>
+<li><a href="#org36d237e">3. 值从哪里来</a></li>
+<li><a href="#orgcb9d740">4. 状态栏中的属性</a></li>
+<li><a href="#orgd16ff34">5. 计算空格</a></li>
+<li><a href="#org229ef0f">6. 最后</a></li>
 </ul>
 </div>
 </nav>
-<div id="outline-container-org86490f1" class="outline-2">
-<h2 id="org86490f1"><span class="section-number-2">1.</span>
+<div id="outline-container-orgdbc60a3" class="outline-2">
+<h2 id="orgdbc60a3"><span class="section-number-2">1.</span>
 写在前面</h2>
 <div class="outline-text-2" id="text-1">
 <p>Emacs的ModeLine<sup><a id="fnr.1" class="footref" href="#fn.1"
 role=
 "doc-backlink">1</a></sup>作为一个常驻的状态栏，一直都是美化中较为重要的一部分。因为我之前一直是用Spacemacs的，它默认的状态栏还是很好看的，所以也没去折腾。昨天<del>因为感觉不舒服，</del>决定不用它、自己写一个<a href="https://github.com/RadioNoiseE/eMaCs">配置</a>，于是就仔细研究了一下这个东西。</p>
 <p>至于为什么不用那些成熟的方案，因为我觉得没必要。</p>
-<figure id="org8746f86"><img src=
+<figure id="org74fdec5"><img src=
 "../static/image/emacs-modeline-01.png" alt="emacs-modeline-01.png"
 width="85%" class="img-center" loading="lazy">
 <figcaption><span class="figure-number">Figure 1:</span>
@@ -46,8 +47,8 @@ width="85%" class="img-center" loading="lazy">
 </figure>
 </div>
 </div>
-<div id="outline-container-orga15fe2a" class="outline-2">
-<h2 id="orga15fe2a"><span class="section-number-2">2.</span>
+<div id="outline-container-org290d3d4" class="outline-2">
+<h2 id="org290d3d4"><span class="section-number-2">2.</span>
 宗旨</h2>
 <div class="outline-text-2" id="text-2">
 <p>
@@ -87,16 +88,16 @@ line construct</i>），即一个控制状态栏上内容的模板（列表）�
 "https://www.gnu.org/software/emacs/manual/html_node/elisp/Mode-Line-Data.html">官方文档</a>。</p>
 </div>
 </div>
-<div id="outline-container-orga8983a5" class="outline-2">
-<h2 id="orga8983a5"><span class="section-number-2">3.</span>
+<div id="outline-container-org36d237e" class="outline-2">
+<h2 id="org36d237e"><span class="section-number-2">3.</span>
 值从哪里来</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 我们可以使用<code>%</code>构造来作为替代各种类型的数据的字符串，比如使用<code>%f</code>来表示当前访问的文件名。完整的构造表格可以在<a href="https://www.gnu.org/software/emacs/manual/html_node/elisp/_0025_002dConstructs.html">这里</a>查看。</p>
 </div>
 </div>
-<div id="outline-container-orgedc3b61" class="outline-2">
-<h2 id="orgedc3b61"><span class="section-number-2">4.</span>
+<div id="outline-container-orgcb9d740" class="outline-2">
+<h2 id="orgcb9d740"><span class="section-number-2">4.</span>
 状态栏中的属性</h2>
 <div class="outline-text-2" id="text-4">
 <p>
@@ -113,8 +114,8 @@ form</code>的列表，同时使<code>form</code>计算为携带文本属性的�
 注意，<code>keymap</code>属性仅对鼠标点击有实际效果；绑定键无效，因为你（正常情况下）不可能将光标移到状态栏中。</p>
 </div>
 </div>
-<div id="outline-container-orgd182b7d" class="outline-2">
-<h2 id="orgd182b7d"><span class="section-number-2">5.</span>
+<div id="outline-container-orgd16ff34" class="outline-2">
+<h2 id="orgd16ff34"><span class="section-number-2">5.</span>
 计算空格</h2>
 <div class="outline-text-2" id="text-5">
 <p>当你希望让你的状态栏向两边分散对齐时，你需要使用计算空格（并填充）的方法。如下定义两个函数：</p>
@@ -135,8 +136,8 @@ form</code>的列表，同时使<code>form</code>计算为携带文本属性的�
 注意使用的<code>format-mode-line</code>函数，它可被用来求得将出现在状态栏中的元素（包括<code>%</code>构造）的字符串。</p>
 </div>
 </div>
-<div id="outline-container-org0442da9" class="outline-2">
-<h2 id="org0442da9"><span class="section-number-2">6.</span>
+<div id="outline-container-org229ef0f" class="outline-2">
+<h2 id="org229ef0f"><span class="section-number-2">6.</span>
 最后</h2>
 <div class="outline-text-2" id="text-6">
 <p>相信看到这里，聪明的你一定能自己写出一个自己喜欢的轻量的状态栏了。最后给出我的配置（不想动脑的改一改就能用了）：</p>
@@ -203,7 +204,7 @@ form</code>的列表，同时使<code>form</code>计算为携带文本属性的�
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: RadioNoiseE</p>
-<p class="date">Created: 2024-12-20 Fri 12:18</p>
+<p class="date">Created: 2024-12-27 Fri 10:33</p>
 <p class="validation"><a href=
 "https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
